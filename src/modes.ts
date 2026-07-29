@@ -27,26 +27,43 @@ export type Mode = {
 };
 
 /**
- * 3D marker style. `kind` selects a geometry factory in blossoms.ts, which is
- * where 紅葉 and 銀杏 get their own shapes; keeping it a string keeps this module
- * pure data, with no three.js import.
+ * Which shape blossomGeometry.ts builds, and the parameters only that shape has.
+ * A union rather than one wide record so a maple never carries a petal count:
+ * `kind` is what the geometry module switches on, and keeping it a plain string
+ * keeps this module pure data, with no three.js import.
  */
+export type FloraShape =
+  | {
+      kind: "blossom";
+      petals: number;
+      /** Multiplier baked into the centre disc's vertex colour. */
+      centerTint: [number, number, number];
+    }
+  | { kind: "maple"; lobes: number; hubTint: [number, number, number] }
+  | { kind: "ginkgo"; fans: number; hubTint: [number, number, number] };
+
+/** 3D marker style: what to build, how big, and where to sit. */
 export type BlossomStyle = {
-  kind: "blossom";
   /**
    * World radius in metres at the dimmest and brightest point of the arc. The
    * fixed camera resolves about 2,450 m per pixel, so these track the
    * minSize/maxSize pixel range the sprites used — roughly 1,200 m per pixel of
-   * sprite radius, plus a little, since petals with gaps between them read
+   * sprite radius, plus a little, since blades with gaps between them read
    * smaller than a solid filled disc.
    */
   minRadius: number;
   maxRadius: number;
-  petals: number;
-  /** Multiplier baked into the centre disc's vertex colour. */
-  centerTint: [number, number, number];
   /** Scales the bloom; the glow colour itself follows the ramp. */
   emissiveIntensity: number;
+  /**
+   * Lateral nudge in the station's tangent plane as [east, north], in units of
+   * the instance's own radius. 紅葉 and 銀杏 are read at the same stations in
+   * overlapping autumn windows, so at a shared origin one simply hides the other.
+   * Same purpose as the screen-space `ANCHORS` the sprite path used, and the same
+   * directions, but in metres on the ground so it survives the marker turning.
+   */
+  anchor: [number, number];
+  shape: FloraShape;
 };
 
 export const MODES: Mode[] = [
@@ -68,13 +85,17 @@ export const MODES: Mode[] = [
     glow: "#ff5fa2",
     direction: "南 → 北 · south to north",
     blossom: {
-      kind: "blossom",
       minRadius: 5_000,
       maxRadius: 25_000,
-      petals: 5,
-      // Warm eye against pink petals.
-      centerTint: [1.0, 0.86, 0.62],
       emissiveIntensity: 0.5,
+      // Spring is alone on the calendar, so 桜 keeps the station point itself.
+      anchor: [0, 0],
+      shape: {
+        kind: "blossom",
+        petals: 5,
+        // Warm eye against pink petals.
+        centerTint: [1.0, 0.86, 0.62],
+      },
     },
   },
   {
@@ -90,6 +111,21 @@ export const MODES: Mode[] = [
     maxSize: 19,
     glow: "#ff6a1e",
     direction: "北 → 南 · north to south",
+    blossom: {
+      // A touch larger than 桜: five narrow lobes cover far less of their own
+      // radius than five fat petals, so an equal radius reads smaller.
+      minRadius: 5_500,
+      maxRadius: 27_000,
+      emissiveIntensity: 0.45,
+      // Southwest of the station, mirroring the sprite anchor it replaces.
+      anchor: [-0.5, -0.35],
+      shape: {
+        kind: "maple",
+        lobes: 5,
+        // Dark petiole junction, so the lobes read as joined rather than fused.
+        hubTint: [0.42, 0.3, 0.22],
+      },
+    },
   },
   {
     id: "icho",
@@ -104,6 +140,23 @@ export const MODES: Mode[] = [
     maxSize: 18,
     glow: "#ffcf2e",
     direction: "北 → 南 · north to south",
+    blossom: {
+      // Three broad fans fill their radius more solidly than either of the
+      // others, so this one comes back down again.
+      minRadius: 5_000,
+      maxRadius: 23_000,
+      emissiveIntensity: 0.45,
+      // Northeast, opposite 紅葉.
+      anchor: [0.5, 0.35],
+      shape: {
+        kind: "ginkgo",
+        // A ginkgo short shoot bears its leaves in a cluster, which is lucky: a
+        // lone fan is one-sided, and `place` spins each marker about its own
+        // axis, so it would swing around the station instead of sitting on it.
+        fans: 3,
+        hubTint: [0.5, 0.42, 0.24],
+      },
+    },
   },
 ];
 

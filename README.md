@@ -11,6 +11,12 @@ at a glance that 桜 peaks in spring while 紅葉 and 銀杏 peak in autumn.
 
 桜 runs **south to north**. 紅葉 and 銀杏 run **north to south**.
 
+Each front is drawn as instanced procedural geometry rather than a map symbol, and
+each gets its own shape: a five-petal blossom, a serrated five-lobe momiji, and a
+cluster of three cleft ginkgo fans. They sit on per-station tangent frames and turn
+in the seasonal sun, so which front you are looking at is legible from the form
+alone, not just the colour.
+
 ## Why this needs a 3D map engine
 
 The point is not that the dots move — a 2D map does that. It is that **Japan's
@@ -128,8 +134,11 @@ Read together, the growing season is stretching at both ends.
 |---|---|
 | `src/main.ts` | View setup, camera, clock, sun sync |
 | `src/terrain.ts` | GSI DEM + hillshade + basemap, and the exaggeration decoder |
-| `src/stations.ts` | GeoJSON layer and the `FeatureEvaluator` styling |
-| `src/modes.ts` | One config per pill: keys, colour ramp, timing envelope |
+| `src/blossoms.ts` | The instanced-mesh descriptor, placement and per-frame animation |
+| `src/blossomGeometry.ts` | Procedural blossom / momiji / ginkgo geometry |
+| `src/phenology.ts` | Parsed stations, the clock, and every derived tally |
+| `src/stations.ts` | GeoJSON layer and the `FeatureEvaluator` styling — the sprite fallback |
+| `src/modes.ts` | One config per pill: keys, colour ramp, timing envelope, 3D style |
 | `src/ui.ts`, `src/ui.css` | DOM overlay — readout, pills, graph, scrubber |
 | `scripts/build-phenology.mjs` | JMA CSV → GeoJSON |
 

@@ -19,6 +19,11 @@ export type StationLayers = {
  * Sprite-anchor nudges, in fractions of sprite size, so that modes overlapping
  * in time (紅葉 and 銀杏 are both autumn) do not stack into one dot and hide
  * each other. Ordered to match MODES.
+ *
+ * Every mode now carries a 3D style, so nothing below reaches this at runtime;
+ * `BlossomStyle.anchor` is the live equivalent, in ground metres rather than
+ * screen fractions. Kept in step with it, because this is the whole layer's
+ * fallback if a mode ever drops back to sprites.
  */
 const ANCHORS: [number, number][] = [
   [0, 0],

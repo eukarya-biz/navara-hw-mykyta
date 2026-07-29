@@ -22,23 +22,19 @@ import {
   Quaternion,
   Vector3,
 } from "three";
-import { buildBlossomGeometry } from "./blossomGeometry";
+import { buildFloraGeometry } from "./blossomGeometry";
 import { GLOW_ID } from "./glow";
-import { phase, sampleRamp, type Mode } from "./modes";
+import { phase, sampleRamp, type FloraShape, type Mode } from "./modes";
 import { eventDays, type Station } from "./phenology";
 
 const TAU = Math.PI * 2;
 
 /* ---------------------------------------------------------------- descriptor */
 
-export type BlossomKind = "blossom";
-
 export type BlossomChildConfig = InstancedChildConfig & { color?: Color };
 
 export type BlossomsDescription = {
-  kind?: BlossomKind;
-  petals?: number;
-  centerTint?: [number, number, number];
+  shape?: FloraShape;
   emissiveColor?: Color;
   emissiveIntensity?: number;
   effectIds?: string[];
@@ -53,21 +49,21 @@ export type BlossomsMeshUpdate = InstancedMeshUpdate & {
   blossoms?: BlossomsDescription;
 };
 
-const GEOMETRY: Record<
-  BlossomKind,
-  (petals: number, tint: [number, number, number]) => BufferGeometry
-> = {
-  blossom: buildBlossomGeometry,
+/** Only reached if a config arrives without a shape; every mode supplies one. */
+const DEFAULT_SHAPE: FloraShape = {
+  kind: "blossom",
+  petals: 5,
+  centerTint: [1, 0.86, 0.62],
 };
 
 const _tempColor = new ThreeColor();
 
 /**
- * One `InstancedMesh` holding every station's blossom.
+ * One `InstancedMesh` holding every station's marker.
  *
  * Per-frame work is split in two: {@link setStates} takes the seasonal state from
  * the app clock, and `update(time)` composes the matrices. The split matters —
- * `update(time)` is driven by the engine every frame, so the blossoms keep
+ * `update(time)` is driven by the engine every frame, so the markers keep
  * turning while the timeline is paused or being scrubbed.
  */
 export class BlossomMeshDesc extends InstancedMeshDesc<
@@ -104,11 +100,7 @@ export class BlossomMeshDesc extends InstancedMeshDesc<
   }
 
   protected createGeometry(): BufferGeometry {
-    const cfg = this.config.blossoms;
-    return GEOMETRY[cfg?.kind ?? "blossom"](
-      cfg?.petals ?? 5,
-      cfg?.centerTint ?? [1, 0.86, 0.62],
-    );
+    return buildFloraGeometry(this.config.blossoms?.shape ?? DEFAULT_SHAPE);
   }
 
   protected createMaterial(): MeshLambertMaterial {
@@ -116,12 +108,12 @@ export class BlossomMeshDesc extends InstancedMeshDesc<
     const material = new MeshLambertMaterial({
       color: 0xffffff,
       // Black emissive with a nonzero intensity makes the MRT emissive write
-      // `diffuse * intensity`, so each blossom blooms in its own per-instance
+      // `diffuse * intensity`, so each marker blooms in its own per-instance
       // ramp colour and desaturates by itself as the ramp runs out.
       emissive: cfg?.emissiveColor?.raw ?? 0x000000,
       emissiveIntensity: cfg?.emissiveIntensity ?? 0.5,
       vertexColors: true,
-      // Petals cup, so from this camera some faces turn away.
+      // Petals and leaves both cup, so some faces turn away from this camera.
       side: DoubleSide,
     });
     setupSelectiveEffectUniforms(material);
@@ -137,7 +129,7 @@ export class BlossomMeshDesc extends InstancedMeshDesc<
     const mesh = this.raw;
     if (!mesh) return;
     // The view is constructed with shadow: true, and CSM replaces the material's
-    // directional-light path. Without this the blossoms render unlit.
+    // directional-light path. Without this the markers render unlit.
     this.ctx.applyShadowMaterial(mesh.material);
     // The instance count changes every frame and three caches an InstancedMesh's
     // bounding sphere on first frustum test without ever invalidating it. One
@@ -211,10 +203,11 @@ function place(
   days: { start: number; peak: number },
   index: number,
   exaggeration: number,
+  anchor: [number, number],
 ): PlacedStation {
   // The station's own recorded elevation, scaled to match the exaggerated DEM.
   // Terrain sampling would be more faithful in principle but returns the
-  // currently loaded LOD, so all 102 blossoms would pop as tiles refine.
+  // currently loaded LOD, so every marker would pop as tiles refine.
   const origin = geodeticToVector3({
     lng: degreeToRadian(station.lng),
     lat: degreeToRadian(station.lat),
@@ -236,16 +229,17 @@ function place(
     seed: (index * 0.618033988749895) % 1,
     compose(time) {
       const { seed, radius } = placed;
-      // A flat five-fold-symmetric disc spinning about its own axis is nearly
-      // invisible; the wobble is what actually reads, by changing how the petals
+      // A flat, radially symmetric disc spinning about its own axis is nearly
+      // invisible; the wobble is what actually reads, by changing how the blades
       // catch the sun.
       const spin = seed * TAU + time * 0.00012 * (0.6 + 0.8 * seed);
       const tiltX = 0.22 * Math.sin(time * 0.00009 + seed * 5.1);
       const tiltY = 0.22 * Math.cos(time * 0.00007 + seed * 2.7);
 
-      // A flat disc this wide will intersect mountains, so lift it clear
-      // proportionally to its own size.
-      offset.set(0, 0, 0.45 * radius);
+      // East/north hold the mode apart from the others reading at this station;
+      // up lifts it clear of the mountains. All three scale with the instance, so
+      // the separation stays proportional as the marker grows and fades.
+      offset.set(anchor[0] * radius, anchor[1] * radius, 0.45 * radius);
       quaternion.setFromEuler(euler.set(tiltX, tiltY, spin));
       local.compose(offset, quaternion, scale.setScalar(radius));
       // composeInstanceMatrix returns `matrix` verbatim when set, so the tilt,
@@ -266,7 +260,7 @@ export type BlossomHandle = {
 let registered = false;
 
 /**
- * Adds one instanced blossom mesh for a mode carrying a `blossom` style.
+ * Adds one instanced mesh for a mode carrying a `blossom` style.
  *
  * `registerMesh` is safe after `view.init()` — unlike `addPlugin`, it has no
  * initialisation guard.
@@ -280,7 +274,7 @@ export function addBlossoms(
   }: { mode: Mode; stations: Station[]; exaggeration: number },
 ): BlossomHandle {
   const style = mode.blossom;
-  if (!style) throw new Error(`Mode ${mode.id} has no blossom style`);
+  if (!style) throw new Error(`Mode ${mode.id} has no 3D style`);
 
   if (!registered) {
     view.registerMesh("blossoms", BlossomMeshDesc);
@@ -293,7 +287,7 @@ export function addBlossoms(
       return days ? [{ station, days }] : [];
     })
     .map(({ station, days }, index) =>
-      place(station, days, index, exaggeration),
+      place(station, days, index, exaggeration, style.anchor),
     );
 
   // Constructed with every station present, which pins the instance capacity at
@@ -306,9 +300,7 @@ export function addBlossoms(
 
   const handle = view.addMesh<BlossomMeshDesc>({
     blossoms: {
-      kind: style.kind,
-      petals: style.petals,
-      centerTint: style.centerTint,
+      shape: style.shape,
       emissiveIntensity: style.emissiveIntensity,
       effectIds: [GLOW_ID],
       children: placed.map((station) => station.child),
