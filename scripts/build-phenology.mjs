@@ -19,10 +19,19 @@ const OUT = resolve(ROOT, "public/data/phenology.geojson");
 const RUINENCHI = "https://www.data.jma.go.jp/sakura/data/ruinenchi";
 const AMEDAS = "https://www.jma.go.jp/bosai/amedas/const/amedastable.json";
 
-/** JMA 累年値 series we need, by their file number. */
+/**
+ * JMA 累年値 series we need, by their file number.
+ *
+ * `wrapAfter` marks series whose season straddles the new year. In Okinawa the
+ * kanhizakura sometimes opens in late December — 那覇 did on 1231 in 2010 and
+ * 1228 in 2013 — and a naive day-of-year puts those at 365, so averaging them
+ * with early-January dates drags the mean two weeks later and invents a trend
+ * that is not in the data. Dates at or after this threshold are treated as
+ * belonging to the season that ends in the following year.
+ */
 const SERIES = {
-  sakuraKaika: { file: "004", label: "さくら開花" },
-  sakuraMankai: { file: "005", label: "さくら満開" },
+  sakuraKaika: { file: "004", label: "さくら開花", wrapAfter: 300 },
+  sakuraMankai: { file: "005", label: "さくら満開", wrapAfter: 300 },
   kaedeKouyou: { file: "015", label: "かえで紅葉" },
   ichoOuyou: { file: "013", label: "いちょう黄葉" },
 };
@@ -56,6 +65,14 @@ function mean(values) {
   return values.reduce((a, b) => a + b, 0) / values.length;
 }
 
+/**
+ * Brings a mean computed in wrapped space (where late-December is <= 0) back
+ * onto the 1..365 calendar the renderer animates on.
+ */
+function toCalendar(value) {
+  return Math.round((value <= 0 ? value + 365 : value) * 10) / 10;
+}
+
 async function fetchShiftJis(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${url} -> ${res.status}`);
@@ -66,7 +83,7 @@ async function fetchShiftJis(url) {
  * Parses one 累年値 CSV into `Map<stationName, Map<year, doy>>`.
  * Row 1 is a title, row 2 is the header carrying the year for each value column.
  */
-function parseRuinenchi(text) {
+function parseRuinenchi(text, wrapAfter) {
   const rows = text
     .split(/\r?\n/)
     .map((line) => line.split(","))
@@ -92,8 +109,10 @@ function parseRuinenchi(text) {
     for (const [index, year] of yearAt) {
       const raw = Number.parseInt(cells[index]?.trim() ?? "", 10);
       if (!Number.isFinite(raw) || raw === 0) continue;
-      const doy = mmddToDoy(raw);
-      if (doy !== null) series.set(year, doy);
+      let doy = mmddToDoy(raw);
+      if (doy === null) continue;
+      if (wrapAfter && doy >= wrapAfter) doy -= 365;
+      series.set(year, doy);
     }
     if (series.size > 0) byStation.set(name, series);
   }
@@ -122,8 +141,11 @@ async function main() {
   const toDegrees = ([deg, min]) => deg + min / 60;
 
   const parsed = {};
-  for (const [key, { file, label }] of Object.entries(SERIES)) {
-    parsed[key] = parseRuinenchi(await fetchShiftJis(`${RUINENCHI}/${file}.csv`));
+  for (const [key, { file, label, wrapAfter }] of Object.entries(SERIES)) {
+    parsed[key] = parseRuinenchi(
+      await fetchShiftJis(`${RUINENCHI}/${file}.csv`),
+      wrapAfter,
+    );
     console.log(`${label} (${file}): ${parsed[key].size} stations`);
   }
 
@@ -149,13 +171,22 @@ async function main() {
       const series = parsed[key].get(name);
       if (!series) continue;
       const all = [...series.values()];
-      properties[key] = Math.round(mean(all) * 10) / 10;
+      properties[key] = toCalendar(mean(all));
       properties[`${key}_n`] = all.length;
+      const eraMeans = {};
       for (const [eraName, window] of Object.entries(ERAS)) {
         const value = eraMean(series, window);
-        if (value !== null) {
-          properties[`${key}_${eraName}`] = Math.round(value * 10) / 10;
-        }
+        if (value === null) continue;
+        eraMeans[eraName] = value;
+        properties[`${key}_${eraName}`] = toCalendar(value);
+      }
+      // Differenced in season space, before `toCalendar` wraps each era onto the
+      // calendar independently. Otherwise a station whose early-era mean lands
+      // in late December and whose late-era mean lands in January reports a
+      // ~-356 day shift instead of the ~+9 it actually moved.
+      if (eraMeans.early !== undefined && eraMeans.late !== undefined) {
+        properties[`${key}_shift`] =
+          Math.round((eraMeans.late - eraMeans.early) * 10) / 10;
       }
       hasAny = true;
     }

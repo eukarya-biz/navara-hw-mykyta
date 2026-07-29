@@ -34,10 +34,12 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 129.3,
     "sakuraKaika_late": 122.7,
+    "sakuraKaika_shift": -6.6,
     "sakuraMankai": 128.8,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 132.8,
     "sakuraMankai_late": 125,
+    "sakuraMankai_shift": -7.8,
     "kaedeKouyou": 295.8,
     "kaedeKouyou_n": 33,
     "kaedeKouyou_late": 296.5
@@ -60,18 +62,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 94.9,
     "sakuraKaika_late": 87.7,
+    "sakuraKaika_shift": -7.2,
     "sakuraMankai": 98.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 100.5,
     "sakuraMankai_late": 95.2,
+    "sakuraMankai_shift": -5.4,
     "kaedeKouyou": 318.9,
     "kaedeKouyou_n": 73,
     "kaedeKouyou_early": 310.5,
     "kaedeKouyou_late": 327.2,
+    "kaedeKouyou_shift": 16.7,
     "ichoOuyou": 324.3,
     "ichoOuyou_n": 72,
     "ichoOuyou_early": 314.2,
-    "ichoOuyou_late": 335.1
+    "ichoOuyou_late": 335.1,
+    "ichoOuyou_shift": 20.8
    }
   },
   {
@@ -91,14 +97,17 @@
     "sakuraKaika_n": 39,
     "sakuraKaika_early": 85.1,
     "sakuraKaika_late": 79.4,
+    "sakuraKaika_shift": -5.7,
     "sakuraMankai": 92.6,
     "sakuraMankai_n": 39,
     "sakuraMankai_early": 93.4,
     "sakuraMankai_late": 89.9,
+    "sakuraMankai_shift": -3.5,
     "kaedeKouyou": 321.2,
     "kaedeKouyou_n": 34,
     "kaedeKouyou_early": 320.2,
     "kaedeKouyou_late": 326,
+    "kaedeKouyou_shift": 5.8,
     "ichoOuyou": 331.5,
     "ichoOuyou_n": 11,
     "ichoOuyou_late": 332.7
@@ -121,10 +130,12 @@
     "sakuraKaika_n": 57,
     "sakuraKaika_early": 130.8,
     "sakuraKaika_late": 127.3,
+    "sakuraKaika_shift": -3.5,
     "sakuraMankai": 133.6,
     "sakuraMankai_n": 57,
     "sakuraMankai_early": 134.6,
     "sakuraMankai_late": 130.8,
+    "sakuraMankai_shift": -3.8,
     "kaedeKouyou": 297.2,
     "kaedeKouyou_n": 24,
     "kaedeKouyou_late": 298.8
@@ -174,18 +185,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 87.5,
     "sakuraKaika_late": 82.5,
+    "sakuraKaika_shift": -4.9,
     "sakuraMankai": 93.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 95.8,
     "sakuraMankai_late": 90.7,
+    "sakuraMankai_shift": -5.1,
     "kaedeKouyou": 344.2,
     "kaedeKouyou_n": 48,
     "kaedeKouyou_early": 323.4,
     "kaedeKouyou_late": 349.8,
+    "kaedeKouyou_shift": 26.4,
     "ichoOuyou": 329.9,
     "ichoOuyou_n": 56,
     "ichoOuyou_early": 318.7,
-    "ichoOuyou_late": 336.1
+    "ichoOuyou_late": 336.1,
+    "ichoOuyou_shift": 17.4
    }
   },
   {
@@ -205,18 +220,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.8,
     "sakuraKaika_late": 86,
+    "sakuraKaika_shift": -4.8,
     "sakuraMankai": 95.9,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 97.7,
     "sakuraMankai_late": 93.4,
+    "sakuraMankai_shift": -4.3,
     "kaedeKouyou": 328,
     "kaedeKouyou_n": 70,
     "kaedeKouyou_early": 321.7,
     "kaedeKouyou_late": 332.4,
+    "kaedeKouyou_shift": 10.8,
     "ichoOuyou": 321.5,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 312.9,
-    "ichoOuyou_late": 327.4
+    "ichoOuyou_late": 327.4,
+    "ichoOuyou_shift": 14.4
    }
   },
   {
@@ -258,18 +277,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 89,
     "sakuraKaika_late": 84,
+    "sakuraKaika_shift": -5,
     "sakuraMankai": 95.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 97.4,
     "sakuraMankai_late": 92.8,
+    "sakuraMankai_shift": -4.6,
     "kaedeKouyou": 328.6,
     "kaedeKouyou_n": 55,
     "kaedeKouyou_early": 324,
     "kaedeKouyou_late": 328.4,
+    "kaedeKouyou_shift": 4.4,
     "ichoOuyou": 326.6,
     "ichoOuyou_n": 50,
     "ichoOuyou_early": 319.9,
-    "ichoOuyou_late": 329.6
+    "ichoOuyou_late": 329.6,
+    "ichoOuyou_shift": 9.7
    }
   },
   {
@@ -289,17 +312,20 @@
     "sakuraKaika_n": 38,
     "sakuraKaika_early": 89.9,
     "sakuraKaika_late": 87.4,
+    "sakuraKaika_shift": -2.6,
     "sakuraMankai": 96.7,
     "sakuraMankai_n": 38,
     "sakuraMankai_early": 97.2,
     "sakuraMankai_late": 94.6,
+    "sakuraMankai_shift": -2.6,
     "kaedeKouyou": 345.2,
     "kaedeKouyou_n": 24,
     "kaedeKouyou_late": 346.6,
     "ichoOuyou": 331.9,
     "ichoOuyou_n": 28,
     "ichoOuyou_early": 327.2,
-    "ichoOuyou_late": 337.8
+    "ichoOuyou_late": 337.8,
+    "ichoOuyou_shift": 10.6
    }
   },
   {
@@ -319,10 +345,12 @@
     "sakuraKaika_n": 54,
     "sakuraKaika_early": 128.2,
     "sakuraKaika_late": 123.5,
+    "sakuraKaika_shift": -4.7,
     "sakuraMankai": 129.5,
     "sakuraMankai_n": 52,
     "sakuraMankai_early": 131.9,
     "sakuraMankai_late": 125.9,
+    "sakuraMankai_shift": -6,
     "kaedeKouyou": 299.5,
     "kaedeKouyou_n": 15,
     "kaedeKouyou_late": 301.7,
@@ -348,18 +376,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.4,
     "sakuraKaika_late": 82.5,
+    "sakuraKaika_shift": -7.9,
     "sakuraMankai": 94.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 97.3,
     "sakuraMankai_late": 91.1,
+    "sakuraMankai_shift": -6.2,
     "kaedeKouyou": 325.2,
     "kaedeKouyou_n": 57,
     "kaedeKouyou_early": 309.8,
     "kaedeKouyou_late": 330.3,
+    "kaedeKouyou_shift": 20.5,
     "ichoOuyou": 328.9,
     "ichoOuyou_n": 58,
     "ichoOuyou_early": 317.1,
-    "ichoOuyou_late": 335.3
+    "ichoOuyou_late": 335.3,
+    "ichoOuyou_shift": 18.2
    }
   },
   {
@@ -375,14 +407,16 @@
     "name": "久米島",
     "nameEn": "Kumejima Island",
     "alt": 5,
-    "sakuraKaika": 37.9,
+    "sakuraKaika": 17.1,
     "sakuraKaika_n": 35,
     "sakuraKaika_early": 25.5,
     "sakuraKaika_late": 13.3,
+    "sakuraKaika_shift": -12.1,
     "sakuraMankai": 32.9,
     "sakuraMankai_n": 31,
     "sakuraMankai_early": 36.6,
-    "sakuraMankai_late": 32
+    "sakuraMankai_late": 32,
+    "sakuraMankai_shift": -4.6
    }
   },
   {
@@ -402,18 +436,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 109.7,
     "sakuraKaika_late": 107.8,
+    "sakuraKaika_shift": -1.9,
     "sakuraMankai": 114.1,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 114.8,
     "sakuraMankai_late": 111.8,
+    "sakuraMankai_shift": -2.9,
     "kaedeKouyou": 312.4,
     "kaedeKouyou_n": 45,
     "kaedeKouyou_early": 309.8,
     "kaedeKouyou_late": 319.2,
+    "kaedeKouyou_shift": 9.4,
     "ichoOuyou": 304.8,
     "ichoOuyou_n": 34,
     "ichoOuyou_early": 304.5,
-    "ichoOuyou_late": 308
+    "ichoOuyou_late": 308,
+    "ichoOuyou_shift": 3.5
    }
   },
   {
@@ -429,14 +467,16 @@
     "name": "宮古島",
     "nameEn": "Miyakojima Island",
     "alt": 39,
-    "sakuraKaika": 25.1,
+    "sakuraKaika": 18.3,
     "sakuraKaika_n": 54,
     "sakuraKaika_early": 26.1,
-    "sakuraKaika_late": 29.2,
+    "sakuraKaika_late": 17,
+    "sakuraKaika_shift": -9.1,
     "sakuraMankai": 39.2,
     "sakuraMankai_n": 50,
     "sakuraMankai_early": 37.9,
-    "sakuraMankai_late": 38.2
+    "sakuraMankai_late": 38.2,
+    "sakuraMankai_shift": 0.3
    }
   },
   {
@@ -456,18 +496,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 84.1,
     "sakuraKaika_late": 80.9,
+    "sakuraKaika_shift": -3.1,
     "sakuraMankai": 92.2,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 92.3,
     "sakuraMankai_late": 91.3,
+    "sakuraMankai_shift": -1,
     "kaedeKouyou": 333.6,
     "kaedeKouyou_n": 69,
     "kaedeKouyou_early": 326.3,
     "kaedeKouyou_late": 337.4,
+    "kaedeKouyou_shift": 11.1,
     "ichoOuyou": 332.4,
     "ichoOuyou_n": 60,
     "ichoOuyou_early": 330.1,
-    "ichoOuyou_late": 332.1
+    "ichoOuyou_late": 332.1,
+    "ichoOuyou_shift": 2
    }
   },
   {
@@ -487,18 +531,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 91.5,
     "sakuraKaika_late": 84.2,
+    "sakuraKaika_shift": -7.3,
     "sakuraMankai": 95.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 98,
     "sakuraMankai_late": 92.8,
+    "sakuraMankai_shift": -5.3,
     "kaedeKouyou": 336.9,
     "kaedeKouyou_n": 56,
     "kaedeKouyou_early": 328.7,
     "kaedeKouyou_late": 340.2,
+    "kaedeKouyou_shift": 11.5,
     "ichoOuyou": 326.1,
     "ichoOuyou_n": 59,
     "ichoOuyou_early": 320.6,
-    "ichoOuyou_late": 328.6
+    "ichoOuyou_late": 328.6,
+    "ichoOuyou_shift": 8
    }
   },
   {
@@ -518,18 +566,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 95.8,
     "sakuraKaika_late": 91,
+    "sakuraKaika_shift": -4.8,
     "sakuraMankai": 99.2,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 101,
     "sakuraMankai_late": 96.7,
+    "sakuraMankai_shift": -4.2,
     "kaedeKouyou": 321.3,
     "kaedeKouyou_n": 71,
     "kaedeKouyou_early": 312.6,
     "kaedeKouyou_late": 329.8,
+    "kaedeKouyou_shift": 17.2,
     "ichoOuyou": 315.3,
     "ichoOuyou_n": 73,
     "ichoOuyou_early": 318,
-    "ichoOuyou_late": 312.3
+    "ichoOuyou_late": 312.3,
+    "ichoOuyou_shift": -5.6
    }
   },
   {
@@ -549,14 +601,17 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 132.6,
     "sakuraKaika_late": 128.2,
+    "sakuraKaika_shift": -4.4,
     "sakuraMankai": 134.7,
     "sakuraMankai_n": 51,
     "sakuraMankai_early": 136.3,
     "sakuraMankai_late": 132.1,
+    "sakuraMankai_shift": -4.2,
     "kaedeKouyou": 290.2,
     "kaedeKouyou_n": 38,
     "kaedeKouyou_early": 285.1,
     "kaedeKouyou_late": 296.6,
+    "kaedeKouyou_shift": 11.5,
     "ichoOuyou": 298.4,
     "ichoOuyou_n": 24,
     "ichoOuyou_late": 296.6
@@ -579,14 +634,17 @@
     "sakuraKaika_n": 54,
     "sakuraKaika_early": 139.5,
     "sakuraKaika_late": 134,
+    "sakuraKaika_shift": -5.4,
     "sakuraMankai": 139.7,
     "sakuraMankai_n": 71,
     "sakuraMankai_early": 142.7,
     "sakuraMankai_late": 137.1,
+    "sakuraMankai_shift": -5.6,
     "kaedeKouyou": 286.3,
     "kaedeKouyou_n": 66,
     "kaedeKouyou_early": 283.2,
-    "kaedeKouyou_late": 289.5
+    "kaedeKouyou_late": 289.5,
+    "kaedeKouyou_shift": 6.3
    }
   },
   {
@@ -606,18 +664,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 91.5,
     "sakuraKaika_late": 84.9,
+    "sakuraKaika_shift": -6.5,
     "sakuraMankai": 95.9,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 98.5,
     "sakuraMankai_late": 92.4,
+    "sakuraMankai_shift": -6.1,
     "kaedeKouyou": 332.3,
     "kaedeKouyou_n": 54,
     "kaedeKouyou_early": 329.2,
     "kaedeKouyou_late": 336.5,
+    "kaedeKouyou_shift": 7.3,
     "ichoOuyou": 327.9,
     "ichoOuyou_n": 72,
     "ichoOuyou_early": 322.9,
-    "ichoOuyou_late": 334.7
+    "ichoOuyou_late": 334.7,
+    "ichoOuyou_shift": 11.8
    }
   },
   {
@@ -637,18 +699,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 84.7,
     "sakuraKaika_late": 80.4,
+    "sakuraKaika_shift": -4.2,
     "sakuraMankai": 91.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 92.5,
     "sakuraMankai_late": 90.1,
+    "sakuraMankai_shift": -2.5,
     "kaedeKouyou": 327.9,
     "kaedeKouyou_n": 65,
     "kaedeKouyou_early": 310.9,
     "kaedeKouyou_late": 338.1,
+    "kaedeKouyou_shift": 27.3,
     "ichoOuyou": 326,
     "ichoOuyou_n": 66,
     "ichoOuyou_early": 318,
-    "ichoOuyou_late": 333.7
+    "ichoOuyou_late": 333.7,
+    "ichoOuyou_shift": 15.7
    }
   },
   {
@@ -668,18 +734,22 @@
     "sakuraKaika_n": 57,
     "sakuraKaika_early": 88.4,
     "sakuraKaika_late": 83.1,
+    "sakuraKaika_shift": -5.2,
     "sakuraMankai": 94.1,
     "sakuraMankai_n": 57,
     "sakuraMankai_early": 94.9,
     "sakuraMankai_late": 90.9,
+    "sakuraMankai_shift": -4,
     "kaedeKouyou": 327.1,
     "kaedeKouyou_n": 52,
     "kaedeKouyou_early": 327.3,
     "kaedeKouyou_late": 328.5,
+    "kaedeKouyou_shift": 1.2,
     "ichoOuyou": 317.9,
     "ichoOuyou_n": 41,
     "ichoOuyou_early": 317.4,
-    "ichoOuyou_late": 321
+    "ichoOuyou_late": 321,
+    "ichoOuyou_shift": 3.6
    }
   },
   {
@@ -699,18 +769,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 89.3,
     "sakuraKaika_late": 82.8,
+    "sakuraKaika_shift": -6.5,
     "sakuraMankai": 95.1,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 97.6,
     "sakuraMankai_late": 92.1,
+    "sakuraMankai_shift": -5.5,
     "kaedeKouyou": 325.3,
     "kaedeKouyou_n": 70,
     "kaedeKouyou_early": 324.5,
     "kaedeKouyou_late": 326.8,
+    "kaedeKouyou_shift": 2.2,
     "ichoOuyou": 321.2,
     "ichoOuyou_n": 72,
     "ichoOuyou_early": 321.3,
-    "ichoOuyou_late": 320.9
+    "ichoOuyou_late": 320.9,
+    "ichoOuyou_shift": -0.4
    }
   },
   {
@@ -753,10 +827,12 @@
     "sakuraKaika_n": 54,
     "sakuraKaika_early": 123.7,
     "sakuraKaika_late": 119.7,
+    "sakuraKaika_shift": -4,
     "sakuraMankai": 127,
     "sakuraMankai_n": 54,
     "sakuraMankai_early": 129.2,
     "sakuraMankai_late": 123.8,
+    "sakuraMankai_shift": -5.4,
     "kaedeKouyou": 291,
     "kaedeKouyou_n": 4,
     "ichoOuyou": 294,
@@ -780,18 +856,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.2,
     "sakuraKaika_late": 83.3,
+    "sakuraKaika_shift": -6.9,
     "sakuraMankai": 93.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 94.9,
     "sakuraMankai_late": 91.1,
+    "sakuraMankai_shift": -3.9,
     "kaedeKouyou": 326.5,
     "kaedeKouyou_n": 63,
     "kaedeKouyou_early": 317.4,
     "kaedeKouyou_late": 333.8,
+    "kaedeKouyou_shift": 16.4,
     "ichoOuyou": 316.4,
     "ichoOuyou_n": 68,
     "ichoOuyou_early": 309,
-    "ichoOuyou_late": 324.3
+    "ichoOuyou_late": 324.3,
+    "ichoOuyou_shift": 15.3
    }
   },
   {
@@ -811,18 +891,22 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 105.9,
     "sakuraKaika_late": 104.4,
+    "sakuraKaika_shift": -1.5,
     "sakuraMankai": 110.3,
     "sakuraMankai_n": 53,
     "sakuraMankai_early": 110.7,
     "sakuraMankai_late": 108.2,
+    "sakuraMankai_shift": -2.5,
     "kaedeKouyou": 300.7,
     "kaedeKouyou_n": 52,
     "kaedeKouyou_early": 295.9,
     "kaedeKouyou_late": 309.2,
+    "kaedeKouyou_shift": 13.4,
     "ichoOuyou": 303.7,
     "ichoOuyou_n": 51,
     "ichoOuyou_early": 298.8,
-    "ichoOuyou_late": 312.3
+    "ichoOuyou_late": 312.3,
+    "ichoOuyou_shift": 13.6
    }
   },
   {
@@ -842,18 +926,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.5,
     "sakuraKaika_late": 84.9,
+    "sakuraKaika_shift": -5.7,
     "sakuraMankai": 95.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 97.4,
     "sakuraMankai_late": 92.8,
+    "sakuraMankai_shift": -4.6,
     "kaedeKouyou": 322.7,
     "kaedeKouyou_n": 69,
     "kaedeKouyou_early": 317.7,
     "kaedeKouyou_late": 329.6,
+    "kaedeKouyou_shift": 11.9,
     "ichoOuyou": 326.8,
     "ichoOuyou_n": 70,
     "ichoOuyou_early": 322.7,
-    "ichoOuyou_late": 329.9
+    "ichoOuyou_late": 329.9,
+    "ichoOuyou_shift": 7.2
    }
   },
   {
@@ -873,18 +961,22 @@
     "sakuraKaika_n": 72,
     "sakuraKaika_early": 83.4,
     "sakuraKaika_late": 79.2,
+    "sakuraKaika_shift": -4.2,
     "sakuraMankai": 89.6,
     "sakuraMankai_n": 69,
     "sakuraMankai_early": 91.2,
     "sakuraMankai_late": 87.3,
+    "sakuraMankai_shift": -3.8,
     "kaedeKouyou": 333.6,
     "kaedeKouyou_n": 51,
     "kaedeKouyou_early": 324.8,
     "kaedeKouyou_late": 337.4,
+    "kaedeKouyou_shift": 12.6,
     "ichoOuyou": 315.7,
     "ichoOuyou_n": 53,
     "ichoOuyou_early": 311.7,
-    "ichoOuyou_late": 318.3
+    "ichoOuyou_late": 318.3,
+    "ichoOuyou_shift": 6.6
    }
   },
   {
@@ -904,18 +996,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 99.7,
     "sakuraKaika_late": 96.3,
+    "sakuraKaika_shift": -3.4,
     "sakuraMankai": 104.1,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 105,
     "sakuraMankai_late": 101.2,
+    "sakuraMankai_shift": -3.9,
     "kaedeKouyou": 315.8,
     "kaedeKouyou_n": 54,
     "kaedeKouyou_early": 314.6,
     "kaedeKouyou_late": 318,
+    "kaedeKouyou_shift": 3.4,
     "ichoOuyou": 314.3,
     "ichoOuyou_n": 43,
     "ichoOuyou_early": 310.5,
-    "ichoOuyou_late": 317.1
+    "ichoOuyou_late": 317.1,
+    "ichoOuyou_shift": 6.6
    }
   },
   {
@@ -935,10 +1031,12 @@
     "sakuraKaika_n": 50,
     "sakuraKaika_early": 140.2,
     "sakuraKaika_late": 136.7,
+    "sakuraKaika_shift": -3.5,
     "sakuraMankai": 144.6,
     "sakuraMankai_n": 50,
     "sakuraMankai_early": 146.2,
     "sakuraMankai_late": 142.6,
+    "sakuraMankai_shift": -3.6,
     "kaedeKouyou": 292.5,
     "kaedeKouyou_n": 11,
     "kaedeKouyou_late": 292.5
@@ -961,18 +1059,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 85.9,
     "sakuraKaika_late": 81.5,
+    "sakuraKaika_shift": -4.3,
     "sakuraMankai": 92.7,
     "sakuraMankai_n": 72,
     "sakuraMankai_early": 94,
     "sakuraMankai_late": 90.6,
+    "sakuraMankai_shift": -3.4,
     "kaedeKouyou": 323.8,
     "kaedeKouyou_n": 71,
     "kaedeKouyou_early": 324.2,
     "kaedeKouyou_late": 323.1,
+    "kaedeKouyou_shift": -1,
     "ichoOuyou": 319,
     "ichoOuyou_n": 66,
     "ichoOuyou_early": 312.8,
-    "ichoOuyou_late": 325.3
+    "ichoOuyou_late": 325.3,
+    "ichoOuyou_shift": 12.5
    }
   },
   {
@@ -992,18 +1094,22 @@
     "sakuraKaika_n": 72,
     "sakuraKaika_early": 125.7,
     "sakuraKaika_late": 119.1,
+    "sakuraKaika_shift": -6.5,
     "sakuraMankai": 126.7,
     "sakuraMankai_n": 72,
     "sakuraMankai_early": 129.8,
     "sakuraMankai_late": 123.3,
+    "sakuraMankai_shift": -6.5,
     "kaedeKouyou": 296.8,
     "kaedeKouyou_n": 64,
     "kaedeKouyou_early": 288.3,
     "kaedeKouyou_late": 303.3,
+    "kaedeKouyou_shift": 15,
     "ichoOuyou": 305.4,
     "ichoOuyou_n": 63,
     "ichoOuyou_early": 300.5,
-    "ichoOuyou_late": 308.1
+    "ichoOuyou_late": 308.1,
+    "ichoOuyou_shift": 7.6
    }
   },
   {
@@ -1023,10 +1129,12 @@
     "sakuraKaika_n": 35,
     "sakuraKaika_early": 86.3,
     "sakuraKaika_late": 86.2,
+    "sakuraKaika_shift": -0.1,
     "sakuraMankai": 94.8,
     "sakuraMankai_n": 34,
     "sakuraMankai_early": 93.4,
     "sakuraMankai_late": 93.2,
+    "sakuraMankai_shift": -0.2,
     "kaedeKouyou": 288,
     "kaedeKouyou_n": 1
    }
@@ -1048,18 +1156,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 107.2,
     "sakuraKaika_late": 102,
+    "sakuraKaika_shift": -5.2,
     "sakuraMankai": 109.4,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 112.5,
     "sakuraMankai_late": 106.1,
+    "sakuraMankai_shift": -6.5,
     "kaedeKouyou": 322.9,
     "kaedeKouyou_n": 66,
     "kaedeKouyou_early": 314.9,
     "kaedeKouyou_late": 330,
+    "kaedeKouyou_shift": 15.2,
     "ichoOuyou": 308.6,
     "ichoOuyou_n": 69,
     "ichoOuyou_early": 302.1,
-    "ichoOuyou_late": 316.3
+    "ichoOuyou_late": 316.3,
+    "ichoOuyou_shift": 14.1
    }
   },
   {
@@ -1079,18 +1191,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 86.1,
     "sakuraKaika_late": 84,
+    "sakuraKaika_shift": -2.1,
     "sakuraMankai": 93.9,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 93.2,
     "sakuraMankai_late": 94.7,
+    "sakuraMankai_shift": 1.5,
     "kaedeKouyou": 319.6,
     "kaedeKouyou_n": 53,
     "kaedeKouyou_early": 325.8,
     "kaedeKouyou_late": 308.4,
+    "kaedeKouyou_shift": -17.4,
     "ichoOuyou": 326.8,
     "ichoOuyou_n": 55,
     "ichoOuyou_early": 321,
-    "ichoOuyou_late": 328.5
+    "ichoOuyou_late": 328.5,
+    "ichoOuyou_shift": 7.5
    }
   },
   {
@@ -1110,10 +1226,12 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 129.2,
     "sakuraKaika_late": 122.8,
+    "sakuraKaika_shift": -6.4,
     "sakuraMankai": 130.8,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 133.7,
     "sakuraMankai_late": 127.7,
+    "sakuraMankai_shift": -6,
     "kaedeKouyou": 307.9,
     "kaedeKouyou_n": 43,
     "kaedeKouyou_late": 313
@@ -1136,10 +1254,12 @@
     "sakuraKaika_n": 50,
     "sakuraKaika_early": 86,
     "sakuraKaika_late": 85.8,
+    "sakuraKaika_shift": -0.2,
     "sakuraMankai": 95.4,
     "sakuraMankai_n": 39,
     "sakuraMankai_early": 94.9,
     "sakuraMankai_late": 97.6,
+    "sakuraMankai_shift": 2.7,
     "kaedeKouyou": 323,
     "kaedeKouyou_n": 3,
     "ichoOuyou": 309.6,
@@ -1164,18 +1284,22 @@
     "sakuraKaika_n": 57,
     "sakuraKaika_early": 106.1,
     "sakuraKaika_late": 102.9,
+    "sakuraKaika_shift": -3.2,
     "sakuraMankai": 109.8,
     "sakuraMankai_n": 57,
     "sakuraMankai_early": 111.3,
     "sakuraMankai_late": 107.1,
+    "sakuraMankai_shift": -4.2,
     "kaedeKouyou": 310.5,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 303.2,
     "kaedeKouyou_late": 325.7,
+    "kaedeKouyou_shift": 22.5,
     "ichoOuyou": 309.4,
     "ichoOuyou_n": 52,
     "ichoOuyou_early": 307.5,
-    "ichoOuyou_late": 318.9
+    "ichoOuyou_late": 318.9,
+    "ichoOuyou_shift": 11.4
    }
   },
   {
@@ -1195,18 +1319,22 @@
     "sakuraKaika_n": 50,
     "sakuraKaika_early": 88.9,
     "sakuraKaika_late": 86.9,
+    "sakuraKaika_shift": -2,
     "sakuraMankai": 96.5,
     "sakuraMankai_n": 49,
     "sakuraMankai_early": 96.7,
     "sakuraMankai_late": 94.3,
+    "sakuraMankai_shift": -2.4,
     "kaedeKouyou": 329.4,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 327.3,
     "kaedeKouyou_late": 333.1,
+    "kaedeKouyou_shift": 5.8,
     "ichoOuyou": 327.9,
     "ichoOuyou_n": 48,
     "ichoOuyou_early": 327.3,
-    "ichoOuyou_late": 329.7
+    "ichoOuyou_late": 329.7,
+    "ichoOuyou_shift": 2.4
    }
   },
   {
@@ -1226,18 +1354,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 110.9,
     "sakuraKaika_late": 105.6,
+    "sakuraKaika_shift": -5.3,
     "sakuraMankai": 112.9,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 116.2,
     "sakuraMankai_late": 109.8,
+    "sakuraMankai_shift": -6.4,
     "kaedeKouyou": 310.6,
     "kaedeKouyou_n": 69,
     "kaedeKouyou_early": 304.4,
     "kaedeKouyou_late": 316.6,
+    "kaedeKouyou_shift": 12.2,
     "ichoOuyou": 304.9,
     "ichoOuyou_n": 69,
     "ichoOuyou_early": 301.4,
-    "ichoOuyou_late": 308.2
+    "ichoOuyou_late": 308.2,
+    "ichoOuyou_shift": 6.8
    }
   },
   {
@@ -1257,18 +1389,22 @@
     "sakuraKaika_n": 56,
     "sakuraKaika_early": 98.1,
     "sakuraKaika_late": 93.4,
+    "sakuraKaika_shift": -4.7,
     "sakuraMankai": 102.9,
     "sakuraMankai_n": 56,
     "sakuraMankai_early": 104,
     "sakuraMankai_late": 99.5,
+    "sakuraMankai_shift": -4.6,
     "kaedeKouyou": 325.9,
     "kaedeKouyou_n": 50,
     "kaedeKouyou_early": 318.5,
     "kaedeKouyou_late": 333.8,
+    "kaedeKouyou_shift": 15.3,
     "ichoOuyou": 315.9,
     "ichoOuyou_n": 50,
     "ichoOuyou_early": 314.2,
-    "ichoOuyou_late": 316.3
+    "ichoOuyou_late": 316.3,
+    "ichoOuyou_shift": 2.1
    }
   },
   {
@@ -1288,18 +1424,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 93.6,
     "sakuraKaika_late": 86.2,
+    "sakuraKaika_shift": -7.4,
     "sakuraMankai": 97,
     "sakuraMankai_n": 67,
     "sakuraMankai_early": 99.9,
     "sakuraMankai_late": 93.5,
+    "sakuraMankai_shift": -6.3,
     "kaedeKouyou": 324.1,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 313.8,
     "kaedeKouyou_late": 327.7,
+    "kaedeKouyou_shift": 13.9,
     "ichoOuyou": 322.7,
     "ichoOuyou_n": 48,
     "ichoOuyou_early": 313.7,
-    "ichoOuyou_late": 326.6
+    "ichoOuyou_late": 326.6,
+    "ichoOuyou_shift": 12.9
    }
   },
   {
@@ -1319,18 +1459,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 88,
     "sakuraKaika_late": 82.2,
+    "sakuraKaika_shift": -5.8,
     "sakuraMankai": 94.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 96.1,
     "sakuraMankai_late": 91.9,
+    "sakuraMankai_shift": -4.3,
     "kaedeKouyou": 336,
     "kaedeKouyou_n": 48,
     "kaedeKouyou_early": 324.3,
     "kaedeKouyou_late": 340,
+    "kaedeKouyou_shift": 15.7,
     "ichoOuyou": 326.1,
     "ichoOuyou_n": 71,
     "ichoOuyou_early": 324.2,
-    "ichoOuyou_late": 326.5
+    "ichoOuyou_late": 326.5,
+    "ichoOuyou_shift": 2.3
    }
   },
   {
@@ -1350,18 +1494,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 103,
     "sakuraKaika_late": 97.8,
+    "sakuraKaika_shift": -5.2,
     "sakuraMankai": 106.7,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 108.3,
     "sakuraMankai_late": 102.8,
+    "sakuraMankai_shift": -5.5,
     "kaedeKouyou": 300.3,
     "kaedeKouyou_n": 54,
     "kaedeKouyou_early": 296.6,
     "kaedeKouyou_late": 307.8,
+    "kaedeKouyou_shift": 11.3,
     "ichoOuyou": 306.4,
     "ichoOuyou_n": 53,
     "ichoOuyou_early": 302.6,
-    "ichoOuyou_late": 314.1
+    "ichoOuyou_late": 314.1,
+    "ichoOuyou_shift": 11.5
    }
   },
   {
@@ -1381,18 +1529,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 102.6,
     "sakuraKaika_late": 96.5,
+    "sakuraKaika_shift": -6.1,
     "sakuraMankai": 104.7,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 107.8,
     "sakuraMankai_late": 101.5,
+    "sakuraMankai_shift": -6.3,
     "kaedeKouyou": 316.8,
     "kaedeKouyou_n": 58,
     "kaedeKouyou_early": 311.3,
     "kaedeKouyou_late": 320.6,
+    "kaedeKouyou_shift": 9.3,
     "ichoOuyou": 312.1,
     "ichoOuyou_n": 57,
     "ichoOuyou_early": 303,
-    "ichoOuyou_late": 318
+    "ichoOuyou_late": 318,
+    "ichoOuyou_shift": 15
    }
   },
   {
@@ -1439,18 +1591,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.4,
     "sakuraKaika_late": 85.9,
+    "sakuraKaika_shift": -4.5,
     "sakuraMankai": 95.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 96.7,
     "sakuraMankai_late": 94.1,
+    "sakuraMankai_shift": -2.7,
     "kaedeKouyou": 334,
     "kaedeKouyou_n": 69,
     "kaedeKouyou_early": 332,
     "kaedeKouyou_late": 334.1,
+    "kaedeKouyou_shift": 2.1,
     "ichoOuyou": 317.7,
     "ichoOuyou_n": 49,
     "ichoOuyou_early": 321.9,
-    "ichoOuyou_late": 316.2
+    "ichoOuyou_late": 316.2,
+    "ichoOuyou_shift": -5.7
    }
   },
   {
@@ -1470,18 +1626,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 95.3,
     "sakuraKaika_late": 87.8,
+    "sakuraKaika_shift": -7.5,
     "sakuraMankai": 98.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 101.2,
     "sakuraMankai_late": 94.9,
+    "sakuraMankai_shift": -6.3,
     "kaedeKouyou": 323.6,
     "kaedeKouyou_n": 62,
     "kaedeKouyou_early": 322,
     "kaedeKouyou_late": 326.7,
+    "kaedeKouyou_shift": 4.7,
     "ichoOuyou": 319.6,
     "ichoOuyou_n": 70,
     "ichoOuyou_early": 313.3,
-    "ichoOuyou_late": 326.3
+    "ichoOuyou_late": 326.3,
+    "ichoOuyou_shift": 13.1
    }
   },
   {
@@ -1501,18 +1661,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 113.8,
     "sakuraKaika_late": 106.6,
+    "sakuraKaika_shift": -7.2,
     "sakuraMankai": 115.2,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 118,
     "sakuraMankai_late": 111.7,
+    "sakuraMankai_shift": -6.2,
     "kaedeKouyou": 308.7,
     "kaedeKouyou_n": 69,
     "kaedeKouyou_early": 297,
     "kaedeKouyou_late": 319.4,
+    "kaedeKouyou_shift": 22.4,
     "ichoOuyou": 299.7,
     "ichoOuyou_n": 65,
     "ichoOuyou_early": 294.8,
-    "ichoOuyou_late": 305
+    "ichoOuyou_late": 305,
+    "ichoOuyou_shift": 10.2
    }
   },
   {
@@ -1532,18 +1696,22 @@
     "sakuraKaika_n": 56,
     "sakuraKaika_early": 95.1,
     "sakuraKaika_late": 92.2,
+    "sakuraKaika_shift": -2.9,
     "sakuraMankai": 100.9,
     "sakuraMankai_n": 56,
     "sakuraMankai_early": 101.6,
     "sakuraMankai_late": 98.6,
+    "sakuraMankai_shift": -3,
     "kaedeKouyou": 330,
     "kaedeKouyou_n": 55,
     "kaedeKouyou_early": 320.7,
     "kaedeKouyou_late": 343.2,
+    "kaedeKouyou_shift": 22.5,
     "ichoOuyou": 319.4,
     "ichoOuyou_n": 44,
     "ichoOuyou_early": 314.2,
-    "ichoOuyou_late": 328.5
+    "ichoOuyou_late": 328.5,
+    "ichoOuyou_shift": 14.3
    }
   },
   {
@@ -1559,14 +1727,16 @@
     "name": "西表島",
     "nameEn": "Iriomotejima Island",
     "alt": 10,
-    "sakuraKaika": 28.6,
+    "sakuraKaika": 19.9,
     "sakuraKaika_n": 42,
-    "sakuraKaika_early": 35.1,
+    "sakuraKaika_early": 18.5,
     "sakuraKaika_late": 22.1,
+    "sakuraKaika_shift": 3.6,
     "sakuraMankai": 36.9,
     "sakuraMankai_n": 24,
     "sakuraMankai_early": 28,
-    "sakuraMankai_late": 42
+    "sakuraMankai_late": 42,
+    "sakuraMankai_shift": 14
    }
   },
   {
@@ -1586,18 +1756,22 @@
     "sakuraKaika_n": 70,
     "sakuraKaika_early": 117.5,
     "sakuraKaika_late": 110.7,
+    "sakuraKaika_shift": -6.8,
     "sakuraMankai": 118.8,
     "sakuraMankai_n": 70,
     "sakuraMankai_early": 123.1,
     "sakuraMankai_late": 114.7,
+    "sakuraMankai_shift": -8.4,
     "kaedeKouyou": 314.6,
     "kaedeKouyou_n": 48,
     "kaedeKouyou_early": 305.8,
     "kaedeKouyou_late": 316.4,
+    "kaedeKouyou_shift": 10.6,
     "ichoOuyou": 304.2,
     "ichoOuyou_n": 55,
     "ichoOuyou_early": 298,
-    "ichoOuyou_late": 305.7
+    "ichoOuyou_late": 305.7,
+    "ichoOuyou_shift": 7.7
    }
   },
   {
@@ -1617,18 +1791,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 86.9,
     "sakuraKaika_late": 81.7,
+    "sakuraKaika_shift": -5.2,
     "sakuraMankai": 93.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 94.3,
     "sakuraMankai_late": 90.6,
+    "sakuraMankai_shift": -3.7,
     "kaedeKouyou": 338.8,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 337.3,
     "kaedeKouyou_late": 339,
+    "kaedeKouyou_shift": 1.7,
     "ichoOuyou": 325.5,
     "ichoOuyou_n": 48,
     "ichoOuyou_early": 319.8,
-    "ichoOuyou_late": 326.5
+    "ichoOuyou_late": 326.5,
+    "ichoOuyou_shift": 6.7
    }
   },
   {
@@ -1644,14 +1822,16 @@
     "name": "石垣島",
     "nameEn": "Ishigakijima Island",
     "alt": 6,
-    "sakuraKaika": 37.6,
+    "sakuraKaika": 16.8,
     "sakuraKaika_n": 70,
-    "sakuraKaika_early": 43,
-    "sakuraKaika_late": 32.2,
+    "sakuraKaika_early": 16,
+    "sakuraKaika_late": 20.1,
+    "sakuraKaika_shift": 4.1,
     "sakuraMankai": 37.8,
     "sakuraMankai_n": 56,
     "sakuraMankai_early": 35.9,
-    "sakuraMankai_late": 42.3
+    "sakuraMankai_late": 42.3,
+    "sakuraMankai_shift": 6.5
    }
   },
   {
@@ -1671,18 +1851,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 102.8,
     "sakuraKaika_late": 96.7,
+    "sakuraKaika_shift": -6.1,
     "sakuraMankai": 105.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 108.1,
     "sakuraMankai_late": 101.5,
+    "sakuraMankai_shift": -6.6,
     "kaedeKouyou": 320.3,
     "kaedeKouyou_n": 65,
     "kaedeKouyou_early": 312.8,
     "kaedeKouyou_late": 326.5,
+    "kaedeKouyou_shift": 13.7,
     "ichoOuyou": 319.5,
     "ichoOuyou_n": 67,
     "ichoOuyou_early": 308.8,
-    "ichoOuyou_late": 329.2
+    "ichoOuyou_late": 329.2,
+    "ichoOuyou_shift": 20.4
    }
   },
   {
@@ -1702,18 +1886,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 91.6,
     "sakuraKaika_late": 87,
+    "sakuraKaika_shift": -4.6,
     "sakuraMankai": 96.9,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 99.5,
     "sakuraMankai_late": 93.7,
+    "sakuraMankai_shift": -5.8,
     "kaedeKouyou": 326.8,
     "kaedeKouyou_n": 68,
     "kaedeKouyou_early": 312.3,
     "kaedeKouyou_late": 341.6,
+    "kaedeKouyou_shift": 29.3,
     "ichoOuyou": 321.6,
     "ichoOuyou_n": 68,
     "ichoOuyou_early": 314.6,
-    "ichoOuyou_late": 329.6
+    "ichoOuyou_late": 329.6,
+    "ichoOuyou_shift": 15
    }
   },
   {
@@ -1733,18 +1921,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 102,
     "sakuraKaika_late": 100.5,
+    "sakuraKaika_shift": -1.5,
     "sakuraMankai": 108,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 107.9,
     "sakuraMankai_late": 106.3,
+    "sakuraMankai_shift": -1.6,
     "kaedeKouyou": 317.6,
     "kaedeKouyou_n": 22,
     "kaedeKouyou_early": 316.2,
     "kaedeKouyou_late": 323.2,
+    "kaedeKouyou_shift": 6.9,
     "ichoOuyou": 313.1,
     "ichoOuyou_n": 18,
     "ichoOuyou_early": 302.6,
-    "ichoOuyou_late": 323.6
+    "ichoOuyou_late": 323.6,
+    "ichoOuyou_shift": 20.9
    }
   },
   {
@@ -1764,14 +1956,17 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 128.5,
     "sakuraKaika_late": 120.4,
+    "sakuraKaika_shift": -8.1,
     "sakuraMankai": 127.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 131.7,
     "sakuraMankai_late": 123.4,
+    "sakuraMankai_shift": -8.2,
     "kaedeKouyou": 291.2,
     "kaedeKouyou_n": 63,
     "kaedeKouyou_early": 287,
     "kaedeKouyou_late": 295.3,
+    "kaedeKouyou_shift": 8.3,
     "ichoOuyou": 300.9,
     "ichoOuyou_n": 38,
     "ichoOuyou_late": 302.7
@@ -1794,10 +1989,12 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.5,
     "sakuraKaika_late": 84.8,
+    "sakuraKaika_shift": -5.7,
     "sakuraMankai": 95,
     "sakuraMankai_n": 65,
     "sakuraMankai_early": 97.2,
     "sakuraMankai_late": 92.7,
+    "sakuraMankai_shift": -4.4,
     "kaedeKouyou": 335.2,
     "kaedeKouyou_n": 39,
     "kaedeKouyou_late": 334.6,
@@ -1823,14 +2020,17 @@
     "sakuraKaika_n": 52,
     "sakuraKaika_early": 88.5,
     "sakuraKaika_late": 84.3,
+    "sakuraKaika_shift": -4.2,
     "sakuraMankai": 94.4,
     "sakuraMankai_n": 47,
     "sakuraMankai_early": 95.5,
     "sakuraMankai_late": 91.2,
+    "sakuraMankai_shift": -4.3,
     "kaedeKouyou": 337.8,
     "kaedeKouyou_n": 18,
     "kaedeKouyou_early": 333.2,
     "kaedeKouyou_late": 339.7,
+    "kaedeKouyou_shift": 6.5,
     "ichoOuyou": 333.4,
     "ichoOuyou_n": 7
    }
@@ -1852,18 +2052,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 87.9,
     "sakuraKaika_late": 82.5,
+    "sakuraKaika_shift": -5.4,
     "sakuraMankai": 94.4,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 95.5,
     "sakuraMankai_late": 93,
+    "sakuraMankai_shift": -2.5,
     "kaedeKouyou": 329.2,
     "kaedeKouyou_n": 58,
     "kaedeKouyou_early": 325.8,
     "kaedeKouyou_late": 331.1,
+    "kaedeKouyou_shift": 5.3,
     "ichoOuyou": 333.8,
     "ichoOuyou_n": 61,
     "ichoOuyou_early": 327.4,
-    "ichoOuyou_late": 339.9
+    "ichoOuyou_late": 339.9,
+    "ichoOuyou_shift": 12.5
    }
   },
   {
@@ -1883,10 +2087,12 @@
     "sakuraKaika_n": 66,
     "sakuraKaika_early": 136.7,
     "sakuraKaika_late": 131.8,
+    "sakuraKaika_shift": -5,
     "sakuraMankai": 137.5,
     "sakuraMankai_n": 64,
     "sakuraMankai_early": 141.3,
-    "sakuraMankai_late": 134.8
+    "sakuraMankai_late": 134.8,
+    "sakuraMankai_shift": -6.5
    }
   },
   {
@@ -1906,10 +2112,12 @@
     "sakuraKaika_n": 51,
     "sakuraKaika_early": 86.3,
     "sakuraKaika_late": 83.7,
+    "sakuraKaika_shift": -2.6,
     "sakuraMankai": 95,
     "sakuraMankai_n": 50,
     "sakuraMankai_early": 95.1,
     "sakuraMankai_late": 93.2,
+    "sakuraMankai_shift": -1.9,
     "kaedeKouyou": 346,
     "kaedeKouyou_n": 1,
     "ichoOuyou": 332.5,
@@ -1934,17 +2142,20 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 90.1,
     "sakuraKaika_late": 87.5,
+    "sakuraKaika_shift": -2.7,
     "sakuraMankai": 97.1,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 98.1,
     "sakuraMankai_late": 94.9,
+    "sakuraMankai_shift": -3.2,
     "kaedeKouyou": 345.7,
     "kaedeKouyou_n": 22,
     "kaedeKouyou_late": 345.7,
     "ichoOuyou": 333.5,
     "ichoOuyou_n": 33,
     "ichoOuyou_early": 324,
-    "ichoOuyou_late": 337.3
+    "ichoOuyou_late": 337.3,
+    "ichoOuyou_shift": 13.3
    }
   },
   {
@@ -1964,18 +2175,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 84.6,
     "sakuraKaika_late": 81.1,
+    "sakuraKaika_shift": -3.5,
     "sakuraMankai": 92.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 93.3,
     "sakuraMankai_late": 90.7,
+    "sakuraMankai_shift": -2.6,
     "kaedeKouyou": 324.6,
     "kaedeKouyou_n": 70,
     "kaedeKouyou_early": 315.8,
     "kaedeKouyou_late": 330.2,
+    "kaedeKouyou_shift": 14.4,
     "ichoOuyou": 333.8,
     "ichoOuyou_n": 61,
     "ichoOuyou_early": 321.8,
-    "ichoOuyou_late": 340.3
+    "ichoOuyou_late": 340.3,
+    "ichoOuyou_shift": 18.5
    }
   },
   {
@@ -1995,18 +2210,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 104.2,
     "sakuraKaika_late": 99.2,
+    "sakuraKaika_shift": -5,
     "sakuraMankai": 107.3,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 110.2,
     "sakuraMankai_late": 103.9,
+    "sakuraMankai_shift": -6.2,
     "kaedeKouyou": 311.8,
     "kaedeKouyou_n": 73,
     "kaedeKouyou_early": 306.9,
     "kaedeKouyou_late": 318.5,
+    "kaedeKouyou_shift": 11.6,
     "ichoOuyou": 311.4,
     "ichoOuyou_n": 72,
     "ichoOuyou_early": 308.5,
-    "ichoOuyou_late": 314.5
+    "ichoOuyou_late": 314.5,
+    "ichoOuyou_shift": 6
    }
   },
   {
@@ -2026,18 +2245,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 93.1,
     "sakuraKaika_late": 86.2,
+    "sakuraKaika_shift": -6.8,
     "sakuraMankai": 96.5,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 98.5,
     "sakuraMankai_late": 93.4,
+    "sakuraMankai_shift": -5.1,
     "kaedeKouyou": 329,
     "kaedeKouyou_n": 73,
     "kaedeKouyou_early": 323.5,
     "kaedeKouyou_late": 335.3,
+    "kaedeKouyou_shift": 11.8,
     "ichoOuyou": 326.4,
     "ichoOuyou_n": 71,
     "ichoOuyou_early": 320.1,
-    "ichoOuyou_late": 332.9
+    "ichoOuyou_late": 332.9,
+    "ichoOuyou_shift": 12.9
    }
   },
   {
@@ -2057,18 +2280,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 92.4,
     "sakuraKaika_late": 87,
+    "sakuraKaika_shift": -5.5,
     "sakuraMankai": 95.7,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 98.7,
     "sakuraMankai_late": 92.1,
+    "sakuraMankai_shift": -6.6,
     "kaedeKouyou": 324.5,
     "kaedeKouyou_n": 70,
     "kaedeKouyou_early": 317.9,
     "kaedeKouyou_late": 327.6,
+    "kaedeKouyou_shift": 9.7,
     "ichoOuyou": 319.3,
     "ichoOuyou_n": 70,
     "ichoOuyou_early": 313.7,
-    "ichoOuyou_late": 324.7
+    "ichoOuyou_late": 324.7,
+    "ichoOuyou_shift": 11
    }
   },
   {
@@ -2088,18 +2315,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 87.6,
     "sakuraKaika_late": 81.4,
+    "sakuraKaika_shift": -6.2,
     "sakuraMankai": 93,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 95.9,
     "sakuraMankai_late": 88.8,
+    "sakuraMankai_shift": -7.1,
     "kaedeKouyou": 330.4,
     "kaedeKouyou_n": 48,
     "kaedeKouyou_early": 317.2,
     "kaedeKouyou_late": 331.3,
+    "kaedeKouyou_shift": 14.1,
     "ichoOuyou": 324,
     "ichoOuyou_n": 64,
     "ichoOuyou_early": 319.4,
-    "ichoOuyou_late": 327.9
+    "ichoOuyou_late": 327.9,
+    "ichoOuyou_shift": 8.5
    }
   },
   {
@@ -2119,10 +2350,12 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 88,
     "sakuraKaika_late": 85.9,
+    "sakuraKaika_shift": -2.1,
     "sakuraMankai": 95,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 95.7,
     "sakuraMankai_late": 93.5,
+    "sakuraMankai_shift": -2.2,
     "kaedeKouyou": 332.2,
     "kaedeKouyou_n": 35,
     "kaedeKouyou_late": 331.6,
@@ -2148,17 +2381,20 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 94.7,
     "sakuraKaika_late": 90,
+    "sakuraKaika_shift": -4.7,
     "sakuraMankai": 98.9,
     "sakuraMankai_n": 53,
     "sakuraMankai_early": 99.9,
     "sakuraMankai_late": 96.1,
+    "sakuraMankai_shift": -3.8,
     "kaedeKouyou": 329.6,
     "kaedeKouyou_n": 34,
     "kaedeKouyou_early": 328.8,
     "ichoOuyou": 314.7,
     "ichoOuyou_n": 35,
     "ichoOuyou_early": 315.6,
-    "ichoOuyou_late": 314.2
+    "ichoOuyou_late": 314.2,
+    "ichoOuyou_shift": -1.4
    }
   },
   {
@@ -2178,18 +2414,22 @@
     "sakuraKaika_n": 72,
     "sakuraKaika_early": 91.8,
     "sakuraKaika_late": 86,
+    "sakuraKaika_shift": -5.8,
     "sakuraMankai": 95.5,
     "sakuraMankai_n": 72,
     "sakuraMankai_early": 97.4,
     "sakuraMankai_late": 93,
+    "sakuraMankai_shift": -4.4,
     "kaedeKouyou": 319.3,
     "kaedeKouyou_n": 72,
     "kaedeKouyou_early": 313,
     "kaedeKouyou_late": 326.2,
+    "kaedeKouyou_shift": 13.1,
     "ichoOuyou": 315,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 304.6,
-    "ichoOuyou_late": 321.7
+    "ichoOuyou_late": 321.7,
+    "ichoOuyou_shift": 17.2
    }
   },
   {
@@ -2205,14 +2445,16 @@
     "name": "那覇",
     "nameEn": "Naha",
     "alt": 28,
-    "sakuraKaika": 29.5,
+    "sakuraKaika": 15.5,
     "sakuraKaika_n": 52,
     "sakuraKaika_early": 14.6,
-    "sakuraKaika_late": 37.6,
+    "sakuraKaika_late": 13.3,
+    "sakuraKaika_shift": -1.3,
     "sakuraMankai": 34.5,
     "sakuraMankai_n": 48,
     "sakuraMankai_early": 31.5,
-    "sakuraMankai_late": 34.1
+    "sakuraMankai_late": 34.1,
+    "sakuraMankai_shift": 2.6
    }
   },
   {
@@ -2232,10 +2474,12 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 19.2,
     "sakuraKaika_late": 24.1,
+    "sakuraKaika_shift": 4.9,
     "sakuraMankai": 34.2,
     "sakuraMankai_n": 44,
     "sakuraMankai_early": 31.9,
-    "sakuraMankai_late": 37.5
+    "sakuraMankai_late": 37.5,
+    "sakuraMankai_shift": 5.7
    }
   },
   {
@@ -2282,18 +2526,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 125.1,
     "sakuraKaika_late": 116.5,
+    "sakuraKaika_shift": -8.5,
     "sakuraMankai": 125.1,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 129.4,
     "sakuraMankai_late": 120.7,
+    "sakuraMankai_shift": -8.7,
     "kaedeKouyou": 299.8,
     "kaedeKouyou_n": 65,
     "kaedeKouyou_early": 291,
     "kaedeKouyou_late": 308.1,
+    "kaedeKouyou_shift": 17.2,
     "ichoOuyou": 303.5,
     "ichoOuyou_n": 63,
     "ichoOuyou_early": 298,
-    "ichoOuyou_late": 307.8
+    "ichoOuyou_late": 307.8,
+    "ichoOuyou_shift": 9.8
    }
   },
   {
@@ -2313,18 +2561,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 115.5,
     "sakuraKaika_late": 111.9,
+    "sakuraKaika_shift": -3.6,
     "sakuraMankai": 118.2,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 119.3,
     "sakuraMankai_late": 115.8,
+    "sakuraMankai_shift": -3.5,
     "kaedeKouyou": 310.6,
     "kaedeKouyou_n": 40,
     "kaedeKouyou_early": 302.2,
     "kaedeKouyou_late": 317.6,
+    "kaedeKouyou_shift": 15.4,
     "ichoOuyou": 308.1,
     "ichoOuyou_n": 35,
     "ichoOuyou_early": 306.9,
-    "ichoOuyou_late": 311.3
+    "ichoOuyou_late": 311.3,
+    "ichoOuyou_shift": 4.4
    }
   },
   {
@@ -2344,18 +2596,22 @@
     "sakuraKaika_n": 57,
     "sakuraKaika_early": 92.3,
     "sakuraKaika_late": 89.4,
+    "sakuraKaika_shift": -2.8,
     "sakuraMankai": 100.1,
     "sakuraMankai_n": 56,
     "sakuraMankai_early": 100.8,
     "sakuraMankai_late": 97.3,
+    "sakuraMankai_shift": -3.5,
     "kaedeKouyou": 318.2,
     "kaedeKouyou_n": 37,
     "kaedeKouyou_early": 334.8,
     "kaedeKouyou_late": 275.6,
+    "kaedeKouyou_shift": -59.2,
     "ichoOuyou": 328.5,
     "ichoOuyou_n": 23,
     "ichoOuyou_early": 330.8,
-    "ichoOuyou_late": 324.2
+    "ichoOuyou_late": 324.2,
+    "ichoOuyou_shift": -6.6
    }
   },
   {
@@ -2375,18 +2631,22 @@
     "sakuraKaika_n": 54,
     "sakuraKaika_early": 96.6,
     "sakuraKaika_late": 93.6,
+    "sakuraKaika_shift": -2.9,
     "sakuraMankai": 101.3,
     "sakuraMankai_n": 54,
     "sakuraMankai_early": 102.3,
     "sakuraMankai_late": 99.6,
+    "sakuraMankai_shift": -2.7,
     "kaedeKouyou": 305.6,
     "kaedeKouyou_n": 53,
     "kaedeKouyou_early": 296.3,
     "kaedeKouyou_late": 320.5,
+    "kaedeKouyou_shift": 24.2,
     "ichoOuyou": 308,
     "ichoOuyou_n": 53,
     "ichoOuyou_early": 306.1,
-    "ichoOuyou_late": 310
+    "ichoOuyou_late": 310,
+    "ichoOuyou_shift": 3.9
    }
   },
   {
@@ -2406,18 +2666,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 87.7,
     "sakuraKaika_late": 84.7,
+    "sakuraKaika_shift": -3,
     "sakuraMankai": 94.3,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 94.7,
     "sakuraMankai_late": 91.9,
+    "sakuraMankai_shift": -2.8,
     "kaedeKouyou": 331.1,
     "kaedeKouyou_n": 44,
     "kaedeKouyou_early": 328.7,
     "kaedeKouyou_late": 334.2,
+    "kaedeKouyou_shift": 5.5,
     "ichoOuyou": 326.2,
     "ichoOuyou_n": 35,
     "ichoOuyou_early": 320.4,
-    "ichoOuyou_late": 335.2
+    "ichoOuyou_late": 335.2,
+    "ichoOuyou_shift": 14.9
    }
   },
   {
@@ -2437,18 +2701,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 94.6,
     "sakuraKaika_late": 90.4,
+    "sakuraKaika_shift": -4.2,
     "sakuraMankai": 99.4,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 101.5,
     "sakuraMankai_late": 97,
+    "sakuraMankai_shift": -4.4,
     "kaedeKouyou": 327.4,
     "kaedeKouyou_n": 72,
     "kaedeKouyou_early": 322,
     "kaedeKouyou_late": 333.2,
+    "kaedeKouyou_shift": 11.2,
     "ichoOuyou": 315.9,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 299.1,
-    "ichoOuyou_late": 326
+    "ichoOuyou_late": 326,
+    "ichoOuyou_shift": 26.9
    }
   },
   {
@@ -2468,18 +2736,22 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 88.8,
     "sakuraKaika_late": 85.5,
+    "sakuraKaika_shift": -3.3,
     "sakuraMankai": 95,
     "sakuraMankai_n": 52,
     "sakuraMankai_early": 95.4,
     "sakuraMankai_late": 92.6,
+    "sakuraMankai_shift": -2.8,
     "kaedeKouyou": 324.7,
     "kaedeKouyou_n": 42,
     "kaedeKouyou_early": 314.2,
     "kaedeKouyou_late": 337.4,
+    "kaedeKouyou_shift": 23.3,
     "ichoOuyou": 318.8,
     "ichoOuyou_n": 45,
     "ichoOuyou_early": 312,
-    "ichoOuyou_late": 327.1
+    "ichoOuyou_late": 327.1,
+    "ichoOuyou_shift": 15.1
    }
   },
   {
@@ -2499,18 +2771,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 88.1,
     "sakuraKaika_late": 85,
+    "sakuraKaika_shift": -3.1,
     "sakuraMankai": 96,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 96.6,
     "sakuraMankai_late": 93,
+    "sakuraMankai_shift": -3.6,
     "kaedeKouyou": 324.9,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 321,
     "kaedeKouyou_late": 329.3,
+    "kaedeKouyou_shift": 8.3,
     "ichoOuyou": 313,
     "ichoOuyou_n": 50,
     "ichoOuyou_early": 305.7,
-    "ichoOuyou_late": 321.2
+    "ichoOuyou_late": 321.2,
+    "ichoOuyou_shift": 15.5
    }
   },
   {
@@ -2530,18 +2806,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 98.9,
     "sakuraKaika_late": 91.4,
+    "sakuraKaika_shift": -7.5,
     "sakuraMankai": 100.4,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 103.1,
     "sakuraMankai_late": 96.6,
+    "sakuraMankai_shift": -6.5,
     "kaedeKouyou": 323.9,
     "kaedeKouyou_n": 62,
     "kaedeKouyou_early": 318.7,
     "kaedeKouyou_late": 329.6,
+    "kaedeKouyou_shift": 11,
     "ichoOuyou": 321,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 320.3,
-    "ichoOuyou_late": 323.8
+    "ichoOuyou_late": 323.8,
+    "ichoOuyou_shift": 3.5
    }
   },
   {
@@ -2561,18 +2841,22 @@
     "sakuraKaika_n": 61,
     "sakuraKaika_early": 94,
     "sakuraKaika_late": 91.2,
+    "sakuraKaika_shift": -2.8,
     "sakuraMankai": 99,
     "sakuraMankai_n": 60,
     "sakuraMankai_early": 99.7,
     "sakuraMankai_late": 97.2,
+    "sakuraMankai_shift": -2.5,
     "kaedeKouyou": 326.3,
     "kaedeKouyou_n": 49,
     "kaedeKouyou_early": 315.5,
     "kaedeKouyou_late": 337.6,
+    "kaedeKouyou_shift": 22.2,
     "ichoOuyou": 316.3,
     "ichoOuyou_n": 49,
     "ichoOuyou_early": 314.3,
-    "ichoOuyou_late": 318.6
+    "ichoOuyou_late": 318.6,
+    "ichoOuyou_shift": 4.4
    }
   },
   {
@@ -2592,18 +2876,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 96.2,
     "sakuraKaika_late": 90.1,
+    "sakuraKaika_shift": -6,
     "sakuraMankai": 98.6,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 100.9,
     "sakuraMankai_late": 95.5,
+    "sakuraMankai_shift": -5.4,
     "kaedeKouyou": 326.8,
     "kaedeKouyou_n": 51,
     "kaedeKouyou_early": 307.3,
     "kaedeKouyou_late": 334.5,
+    "kaedeKouyou_shift": 27.3,
     "ichoOuyou": 318.1,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 306.5,
-    "ichoOuyou_late": 327.7
+    "ichoOuyou_late": 327.7,
+    "ichoOuyou_shift": 21.2
    }
   },
   {
@@ -2623,18 +2911,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 87.6,
     "sakuraKaika_late": 79.4,
+    "sakuraKaika_shift": -8.2,
     "sakuraMankai": 92,
     "sakuraMankai_n": 72,
     "sakuraMankai_early": 94.5,
     "sakuraMankai_late": 88.7,
+    "sakuraMankai_shift": -5.8,
     "kaedeKouyou": 324.8,
     "kaedeKouyou_n": 66,
     "kaedeKouyou_early": 310,
     "kaedeKouyou_late": 336.7,
+    "kaedeKouyou_shift": 26.7,
     "ichoOuyou": 316.7,
     "ichoOuyou_n": 63,
     "ichoOuyou_early": 304.6,
-    "ichoOuyou_late": 328.1
+    "ichoOuyou_late": 328.1,
+    "ichoOuyou_shift": 23.5
    }
   },
   {
@@ -2654,17 +2946,20 @@
     "sakuraKaika_n": 57,
     "sakuraKaika_early": 87.5,
     "sakuraKaika_late": 84.4,
+    "sakuraKaika_shift": -3.1,
     "sakuraMankai": 94.5,
     "sakuraMankai_n": 57,
     "sakuraMankai_early": 94.5,
     "sakuraMankai_late": 93.5,
+    "sakuraMankai_shift": -1,
     "kaedeKouyou": 333.2,
     "kaedeKouyou_n": 17,
     "kaedeKouyou_early": 331.2,
     "ichoOuyou": 327.1,
     "ichoOuyou_n": 36,
     "ichoOuyou_early": 326.1,
-    "ichoOuyou_late": 329.2
+    "ichoOuyou_late": 329.2,
+    "ichoOuyou_shift": 3.1
    }
   },
   {
@@ -2684,18 +2979,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 100.5,
     "sakuraKaika_late": 95.3,
+    "sakuraKaika_shift": -5.2,
     "sakuraMankai": 102.4,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 104.5,
     "sakuraMankai_late": 99.3,
+    "sakuraMankai_shift": -5.2,
     "kaedeKouyou": 315.4,
     "kaedeKouyou_n": 68,
     "kaedeKouyou_early": 308.5,
     "kaedeKouyou_late": 321.7,
+    "kaedeKouyou_shift": 13.2,
     "ichoOuyou": 304.8,
     "ichoOuyou_n": 53,
     "ichoOuyou_early": 308.3,
-    "ichoOuyou_late": 305.3
+    "ichoOuyou_late": 305.3,
+    "ichoOuyou_shift": -3
    }
   },
   {
@@ -2715,18 +3014,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 93.2,
     "sakuraKaika_late": 87.6,
+    "sakuraKaika_shift": -5.6,
     "sakuraMankai": 97.6,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 98.4,
     "sakuraMankai_late": 93.9,
+    "sakuraMankai_shift": -4.5,
     "kaedeKouyou": 319.9,
     "kaedeKouyou_n": 53,
     "kaedeKouyou_early": 315.7,
     "kaedeKouyou_late": 326.2,
+    "kaedeKouyou_shift": 10.5,
     "ichoOuyou": 306.7,
     "ichoOuyou_n": 44,
     "ichoOuyou_early": 298.5,
-    "ichoOuyou_late": 316.2
+    "ichoOuyou_late": 316.2,
+    "ichoOuyou_shift": 17.7
    }
   },
   {
@@ -2746,18 +3049,22 @@
     "sakuraKaika_n": 55,
     "sakuraKaika_early": 94.8,
     "sakuraKaika_late": 90.9,
+    "sakuraKaika_shift": -3.9,
     "sakuraMankai": 98.7,
     "sakuraMankai_n": 55,
     "sakuraMankai_early": 99.1,
     "sakuraMankai_late": 96.5,
+    "sakuraMankai_shift": -2.6,
     "kaedeKouyou": 321.5,
     "kaedeKouyou_n": 44,
     "kaedeKouyou_early": 315.6,
     "kaedeKouyou_late": 328.5,
+    "kaedeKouyou_shift": 13,
     "ichoOuyou": 309.3,
     "ichoOuyou_n": 46,
     "ichoOuyou_early": 304.4,
-    "ichoOuyou_late": 311.9
+    "ichoOuyou_late": 311.9,
+    "ichoOuyou_shift": 7.5
    }
   },
   {
@@ -2777,18 +3084,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 89.2,
     "sakuraKaika_late": 82.5,
+    "sakuraKaika_shift": -6.7,
     "sakuraMankai": 94.2,
     "sakuraMankai_n": 73,
     "sakuraMankai_early": 96.4,
     "sakuraMankai_late": 91.8,
+    "sakuraMankai_shift": -4.6,
     "kaedeKouyou": 327.9,
     "kaedeKouyou_n": 71,
     "kaedeKouyou_early": 322.5,
     "kaedeKouyou_late": 331.2,
+    "kaedeKouyou_shift": 8.7,
     "ichoOuyou": 320.9,
     "ichoOuyou_n": 62,
     "ichoOuyou_early": 319.5,
-    "ichoOuyou_late": 320.1
+    "ichoOuyou_late": 320.1,
+    "ichoOuyou_shift": 0.5
    }
   },
   {
@@ -2804,10 +3115,11 @@
     "name": "名護",
     "nameEn": "Nago",
     "alt": 6,
-    "sakuraKaika": 156.1,
+    "sakuraKaika": 3,
     "sakuraKaika_n": 31,
-    "sakuraKaika_early": 295.4,
-    "sakuraKaika_late": 57.9,
+    "sakuraKaika_early": 361.7,
+    "sakuraKaika_late": 5.7,
+    "sakuraKaika_shift": 9,
     "sakuraMankai": 29.5,
     "sakuraMankai_n": 23,
     "sakuraMankai_late": 31.1
@@ -2830,10 +3142,12 @@
     "sakuraKaika_n": 61,
     "sakuraKaika_early": 19.4,
     "sakuraKaika_late": 20,
+    "sakuraKaika_shift": 0.5,
     "sakuraMankai": 31.5,
     "sakuraMankai_n": 56,
     "sakuraMankai_early": 31.3,
-    "sakuraMankai_late": 32.4
+    "sakuraMankai_late": 32.4,
+    "sakuraMankai_shift": 1.2
    }
   },
   {
@@ -2853,10 +3167,12 @@
     "sakuraKaika_n": 68,
     "sakuraKaika_early": 132.9,
     "sakuraKaika_late": 128.4,
+    "sakuraKaika_shift": -4.6,
     "sakuraMankai": 133.2,
     "sakuraMankai_n": 64,
     "sakuraMankai_early": 136.1,
     "sakuraMankai_late": 130.8,
+    "sakuraMankai_shift": -5.3,
     "ichoOuyou": 285,
     "ichoOuyou_n": 2
    }
@@ -2878,10 +3194,12 @@
     "sakuraKaika_n": 52,
     "sakuraKaika_early": 131.7,
     "sakuraKaika_late": 132.3,
+    "sakuraKaika_shift": 0.7,
     "sakuraMankai": 134.2,
     "sakuraMankai_n": 52,
     "sakuraMankai_early": 134.3,
     "sakuraMankai_late": 135.8,
+    "sakuraMankai_shift": 1.5,
     "kaedeKouyou": 299.3,
     "kaedeKouyou_n": 16,
     "kaedeKouyou_late": 301
@@ -2925,10 +3243,12 @@
     "sakuraKaika_n": 53,
     "sakuraKaika_early": 132,
     "sakuraKaika_late": 129.8,
+    "sakuraKaika_shift": -2.2,
     "sakuraMankai": 134.2,
     "sakuraMankai_n": 53,
     "sakuraMankai_early": 136,
-    "sakuraMankai_late": 133.2
+    "sakuraMankai_late": 133.2,
+    "sakuraMankai_shift": -2.8
    }
   },
   {
@@ -2948,18 +3268,22 @@
     "sakuraKaika_n": 58,
     "sakuraKaika_early": 100.3,
     "sakuraKaika_late": 97.7,
+    "sakuraKaika_shift": -2.6,
     "sakuraMankai": 104.4,
     "sakuraMankai_n": 58,
     "sakuraMankai_early": 105.1,
     "sakuraMankai_late": 102.2,
+    "sakuraMankai_shift": -2.9,
     "kaedeKouyou": 311.4,
     "kaedeKouyou_n": 57,
     "kaedeKouyou_early": 305,
     "kaedeKouyou_late": 320.4,
+    "kaedeKouyou_shift": 15.4,
     "ichoOuyou": 318.3,
     "ichoOuyou_n": 52,
     "ichoOuyou_early": 314.9,
-    "ichoOuyou_late": 324.5
+    "ichoOuyou_late": 324.5,
+    "ichoOuyou_shift": 9.6
    }
   },
   {
@@ -2979,18 +3303,22 @@
     "sakuraKaika_n": 73,
     "sakuraKaika_early": 86.6,
     "sakuraKaika_late": 82.7,
+    "sakuraKaika_shift": -3.9,
     "sakuraMankai": 93.2,
     "sakuraMankai_n": 71,
     "sakuraMankai_early": 93.8,
     "sakuraMankai_late": 91.3,
+    "sakuraMankai_shift": -2.5,
     "kaedeKouyou": 335.9,
     "kaedeKouyou_n": 70,
     "kaedeKouyou_early": 329.3,
     "kaedeKouyou_late": 342.2,
+    "kaedeKouyou_shift": 12.9,
     "ichoOuyou": 325.2,
     "ichoOuyou_n": 72,
     "ichoOuyou_early": 324.1,
-    "ichoOuyou_late": 327.8
+    "ichoOuyou_late": 327.8,
+    "ichoOuyou_shift": 3.8
    }
   }
  ]

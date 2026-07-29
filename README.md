@@ -78,12 +78,49 @@ Honest limitations, because they affect how the map should be read:
 - **Observations were reduced in 2021**, so some series thin out toward the present.
 - Dates shown are **means across the record**, not any single year.
 
-## Notable finding in the data
+## Validation
 
-Most of Japan now blooms about **5–7 days earlier** than in the 1953–1982 period.
-Naha is the exception: it blooms **23 days later**. Warmer winters fail to deliver
-the chilling that breaks dormancy, so in the far south warming *delays* the
-blossom rather than advancing it.
+The computed values are checked against JMA's own published 平年値 (1991–2020
+normals) on
+[さくらの開花日](https://www.data.jma.go.jp/sakura/data/sakura003_07.html),
+which is an independent page from the 累年値 CSVs the pipeline reads:
+
+| | |
+|---|---|
+| Stations compared | 56 / 56 |
+| Median difference | −1.2 days |
+| Std. deviation | 0.68 days |
+| Max abs. difference | 2.7 days |
+| Within 3 days | 56 / 56 |
+
+The small negative bias is expected: this comparison uses the 1996–2025 window
+against JMA's 1991–2020 normals, and blooming is advancing, so ours should be
+slightly earlier.
+
+That check earned its keep. It surfaced a real bug: kanhizakura in Okinawa
+sometimes opens in **late December** (那覇 on 12/31/2010 and 12/28/2013), and a
+naive day-of-year put those at 365, so averaging them with early-January dates
+dragged the mean two weeks later and invented a trend. `wrapAfter` in the build
+script now assigns late-December dates to the season that ends the following
+year. Before the fix the same comparison had a std. deviation of 4.05 days and a
+worst case of 21.6 days.
+
+## What the data shows
+
+Comparing two equal 30-year windows, 1953–1982 against 1996–2025:
+
+- **Spring is arriving earlier.** Cherry blossom opens a median **4.7 days
+  earlier**, at 90 of 96 stations. Largest advances: 久米島 −12.1, 宮古島 −9.1,
+  函館 −8.5, 福岡 −8.2 days.
+- **Autumn is arriving later, and by more.** Maple colouring is a median
+  **11.8 days later**, at 66 of 69 stations.
+- **The subtropical islands run the other way in spring.** Every station that
+  now blooms *later* is subtropical — 名護 +9.0, 南大東島 +4.9, 石垣島 +4.1,
+  西表島 +3.6 days. The likely mechanism is winter chilling: these trees need a
+  cold period to break dormancy, and warm winters no longer reliably supply it,
+  so warming delays the blossom instead of advancing it.
+
+Read together, the growing season is stretching at both ends.
 
 ## Structure
 
