@@ -1,8 +1,8 @@
 import { Color } from "@navaramap/three";
 import type ThreeView from "@navaramap/three";
+import { GLOW_ID } from "./glow";
 import { MODES, phase, sampleRamp, type Mode } from "./modes";
-
-export type StationProperties = Record<string, number | string | undefined>;
+import { eventDays, type Phenology, type StationProperties } from "./phenology";
 
 export type StationLayers = {
   setDay(day: number): void;
@@ -26,35 +26,31 @@ const ANCHORS: [number, number][] = [
   [0.42, 0.32],
 ];
 
-function eventDays(properties: StationProperties, mode: Mode) {
-  const start = properties[mode.startKey];
-  if (typeof start !== "number") return null;
-  const peakRaw = mode.peakKey ? properties[mode.peakKey] : undefined;
-  const peak = typeof peakRaw === "number" ? peakRaw : start + mode.peakLag;
-  return { start, peak };
-}
-
-export async function addStations(
+/**
+ * Sprite layers for every mode that is *not* drawn as 3D geometry.
+ *
+ * Modes carrying a `blossom` config are skipped entirely — blossoms.ts renders
+ * those as an instanced mesh instead, and a layer left in place would keep
+ * re-evaluating 102 features to draw nothing. The counts are unaffected either
+ * way: they come from the shared phenology index, not from any evaluator.
+ */
+export function addStations(
   view: ThreeView<never>,
+  phenology: Phenology,
   selected: Set<string>,
-): Promise<StationLayers> {
-  // Fetched here rather than handed to the source as a `url` so the same parsed
-  // features back both the render and the counts. Counting inside the
-  // FeatureEvaluator does not work: `featureUpdated` fires per FeatureSet and
-  // per tile, so tallies from different days accumulate and disagree.
-  const collection = await (await fetch("data/phenology.geojson")).json();
-  const properties: StationProperties[] = collection.features.map(
-    (feature: { properties: StationProperties }) => feature.properties,
-  );
-
+): StationLayers {
   // One source, reused by every mode's layer — tile fetches and parsing are
   // deduplicated, so the extra layers are close to free.
-  const source = view.addSource({ type: "geojson", data: collection });
+  const source = view.addSource({
+    type: "geojson",
+    data: phenology.collection,
+  });
 
-  let day = 1;
   let active = new Set(selected);
 
-  const layers = MODES.map((mode, index) => {
+  const layers = MODES.flatMap((mode, index) => {
+    if (mode.blossom) return [];
+
     const layer = view.addLayer({
       type: "vector",
       source,
@@ -71,7 +67,13 @@ export async function addStations(
         declutter: false,
         center: { x: ANCHORS[index][0], y: ANCHORS[index][1] },
         emissiveColor: new Color().setStyle(mode.glow),
-        emissiveIntensity: 0.75,
+        // Was 0.75, which was harmless while the glow was inert but blows out
+        // now that the bloom effect actually exists.
+        emissiveIntensity: 0.5,
+        // Without this the emissive pair above is inert: the glow is a selective
+        // bloom, and a material only writes the emissive buffer once it names
+        // the effect. Registered in main.ts before this layer is built.
+        effectIds: [GLOW_ID],
       },
     });
 
@@ -83,7 +85,7 @@ export async function addStations(
           const days = eventDays(featureProperties as StationProperties, mode);
           if (!days) return { show: false };
 
-          const state = phase(mode, day, days.start, days.peak);
+          const state = phase(mode, phenology.day, days.start, days.peak);
           if (!state) return { show: false };
 
           return {
@@ -97,48 +99,23 @@ export async function addStations(
       );
     });
 
-    return { mode, layer };
+    return [{ mode, layer }];
   });
 
   const refresh = () => layers.forEach(({ layer }) => layer.forceUpdate());
-  const profileCache = new Map<string, number[]>();
 
   return {
     setDay(next) {
-      if (next === day) return;
-      day = next;
+      if (next === phenology.day) return;
+      phenology.setDay(next);
       refresh();
     },
     setSelected(next) {
       active = new Set(next);
       refresh();
     },
-    activeCount(mode) {
-      let n = 0;
-      for (const props of properties) {
-        const days = eventDays(props, mode);
-        if (days && phase(mode, day, days.start, days.peak)) n += 1;
-      }
-      return n;
-    },
-    totalCount(mode) {
-      let n = 0;
-      for (const props of properties) if (eventDays(props, mode)) n += 1;
-      return n;
-    },
-    profile(mode) {
-      const cached = profileCache.get(mode.id);
-      if (cached) return cached;
-      const series = Array.from({ length: 366 }, (_, index) => {
-        let n = 0;
-        for (const props of properties) {
-          const days = eventDays(props, mode);
-          if (days && phase(mode, index, days.start, days.peak)) n += 1;
-        }
-        return n;
-      });
-      profileCache.set(mode.id, series);
-      return series;
-    },
+    activeCount: (mode) => phenology.activeCount(mode),
+    totalCount: (mode) => phenology.totalCount(mode),
+    profile: (mode) => phenology.profile(mode),
   };
 }

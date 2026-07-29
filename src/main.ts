@@ -5,8 +5,11 @@ import {
 } from "@navaramap/three-default-plugin";
 import "./ui.css";
 import { addJapanTerrain } from "./terrain";
+import { addSeasonGlow } from "./glow";
 import { MODES } from "./modes";
+import { loadPhenology } from "./phenology";
 import { addStations } from "./stations";
+import { addBlossoms } from "./blossoms";
 import { createUi } from "./ui";
 
 const container = document.getElementById("main")!;
@@ -22,22 +25,41 @@ view.addPlugin(defaultPlugin);
 
 await view.init();
 
-defaultPlugin.addDefaultPhotorealScene();
+const scene = defaultPlugin.addDefaultPhotorealScene();
 
-// globe.color tints the whole surface, not just the sea — hillshade blends over
-// it — so a dark value drags the land down with it. A mid slate reads as water
-// while leaving the shaded relief legible.
-view.globe.color = new Color().setStyle("#8fa8c4");
+/**
+ * Terrain geometry exaggeration. Stays low: past ~3x the DEM's high-frequency
+ * noise turns into vertical needles that look nothing like Japan. Legibility at
+ * archipelago scale comes from the hillshade instead, which can be pushed hard
+ * without deforming anything.
+ *
+ * Hoisted because the blossoms sit on the same exaggerated surface and so must
+ * scale station elevations by the identical factor.
+ */
+const EXAGGERATION = 2.5;
 
-// Geometry exaggeration stays low: past ~3x the DEM's high-frequency noise turns
-// into vertical needles that look nothing like Japan, especially when zoomed in.
-// Legibility at archipelago scale comes from the hillshade instead, which can be
-// pushed hard without deforming anything.
-addJapanTerrain(view, {
-  exaggeration: 2.5,
-  hillshadeExaggeration: 6,
+// globe.color is only visible where the basemap isn't. That used to be most of
+// the planet — 淡色地図 covers Japan alone — which is why this was a mid slate
+// that read as water. CARTO covers the whole globe, so this is now just the
+// colour of the gaps, and a near-black keeps the horizon from glowing.
+view.globe.color = new Color().setStyle("#101720");
+
+// Going dark crushes the sunlit relief; a little extra exposure brings the
+// hillshade back without lifting the basemap off its blacks. Kept modest — the
+// atmosphere's inscatter brightens with it, and past ~1.2 the haze starts eating
+// the highlight it is supposed to be lighting.
+view.toneMappingExposure = 1.1;
+
+const terrain = addJapanTerrain(view, {
+  exaggeration: EXAGGERATION,
+  // Pushed from 6: the relief now has to carry the terrain read on its own,
+  // since the basemap below it is almost black.
+  hillshadeExaggeration: 8,
   basemap: true,
-  basemapOpacity: 0.28,
+  basemapOpacity: 0.85,
+  // The whole piece is about Japan, so Japan should not look like its
+  // neighbours. GSI's Japan-only tiles do the masking for us.
+  highlight: true,
 });
 
 // Fixed oblique view of the archipelago. The camera never moves; the data does.
@@ -52,13 +74,30 @@ view.setCamera({
   roll: 0,
 });
 
+// Before the station layers: their materials bake `effectIds` into a bitmask at
+// build time, so the bloom slot has to exist first or the markers never glow.
+const glow = addSeasonGlow(view);
+
 // All three fronts on by default: they peak at different times of year, so
 // showing them together is what makes the opposing directions legible.
 const selected = new Set(MODES.map((mode) => mode.id));
 let day = 60;
 let playing = true;
 
-const stations = await addStations(view, selected);
+const phenology = await loadPhenology();
+const stations = addStations(view, phenology, selected);
+
+// The modes carrying a `blossom` style get instanced 3D geometry; stations.ts
+// has already skipped their sprite layers.
+const blossoms = MODES.filter((mode) => mode.blossom).map((mode) => ({
+  mode,
+  handle: addBlossoms(view, {
+    mode,
+    stations: phenology.stations,
+    exaggeration: EXAGGERATION,
+  }),
+}));
+
 const ui = createUi(container);
 
 /**
@@ -75,6 +114,10 @@ function syncSun(dayOfYear: number) {
 
 function render() {
   stations.setDay(day);
+  for (const { mode, handle } of blossoms) {
+    handle.setDay(day, selected.has(mode.id));
+  }
+
   syncSun(day);
   ui.render({
     day,
@@ -123,4 +166,12 @@ requestAnimationFrame(tick);
 
 render();
 
-Object.assign(window as unknown as Record<string, unknown>, { view, Color });
+Object.assign(window as unknown as Record<string, unknown>, {
+  view,
+  Color,
+  stations,
+  blossoms,
+  terrain,
+  scene,
+  glow,
+});

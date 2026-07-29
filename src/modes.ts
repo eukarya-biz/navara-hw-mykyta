@@ -19,6 +19,34 @@ export type Mode = {
   glow: string;
   /** Which direction the front travels — surfaced as the pill's tooltip. */
   direction: string;
+  /**
+   * When present, the mode is drawn as instanced 3D geometry instead of a point
+   * sprite, and stations.ts skips its sprite layer entirely.
+   */
+  blossom?: BlossomStyle;
+};
+
+/**
+ * 3D marker style. `kind` selects a geometry factory in blossoms.ts, which is
+ * where 紅葉 and 銀杏 get their own shapes; keeping it a string keeps this module
+ * pure data, with no three.js import.
+ */
+export type BlossomStyle = {
+  kind: "blossom";
+  /**
+   * World radius in metres at the dimmest and brightest point of the arc. The
+   * fixed camera resolves about 2,450 m per pixel, so these track the
+   * minSize/maxSize pixel range the sprites used — roughly 1,200 m per pixel of
+   * sprite radius, plus a little, since petals with gaps between them read
+   * smaller than a solid filled disc.
+   */
+  minRadius: number;
+  maxRadius: number;
+  petals: number;
+  /** Multiplier baked into the centre disc's vertex colour. */
+  centerTint: [number, number, number];
+  /** Scales the bloom; the glow colour itself follows the ramp. */
+  emissiveIntensity: number;
 };
 
 export const MODES: Mode[] = [
@@ -32,10 +60,22 @@ export const MODES: Mode[] = [
     holdDays: 6,
     fadeDays: 10,
     ramp: ["#f7c8da", "#ff9ec4", "#ff77ae", "#f5b7cd", "#cfd6cf"],
+    // minSize/maxSize are unused while `blossom` is set — kept because they
+    // document the pixel target the radii below were derived from, and they are
+    // what the sprite layer falls back to if the mesh is ever reverted.
     minSize: 4,
     maxSize: 19,
     glow: "#ff5fa2",
     direction: "南 → 北 · south to north",
+    blossom: {
+      kind: "blossom",
+      minRadius: 5_000,
+      maxRadius: 25_000,
+      petals: 5,
+      // Warm eye against pink petals.
+      centerTint: [1.0, 0.86, 0.62],
+      emissiveIntensity: 0.5,
+    },
   },
   {
     id: "kouyou",
