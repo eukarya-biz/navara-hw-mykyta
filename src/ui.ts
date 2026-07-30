@@ -168,39 +168,43 @@ export function createUi(container: HTMLElement): Ui {
     ctx.clearRect(0, 0, width, height);
 
     const shown = state.series.filter((s) => state.selected.has(s.mode.id));
-    // The station modes are curves on one shared vertical scale, so they stay
-    // comparable rather than each being normalised to its own peak. 梅雨 is left
-    // out of both the scale and the curves: it counts 12 地方 against their ~90
-    // 地点, which is not the same quantity, and as a curve on a shared count scale
-    // it would be a flat line pinned to the axis — invisible in exactly the gap it
-    // exists to fill.
-    const curves = shown.filter((s) => !s.mode.regional);
-    const bands = shown.filter((s) => s.mode.regional);
-    const max = Math.max(1, ...curves.flatMap((s) => s.profile));
+    // The station modes share one vertical scale, so they stay comparable with
+    // each other rather than each being normalised to its own peak.
+    const stationMax = Math.max(
+      1,
+      ...shown.filter((s) => !s.mode.regional).flatMap((s) => s.profile),
+    );
     const xOf = (day: number) => ((day - 1) / 364) * width;
-    const yOf = (value: number) => height - (value / max) * (height - 2) - 1;
+    // Takes a 0..1 fraction rather than a raw count, because the four modes do not
+    // all arrive in the same unit.
+    const yOf = (unit: number) => height - unit * (height - 2) - 1;
 
-    // Behind the curves, and full height: a season rather than a tally. Opacity
-    // tracks how much of the country is under it, so the band deepens as the
-    // regions turn on and drains from the same edge they turn off.
-    for (const { mode, profile, total } of bands) {
-      const accent = accentOf(mode);
-      for (let day = 1; day <= 365; day += 1) {
-        const share = profile[day] / Math.max(total, 1);
-        if (share <= 0) continue;
-        const alpha = Math.round((0.05 + 0.22 * share) * 255)
-          .toString(16)
-          .padStart(2, "0");
-        ctx.fillStyle = `${accent}${alpha}`;
-        ctx.fillRect(xOf(day), 0, Math.max(xOf(day + 1) - xOf(day), 1), height);
-      }
-    }
+    /**
+     * A day's value as a fraction of the top of the graph.
+     *
+     * 梅雨 counts 12 地方 against the others' ~90 地点, which is not the same
+     * quantity: on the shared count scale it would be a flat line pinned to the
+     * axis, invisible in exactly the gap it exists to fill. So it is plotted as a
+     * share of its own denominator instead — all 12 regions inside 梅雨 reaches the
+     * top of the graph, the same place the station curves reach at their own peaks.
+     */
+    const unitOf = (s: UiState["series"][number], day: number) =>
+      s.mode.regional
+        ? s.profile[day] / Math.max(s.total, 1)
+        : s.profile[day] / stationMax;
 
-    for (const { mode, profile } of curves) {
-      const accent = accentOf(mode);
+    // 梅雨 first, so it sits behind the station curves the way its band did.
+    const ordered = [...shown].sort(
+      (a, b) => Number(!!b.mode.regional) - Number(!!a.mode.regional),
+    );
+
+    for (const series of ordered) {
+      const accent = accentOf(series.mode);
       ctx.beginPath();
       ctx.moveTo(0, height);
-      for (let day = 1; day <= 365; day += 1) ctx.lineTo(xOf(day), yOf(profile[day]));
+      for (let day = 1; day <= 365; day += 1) {
+        ctx.lineTo(xOf(day), yOf(unitOf(series, day)));
+      }
       ctx.lineTo(width, height);
       ctx.closePath();
       ctx.fillStyle = `${accent}1f`;
@@ -209,7 +213,7 @@ export function createUi(container: HTMLElement): Ui {
       ctx.beginPath();
       for (let day = 1; day <= 365; day += 1) {
         const x = xOf(day);
-        const y = yOf(profile[day]);
+        const y = yOf(unitOf(series, day));
         if (day === 1) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
