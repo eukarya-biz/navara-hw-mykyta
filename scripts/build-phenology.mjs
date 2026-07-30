@@ -13,6 +13,16 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  ERAS,
+  eraMean,
+  fetchShiftJis,
+  mean,
+  monthDayToDoy,
+  parseCsv,
+  squeeze,
+} from "./jma.mjs";
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = resolve(ROOT, "public/data/phenology.geojson");
 
@@ -36,33 +46,14 @@ const SERIES = {
   ichoOuyou: { file: "013", label: "いちょう黄葉" },
 };
 
-/**
- * Era windows for the "then vs now" comparison. Kept deliberately equal in
- * length so the two means are comparable.
- */
-const ERAS = {
-  early: [1953, 1982],
-  late: [1996, 2025],
-};
-
 /** 生物季節 station names that differ from the AMeDAS spelling. */
 const NAME_ALIASES = {
   南大東島: "南大東",
 };
 
-const MONTH_STARTS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-
 /** MMDD integer -> day of year, on a common non-leap calendar. */
 function mmddToDoy(mmdd) {
-  const month = Math.floor(mmdd / 100);
-  const day = mmdd % 100;
-  if (month < 1 || month > 12 || day < 1 || day > 31) return null;
-  return MONTH_STARTS[month - 1] + day;
-}
-
-function mean(values) {
-  if (values.length === 0) return null;
-  return values.reduce((a, b) => a + b, 0) / values.length;
+  return monthDayToDoy(Math.floor(mmdd / 100), mmdd % 100);
 }
 
 /**
@@ -73,21 +64,12 @@ function toCalendar(value) {
   return Math.round((value <= 0 ? value + 365 : value) * 10) / 10;
 }
 
-async function fetchShiftJis(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
-  return new TextDecoder("shift_jis").decode(await res.arrayBuffer());
-}
-
 /**
  * Parses one 累年値 CSV into `Map<stationName, Map<year, doy>>`.
  * Row 1 is a title, row 2 is the header carrying the year for each value column.
  */
 function parseRuinenchi(text, wrapAfter) {
-  const rows = text
-    .split(/\r?\n/)
-    .map((line) => line.split(","))
-    .filter((cells) => cells.length > 2);
+  const rows = parseCsv(text);
 
   const header = rows[1];
   const yearAt = new Map();
@@ -102,7 +84,7 @@ function parseRuinenchi(text, wrapAfter) {
     // Station rows start with a numeric 番号; trailing notes rows do not.
     if (!/^\d+$/.test(code ?? "")) continue;
     // Names are padded with ideographic spaces to a fixed width.
-    const name = cells[1]?.replace(/[\s　]+/g, "");
+    const name = squeeze(cells[1]);
     if (!name) continue;
 
     const series = new Map();
@@ -117,14 +99,6 @@ function parseRuinenchi(text, wrapAfter) {
     if (series.size > 0) byStation.set(name, series);
   }
   return byStation;
-}
-
-function eraMean(series, [from, to]) {
-  const values = [];
-  for (const [year, doy] of series) {
-    if (year >= from && year <= to) values.push(doy);
-  }
-  return values.length >= 5 ? mean(values) : null;
 }
 
 async function main() {

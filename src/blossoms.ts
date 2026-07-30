@@ -25,7 +25,7 @@ import {
 import { buildFloraGeometry } from "./blossomGeometry";
 import { GLOW_ID } from "./glow";
 import { phase, sampleRamp, type FloraShape, type Mode } from "./modes";
-import { eventDays, type Station } from "./phenology";
+import { eventDays, type EventDays, type Station } from "./phenology";
 
 const TAU = Math.PI * 2;
 
@@ -187,11 +187,15 @@ export class BlossomMeshDesc extends InstancedMeshDesc<
  * Each owns its own `Matrix4` rather than sharing a scratch one: `replaceAll`
  * stores the child configs by reference, so a shared matrix would alias across
  * every instance.
+ *
+ * Exported because tsuyu.ts places its cloud deck on the same descriptor: the
+ * mesh only needs something that can put a matrix and a colour on a child config
+ * once per frame, and "station" is the historical name for that, not a constraint.
  */
-type PlacedStation = {
+export type PlacedStation = {
   child: BlossomChildConfig;
-  /** Day-of-year this station starts and peaks, resolved once at placement. */
-  days: { start: number; peak: number };
+  /** Day-of-year window this station occupies, resolved once at placement. */
+  days: EventDays;
   radius: number;
   /** Stable 0..1 hash, so spin and wobble differ per station but never drift. */
   seed: number;
@@ -200,7 +204,7 @@ type PlacedStation = {
 
 function place(
   station: Station,
-  days: { start: number; peak: number },
+  days: EventDays,
   index: number,
   exaggeration: number,
   anchor: [number, number],
@@ -260,11 +264,23 @@ export type BlossomHandle = {
 let registered = false;
 
 /**
- * Adds one instanced mesh for a mode carrying a `blossom` style.
+ * Registers the descriptor under the `blossoms` key, once.
+ *
+ * Exported so tsuyu.ts can add its cloud deck without depending on `addBlossoms`
+ * having run first: both call this, whichever goes first pays for it. Calling
+ * `registerMesh` twice for one key would otherwise be an ordering trap that only
+ * breaks when someone reorders main.ts.
  *
  * `registerMesh` is safe after `view.init()` — unlike `addPlugin`, it has no
  * initialisation guard.
  */
+export function registerBlossomMesh(view: ThreeView<{ mesh: BlossomsMeshConfig }>) {
+  if (registered) return;
+  view.registerMesh("blossoms", BlossomMeshDesc);
+  registered = true;
+}
+
+/** Adds one instanced mesh for a mode carrying a `blossom` style. */
 export function addBlossoms(
   view: ThreeView<{ mesh: BlossomsMeshConfig }>,
   {
@@ -276,10 +292,7 @@ export function addBlossoms(
   const style = mode.blossom;
   if (!style) throw new Error(`Mode ${mode.id} has no 3D style`);
 
-  if (!registered) {
-    view.registerMesh("blossoms", BlossomMeshDesc);
-    registered = true;
-  }
+  registerBlossomMesh(view);
 
   const placed = stations
     .flatMap((station) => {
@@ -313,7 +326,7 @@ export function addBlossoms(
       for (const station of placed) {
         const { days } = station;
         const state = visible
-          ? phase(mode, day, days.start, days.peak)
+          ? phase(mode, day, days.start, days.peak, days.end)
           : null;
         if (!state) {
           station.radius = 0;

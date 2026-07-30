@@ -6,10 +6,11 @@ import {
 import "./ui.css";
 import { addJapanTerrain } from "./terrain";
 import { addSeasonGlow } from "./glow";
-import { MODES } from "./modes";
-import { loadPhenology } from "./phenology";
+import { MODES, type Mode } from "./modes";
+import { loadPhenology, type SeasonIndex } from "./phenology";
 import { addStations } from "./stations";
 import { addBlossoms } from "./blossoms";
+import { addTsuyu, loadTsuyu } from "./tsuyu";
 import { createUi } from "./ui";
 
 const container = document.getElementById("main")!;
@@ -78,13 +79,16 @@ view.setCamera({
 // build time, so the bloom slot has to exist first or the markers never glow.
 const glow = addSeasonGlow(view);
 
-// All three fronts on by default: they peak at different times of year, so
-// showing them together is what makes the opposing directions legible.
+// All four fronts on by default: they occupy different parts of the year, so
+// showing them together is what makes the opposing directions legible — and 梅雨
+// sits in the one gap between spring and autumn, which is what makes the timeline
+// graph cover the whole year rather than two humps with a hole in the middle.
 const selected = new Set(MODES.map((mode) => mode.id));
 let day = 60;
 let playing = true;
 
 const phenology = await loadPhenology();
+const tsuyu = await loadTsuyu(phenology);
 const stations = addStations(view, phenology, selected);
 
 // The modes carrying a `blossom` style get instanced 3D geometry; stations.ts
@@ -97,6 +101,18 @@ const blossoms = MODES.filter((mode) => mode.blossom).map((mode) => ({
     exaggeration: EXAGGERATION,
   }),
 }));
+
+// After the blossoms, so the `blossoms` descriptor key is already registered and
+// the bloom slot already exists — the deck shares both.
+const tsuyuMode = MODES.find((mode) => mode.tsuyu)!;
+const tsuyuHandle = addTsuyu(view, { mode: tsuyuMode, tsuyu });
+
+/**
+ * 梅雨 is counted in 地方 and the other three in 地点, so the tallies come from two
+ * different indexes. Both satisfy `SeasonIndex`, and both read the single clock
+ * that `stations.setDay` advances.
+ */
+const indexFor = (mode: Mode): SeasonIndex => (mode.regional ? tsuyu : stations);
 
 const ui = createUi(container);
 
@@ -117,18 +133,22 @@ function render() {
   for (const { mode, handle } of blossoms) {
     handle.setDay(day, selected.has(mode.id));
   }
+  tsuyuHandle.setDay(day, selected.has(tsuyuMode.id));
 
   syncSun(day);
   ui.render({
     day,
     selected,
     playing,
-    series: MODES.map((mode) => ({
-      mode,
-      active: stations.activeCount(mode),
-      total: stations.totalCount(mode),
-      profile: stations.profile(mode),
-    })),
+    series: MODES.map((mode) => {
+      const index = indexFor(mode);
+      return {
+        mode,
+        active: index.activeCount(mode),
+        total: index.totalCount(mode),
+        profile: index.profile(mode),
+      };
+    }),
   });
 }
 
@@ -148,15 +168,36 @@ ui.onTogglePlay(() => {
   render();
 });
 
-// ~24 s for a full year at 60fps.
+// ~24 s for a full year at 60fps, so roughly 15 days a second.
 const DAYS_PER_MS = 365 / 24_000;
+
+/**
+ * The clock slows through 梅雨.
+ *
+ * At the uniform rate the season is 3.9 s of the loop and the two sweeps that
+ * carry its motion are under a second each — the onset line crosses the framed
+ * archipelago in 11 days, which is 0.7 s and about 450 screen pixels a second.
+ * Everything about the deck and the lines could be right and still never be seen
+ * outside of scrubbing.
+ *
+ * The three biological fronts take 3–4 months each, so they need no such help;
+ * this is the one phenomenon whose real pace is faster than the eye at this scale.
+ */
+const TSUYU_HOLD = { from: 148, to: 212, scale: 0.4 };
+
+function rateAt(dayOfYear: number) {
+  const inside =
+    dayOfYear >= TSUYU_HOLD.from && dayOfYear <= TSUYU_HOLD.to;
+  return inside ? DAYS_PER_MS * TSUYU_HOLD.scale : DAYS_PER_MS;
+}
+
 let last = performance.now();
 
 function tick(now: number) {
   const elapsed = now - last;
   last = now;
   if (playing) {
-    day += elapsed * DAYS_PER_MS;
+    day += elapsed * rateAt(day);
     if (day > 365) day -= 365;
     render();
   }
@@ -171,6 +212,8 @@ Object.assign(window as unknown as Record<string, unknown>, {
   Color,
   stations,
   blossoms,
+  tsuyu,
+  tsuyuHandle,
   terrain,
   scene,
   glow,

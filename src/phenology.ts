@@ -11,32 +11,50 @@ export type Station = {
   properties: StationProperties;
 };
 
-export type Phenology = {
+/**
+ * The three tallies the UI needs, whatever unit is being counted.
+ *
+ * 桜, 紅葉 and 銀杏 count observation stations and 梅雨 counts 地方, so the numbers
+ * come from two different indexes — but the UI only ever sees this shape.
+ */
+export type SeasonIndex = {
+  /** Members inside their active window on the current day, for one mode. */
+  activeCount(mode: Mode): number;
+  /** Members that have data for a mode at all. */
+  totalCount(mode: Mode): number;
+  /** Active count per day-of-year, for the timeline graph. */
+  profile(mode: Mode): number[];
+};
+
+export type Phenology = SeasonIndex & {
   /** The raw FeatureCollection, handed straight to a `geojson` source. */
   collection: unknown;
   stations: Station[];
   /** Current day-of-year; fractional. */
   readonly day: number;
   setDay(day: number): void;
-  /** Stations inside their active window on the current day, for one mode. */
-  activeCount(mode: Mode): number;
-  /** Stations that have data for a mode at all. */
-  totalCount(mode: Mode): number;
-  /** Active count per day-of-year, for the timeline graph. */
-  profile(mode: Mode): number[];
 };
 
+/** The day-of-year window a mode occupies at one station or region. */
+export type EventDays = { start: number; peak: number; end?: number };
+
 /**
- * The day-of-year a mode's phenomenon starts and peaks at one station, or null
- * when that station has no reading for it. 紅葉 and 銀杏 have no recorded peak,
- * so they fall back to a fixed lag after the start.
+ * The day-of-year a mode's phenomenon starts, peaks and ends at one station, or
+ * null when that station has no reading for it. 紅葉 and 銀杏 have no recorded
+ * peak, so they fall back to a fixed lag after the start; only 梅雨 has a
+ * recorded end, and for everything else `end` stays undefined so `phase`
+ * synthesises one.
  */
-export function eventDays(properties: StationProperties, mode: Mode) {
+export function eventDays(
+  properties: StationProperties,
+  mode: Mode,
+): EventDays | null {
   const start = properties[mode.startKey];
   if (typeof start !== "number") return null;
   const peakRaw = mode.peakKey ? properties[mode.peakKey] : undefined;
   const peak = typeof peakRaw === "number" ? peakRaw : start + mode.peakLag;
-  return { start, peak };
+  const endRaw = mode.endKey ? properties[mode.endKey] : undefined;
+  return { start, peak, end: typeof endRaw === "number" ? endRaw : undefined };
 }
 
 /**
@@ -81,7 +99,7 @@ export async function loadPhenology(): Promise<Phenology> {
       let n = 0;
       for (const station of stations) {
         const days = eventDays(station.properties, mode);
-        if (days && phase(mode, day, days.start, days.peak)) n += 1;
+        if (days && phase(mode, day, days.start, days.peak, days.end)) n += 1;
       }
       return n;
     },
@@ -99,7 +117,7 @@ export async function loadPhenology(): Promise<Phenology> {
         let n = 0;
         for (const station of stations) {
           const days = eventDays(station.properties, mode);
-          if (days && phase(mode, index, days.start, days.peak)) n += 1;
+          if (days && phase(mode, index, days.start, days.peak, days.end)) n += 1;
         }
         return n;
       });

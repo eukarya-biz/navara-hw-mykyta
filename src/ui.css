@@ -78,9 +78,63 @@
 }
 
 .ui-count-value {
-  min-width: 62px;
+  /* Was 62px, before the rows carried their unit as well as the numbers. */
+  min-width: 98px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+/*
+ * 北海道に梅雨はない.
+ *
+ * Placed absolutely over Hokkaido, which is legitimate only because the camera
+ * is fixed for the life of the page — there are no controls and nothing calls
+ * setCamera twice. Percentages so a resized viewport keeps it roughly in place.
+ */
+.ui-dry {
+  position: absolute;
+  top: 20%;
+  left: 63%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+}
+
+.ui-dry.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.ui-dry-ja {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #dce6ef;
+  /* The sunlit relief underneath is the brightest thing in frame during 梅雨,
+     so the text needs its own separation from it. */
+  text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
+}
+
+.ui-dry-en {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #93a2b0;
+  text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
+}
+
+/* A hairline back to the landmass it is naming. */
+.ui-dry::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: calc(100% + 8px);
+  width: 46px;
+  height: 1px;
+  background: linear-gradient(to left, #93a2b0, transparent);
 }
 
 .ui-pills {

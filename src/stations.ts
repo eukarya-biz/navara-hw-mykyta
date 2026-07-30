@@ -24,6 +24,9 @@ export type StationLayers = {
  * `BlossomStyle.anchor` is the live equivalent, in ground metres rather than
  * screen fractions. Kept in step with it, because this is the whole layer's
  * fallback if a mode ever drops back to sprites.
+ *
+ * Shorter than MODES since 梅雨 was added — it is `regional`, so it never reaches
+ * the indexing below, and it has no sprite fallback to keep in step with.
  */
 const ANCHORS: [number, number][] = [
   [0, 0],
@@ -34,10 +37,16 @@ const ANCHORS: [number, number][] = [
 /**
  * Sprite layers for every mode that is *not* drawn as 3D geometry.
  *
- * Modes carrying a `blossom` config are skipped entirely — blossoms.ts renders
- * those as an instanced mesh instead, and a layer left in place would keep
- * re-evaluating 102 features to draw nothing. The counts are unaffected either
- * way: they come from the shared phenology index, not from any evaluator.
+ * Two kinds of mode are skipped entirely, and a layer left in place for either
+ * would keep re-evaluating 102 features to draw nothing:
+ *
+ * - `blossom` modes, which blossoms.ts renders as an instanced mesh instead.
+ * - `regional` modes, whose data is not on these features at all — 梅雨 is
+ *   announced per 地方, so no station carries a `tsuyuIri` for the evaluator to
+ *   read, and every feature would fail the `eventDays` guard.
+ *
+ * The counts are unaffected either way: they come from a season index, not from
+ * any evaluator.
  */
 export function addStations(
   view: ThreeView<never>,
@@ -54,7 +63,7 @@ export function addStations(
   let active = new Set(selected);
 
   const layers = MODES.flatMap((mode, index) => {
-    if (mode.blossom) return [];
+    if (mode.blossom || mode.regional) return [];
 
     const layer = view.addLayer({
       type: "vector",
@@ -90,7 +99,13 @@ export function addStations(
           const days = eventDays(featureProperties as StationProperties, mode);
           if (!days) return { show: false };
 
-          const state = phase(mode, phenology.day, days.start, days.peak);
+          const state = phase(
+            mode,
+            phenology.day,
+            days.start,
+            days.peak,
+            days.end,
+          );
           if (!state) return { show: false };
 
           return {
@@ -100,7 +115,11 @@ export function addStations(
               mode.minSize + (mode.maxSize - mode.minSize) * state.intensity,
           };
         },
-        { filters: [mode.startKey, mode.peakKey].filter(Boolean) as string[] },
+        {
+          filters: [mode.startKey, mode.peakKey, mode.endKey].filter(
+            Boolean,
+          ) as string[],
+        },
       );
     });
 

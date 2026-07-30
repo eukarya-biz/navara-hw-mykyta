@@ -1,0 +1,790 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "source": "気象庁 梅雨入りと梅雨明け（確定値）",
+  "sourceUrl": "https://www.data.jma.go.jp/cpd/baiu/index.html",
+  "csv": [
+   "tsuyu_iriake.csv",
+   "tsuyu_prec.csv"
+  ],
+  "years": [
+   1951,
+   2025
+  ],
+  "normals": [
+   1991,
+   2020
+  ],
+  "eras": {
+   "early": [
+    1953,
+    1982
+   ],
+   "late": [
+    1996,
+    2025
+   ]
+  },
+  "anchorCoordinates": "気象庁 AMeDAS 観測所一覧, via public/data/phenology.geojson",
+  "transitionDays": 5,
+  "transitionNote": "JMA announces both edges as 「○月○日頃」 because there is a 平均５日間程度 transition at each, so no single day can be named. Those five days are the renderer's onset and withdrawal ramps, and both sit inside the announced window, so nothing is drawn on a day JMA did not name.",
+  "undetermined": {
+   "iri": 2,
+   "ake": 26,
+   "note": "Seasons whose edge could not be pinned to a date. 梅雨明け is far more often indeterminate than 梅雨入り, and the count rises with latitude: none at all in 沖縄 or 奄美, eight in 東北北部. 1993 alone accounts for ten of them — every region except 沖縄 and 奄美."
+  },
+  "hokkaido": {
+   "regions": 0,
+   "stations": 16,
+   "note": "北海道に梅雨はない。JMA defines no 梅雨 for Hokkaido — 梅雨前線は北海道付近では不明瞭となることが多い. Its 16 stations belong to no region here, and the build asserts 86 + 16 = 102 against phenology.geojson so the absence is checked rather than inferred."
+  },
+  "note": "梅雨 is announced for a whole 地方, so the unit here is the region and not the observation station: there is no Shizuoka reading, only 東海's. Per-year values are deliberately not shipped — the map animates one climatological year — but all-years and era means are, for reference."
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.68666666666667,
+     26.206666666666667
+    ]
+   },
+   "properties": {
+    "code": "01",
+    "id": "okinawa",
+    "name": "沖縄",
+    "nameEn": "Okinawa",
+    "anchorStation": "那覇",
+    "alt": 28,
+    "prefectures": [
+     "沖縄"
+    ],
+    "stations": [
+     "那覇",
+     "名護",
+     "久米島",
+     "南大東島",
+     "宮古島",
+     "与那国島",
+     "西表島",
+     "石垣島"
+    ],
+    "stationCount": 8,
+    "tsuyuIri": 130,
+    "tsuyuAke": 172,
+    "tsuyuSpan": 42,
+    "tsuyuIriLabel": "5月10日頃",
+    "tsuyuAkeLabel": "6月21日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 0,
+    "tsuyuIri_mean": 130.3,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 130.2,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 131,
+    "tsuyuIri_shift": 0.8,
+    "tsuyuAke_mean": 172.8,
+    "tsuyuAke_n": 75,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 173.4,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 171.4,
+    "tsuyuAke_shift": -2,
+    "prec_mean": 108,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 110.4,
+    "prec_late_n": 30,
+    "prec_late": 109.2,
+    "prec_shift": -1.2
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.49333333333334,
+     28.385
+    ]
+   },
+   "properties": {
+    "code": "02",
+    "id": "amami",
+    "name": "奄美",
+    "nameEn": "Amami",
+    "anchorStation": "名瀬",
+    "alt": 3,
+    "prefectures": [
+     "鹿児島 (奄美市・大島郡・十島村)"
+    ],
+    "stations": [
+     "名瀬"
+    ],
+    "stationCount": 1,
+    "tsuyuIri": 132,
+    "tsuyuAke": 180,
+    "tsuyuSpan": 48,
+    "tsuyuIriLabel": "5月12日頃",
+    "tsuyuAkeLabel": "6月29日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 0,
+    "tsuyuIri_mean": 131.5,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 129.8,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 132.1,
+    "tsuyuIri_shift": 2.3,
+    "tsuyuAke_mean": 179,
+    "tsuyuAke_n": 75,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 177.9,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 179,
+    "tsuyuAke_shift": 1.1,
+    "prec_mean": 105.2,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 107.8,
+    "prec_late_n": 30,
+    "prec_late": 106.7,
+    "prec_shift": -1.2
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.54666666666665,
+     31.555
+    ]
+   },
+   "properties": {
+    "code": "03",
+    "id": "kyushuS",
+    "name": "九州南部",
+    "nameEn": "Southern Kyushu",
+    "anchorStation": "鹿児島",
+    "alt": 4,
+    "prefectures": [
+     "宮崎",
+     "鹿児島 (奄美を除く)"
+    ],
+    "stations": [
+     "鹿児島",
+     "宮崎",
+     "延岡",
+     "種子島",
+     "屋久島"
+    ],
+    "stationCount": 5,
+    "tsuyuIri": 150,
+    "tsuyuAke": 196,
+    "tsuyuSpan": 46,
+    "tsuyuIriLabel": "5月30日頃",
+    "tsuyuAkeLabel": "7月15日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 150.8,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 151,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 150.8,
+    "tsuyuIri_shift": -0.3,
+    "tsuyuAke_mean": 195.7,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 195.7,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 196.8,
+    "tsuyuAke_shift": 1.1,
+    "prec_mean": 88.8,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 79,
+    "prec_late_n": 30,
+    "prec_late": 98.3,
+    "prec_shift": 19.3
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.375,
+     33.58166666666666
+    ]
+   },
+   "properties": {
+    "code": "04",
+    "id": "kyushuN",
+    "name": "九州北部",
+    "nameEn": "Northern Kyushu",
+    "anchorStation": "福岡",
+    "alt": 3,
+    "prefectures": [
+     "山口",
+     "福岡",
+     "大分",
+     "佐賀",
+     "熊本",
+     "長崎"
+    ],
+    "stations": [
+     "福岡",
+     "佐賀",
+     "長崎",
+     "福江",
+     "厳原",
+     "熊本",
+     "大分",
+     "下関"
+    ],
+    "stationCount": 8,
+    "tsuyuIri": 155,
+    "tsuyuAke": 200,
+    "tsuyuSpan": 45,
+    "tsuyuIriLabel": "6月4日頃",
+    "tsuyuAkeLabel": "7月19日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 155.9,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 156.8,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 154.6,
+    "tsuyuIri_shift": -2.1,
+    "tsuyuAke_mean": 199.1,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 199.1,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 199.9,
+    "tsuyuAke_shift": 0.8,
+    "prec_mean": 97.1,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 96.6,
+    "prec_late_n": 30,
+    "prec_late": 96.9,
+    "prec_shift": 0.3
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.05333333333334,
+     34.318333333333335
+    ]
+   },
+   "properties": {
+    "code": "05",
+    "id": "shikoku",
+    "name": "四国",
+    "nameEn": "Shikoku",
+    "anchorStation": "高松",
+    "alt": 9,
+    "prefectures": [
+     "徳島",
+     "香川",
+     "愛媛",
+     "高知"
+    ],
+    "stations": [
+     "高松",
+     "松山",
+     "高知",
+     "徳島",
+     "宇和島"
+    ],
+    "stationCount": 5,
+    "tsuyuIri": 156,
+    "tsuyuAke": 198,
+    "tsuyuSpan": 42,
+    "tsuyuIriLabel": "6月5日頃",
+    "tsuyuAkeLabel": "7月17日頃",
+    "tsuyuIri_undetermined": 1,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 155.5,
+    "tsuyuIri_n": 74,
+    "tsuyuIri_early_n": 29,
+    "tsuyuIri_early": 156.2,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 155,
+    "tsuyuIri_shift": -1.2,
+    "tsuyuAke_mean": 197.8,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 197.1,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 198.2,
+    "tsuyuAke_shift": 1.1,
+    "prec_mean": 97.5,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 96,
+    "prec_late_n": 30,
+    "prec_late": 98.5,
+    "prec_shift": 2.5
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.46166666666667,
+     34.39833333333333
+    ]
+   },
+   "properties": {
+    "code": "06",
+    "id": "chugoku",
+    "name": "中国",
+    "nameEn": "Chugoku",
+    "anchorStation": "広島",
+    "alt": 4,
+    "prefectures": [
+     "鳥取",
+     "島根",
+     "岡山",
+     "広島"
+    ],
+    "stations": [
+     "広島",
+     "岡山",
+     "鳥取",
+     "松江",
+     "米子",
+     "浜田",
+     "西郷"
+    ],
+    "stationCount": 7,
+    "tsuyuIri": 157,
+    "tsuyuAke": 200,
+    "tsuyuSpan": 43,
+    "tsuyuIriLabel": "6月6日頃",
+    "tsuyuAkeLabel": "7月19日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 2,
+    "tsuyuIri_mean": 157.3,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 158.5,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 156.2,
+    "tsuyuIri_shift": -2.3,
+    "tsuyuAke_mean": 199.6,
+    "tsuyuAke_n": 73,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 199,
+    "tsuyuAke_late_n": 29,
+    "tsuyuAke_late": 199.2,
+    "tsuyuAke_shift": 0.1,
+    "prec_mean": 104.5,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 108.5,
+    "prec_late_n": 30,
+    "prec_late": 98.1,
+    "prec_shift": -10.4
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.51833333333335,
+     34.681666666666665
+    ]
+   },
+   "properties": {
+    "code": "07",
+    "id": "kinki",
+    "name": "近畿",
+    "nameEn": "Kinki",
+    "anchorStation": "大阪",
+    "alt": 23,
+    "prefectures": [
+     "滋賀",
+     "京都",
+     "大阪",
+     "兵庫",
+     "奈良",
+     "和歌山"
+    ],
+    "stations": [
+     "大阪",
+     "京都",
+     "神戸",
+     "奈良",
+     "和歌山",
+     "彦根",
+     "舞鶴",
+     "豊岡",
+     "洲本",
+     "潮岬"
+    ],
+    "stationCount": 10,
+    "tsuyuIri": 157,
+    "tsuyuAke": 200,
+    "tsuyuSpan": 43,
+    "tsuyuIriLabel": "6月6日頃",
+    "tsuyuAkeLabel": "7月19日頃",
+    "tsuyuIri_undetermined": 1,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 158.1,
+    "tsuyuIri_n": 74,
+    "tsuyuIri_early_n": 29,
+    "tsuyuIri_early": 159,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 157.5,
+    "tsuyuIri_shift": -1.5,
+    "tsuyuAke_mean": 199.4,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 198.3,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 199.6,
+    "tsuyuAke_shift": 1.3,
+    "prec_mean": 105,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 107.8,
+    "prec_late_n": 30,
+    "prec_late": 99.7,
+    "prec_shift": -8.1
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.965,
+     35.166666666666664
+    ]
+   },
+   "properties": {
+    "code": "08",
+    "id": "tokai",
+    "name": "東海",
+    "nameEn": "Tokai",
+    "anchorStation": "名古屋",
+    "alt": 51,
+    "prefectures": [
+     "岐阜",
+     "静岡",
+     "愛知",
+     "三重"
+    ],
+    "stations": [
+     "名古屋",
+     "岐阜",
+     "津",
+     "静岡",
+     "浜松",
+     "尾鷲",
+     "高山"
+    ],
+    "stationCount": 7,
+    "tsuyuIri": 157,
+    "tsuyuAke": 200,
+    "tsuyuSpan": 43,
+    "tsuyuIriLabel": "6月6日頃",
+    "tsuyuAkeLabel": "7月19日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 159,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 160.7,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 157.5,
+    "tsuyuIri_shift": -3.2,
+    "tsuyuAke_mean": 199.4,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 198.2,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 199.7,
+    "tsuyuAke_shift": 1.5,
+    "prec_mean": 105.3,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 107.2,
+    "prec_late_n": 30,
+    "prec_late": 102.1,
+    "prec_shift": -5.1
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.75,
+     35.69166666666667
+    ]
+   },
+   "properties": {
+    "code": "09",
+    "id": "kantoKoshin",
+    "name": "関東甲信",
+    "nameEn": "Kanto-Koshin",
+    "anchorStation": "東京",
+    "alt": 25,
+    "prefectures": [
+     "茨城",
+     "栃木",
+     "群馬",
+     "埼玉",
+     "千葉",
+     "東京",
+     "神奈川",
+     "山梨",
+     "長野"
+    ],
+    "stations": [
+     "東京",
+     "横浜",
+     "宇都宮",
+     "前橋",
+     "水戸",
+     "熊谷",
+     "銚子",
+     "館山",
+     "甲府",
+     "長野",
+     "松本",
+     "飯田",
+     "大島",
+     "三宅島",
+     "八丈島"
+    ],
+    "stationCount": 15,
+    "tsuyuIri": 158,
+    "tsuyuAke": 200,
+    "tsuyuSpan": 42,
+    "tsuyuIriLabel": "6月7日頃",
+    "tsuyuAkeLabel": "7月19日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 1,
+    "tsuyuIri_mean": 159.1,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 159.7,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 158.7,
+    "tsuyuIri_shift": -1,
+    "tsuyuAke_mean": 199.8,
+    "tsuyuAke_n": 74,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 199.7,
+    "tsuyuAke_late_n": 30,
+    "tsuyuAke_late": 198.9,
+    "tsuyuAke_shift": -0.8,
+    "prec_mean": 101.1,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 100.4,
+    "prec_late_n": 30,
+    "prec_late": 100.7,
+    "prec_shift": 0.3
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.01833333333335,
+     37.89333333333333
+    ]
+   },
+   "properties": {
+    "code": "10",
+    "id": "hokuriku",
+    "name": "北陸",
+    "nameEn": "Hokuriku",
+    "anchorStation": "新潟",
+    "alt": 4,
+    "prefectures": [
+     "新潟",
+     "富山",
+     "石川",
+     "福井"
+    ],
+    "stations": [
+     "新潟",
+     "富山",
+     "金沢",
+     "福井",
+     "輪島",
+     "高田",
+     "相川",
+     "敦賀"
+    ],
+    "stationCount": 8,
+    "tsuyuIri": 162,
+    "tsuyuAke": 204,
+    "tsuyuSpan": 42,
+    "tsuyuIriLabel": "6月11日頃",
+    "tsuyuAkeLabel": "7月23日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 4,
+    "tsuyuIri_mean": 161.9,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 160.8,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 162.4,
+    "tsuyuIri_shift": 1.6,
+    "tsuyuAke_mean": 202.7,
+    "tsuyuAke_n": 71,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 201.3,
+    "tsuyuAke_late_n": 27,
+    "tsuyuAke_late": 202.9,
+    "tsuyuAke_shift": 1.6,
+    "prec_mean": 102.9,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 105.8,
+    "prec_late_n": 30,
+    "prec_late": 98.8,
+    "prec_shift": -7
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.89666666666668,
+     38.26166666666666
+    ]
+   },
+   "properties": {
+    "code": "11",
+    "id": "tohokuS",
+    "name": "東北南部",
+    "nameEn": "Southern Tohoku",
+    "anchorStation": "仙台",
+    "alt": 39,
+    "prefectures": [
+     "宮城",
+     "山形",
+     "福島"
+    ],
+    "stations": [
+     "仙台",
+     "山形",
+     "福島",
+     "酒田",
+     "新庄",
+     "白河",
+     "小名浜"
+    ],
+    "stationCount": 7,
+    "tsuyuIri": 163,
+    "tsuyuAke": 205,
+    "tsuyuSpan": 42,
+    "tsuyuIriLabel": "6月12日頃",
+    "tsuyuAkeLabel": "7月24日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 6,
+    "tsuyuIri_mean": 163,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 161.9,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 163.9,
+    "tsuyuIri_shift": 2,
+    "tsuyuAke_mean": 203.8,
+    "tsuyuAke_n": 69,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 202.4,
+    "tsuyuAke_late_n": 25,
+    "tsuyuAke_late": 205.2,
+    "tsuyuAke_shift": 2.8,
+    "prec_mean": 95.2,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 94.9,
+    "prec_late_n": 30,
+    "prec_late": 98.5,
+    "prec_shift": 3.6
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.76833333333335,
+     40.821666666666665
+    ]
+   },
+   "properties": {
+    "code": "12",
+    "id": "tohokuN",
+    "name": "東北北部",
+    "nameEn": "Northern Tohoku",
+    "anchorStation": "青森",
+    "alt": 3,
+    "prefectures": [
+     "青森",
+     "岩手",
+     "秋田"
+    ],
+    "stations": [
+     "青森",
+     "八戸",
+     "秋田",
+     "盛岡",
+     "宮古"
+    ],
+    "stationCount": 5,
+    "tsuyuIri": 166,
+    "tsuyuAke": 209,
+    "tsuyuSpan": 43,
+    "tsuyuIriLabel": "6月15日頃",
+    "tsuyuAkeLabel": "7月28日頃",
+    "tsuyuIri_undetermined": 0,
+    "tsuyuAke_undetermined": 8,
+    "tsuyuIri_mean": 165.8,
+    "tsuyuIri_n": 75,
+    "tsuyuIri_early_n": 30,
+    "tsuyuIri_early": 165.4,
+    "tsuyuIri_late_n": 30,
+    "tsuyuIri_late": 166.6,
+    "tsuyuIri_shift": 1.1,
+    "tsuyuAke_mean": 207.3,
+    "tsuyuAke_n": 67,
+    "tsuyuAke_early_n": 30,
+    "tsuyuAke_early": 207,
+    "tsuyuAke_late_n": 23,
+    "tsuyuAke_late": 207.8,
+    "tsuyuAke_shift": 0.8,
+    "prec_mean": 96.8,
+    "prec_n": 75,
+    "prec_early_n": 30,
+    "prec_early": 95.2,
+    "prec_late_n": 30,
+    "prec_late": 99.5,
+    "prec_shift": 4.4
+   }
+  }
+ ]
+}
