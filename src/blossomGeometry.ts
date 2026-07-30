@@ -227,54 +227,6 @@ const GINKGO: BladeProfile = {
   bias: [1, 0.98, 0.9],
 };
 
-/* ------------------------------------------------------------------ 梅雨 puff */
-
-/**
- * A cumulus clump for the 梅雨 deck — a scalloped disc, not a flower.
- *
- * The other three shapes fight to keep their blades *separate*: the maple's whole
- * story is that overlapping lobes turn it into a daisy. Here the overlap is the
- * point. `u ** 0.4` widens fast, so by u = 0.2 five lobes already subtend more
- * than 360° and the interior closes solid, while at the margin they fall back to
- * ~68° each and leave 20° of gap — a filled centre with a bumpy rim, which is
- * what a cloud mass looks like from above.
- */
-const PUFF: BladeProfile = {
-  nu: 6,
-  // Only the margin rounding and the shading vary across the blade, and neither
-  // is high-frequency, so this stays modest — there are a few hundred of these.
-  nv: 5,
-  // Far larger than the others': the hub is doing real work here, filling the
-  // whole core of the cloud rather than just plugging a chord gap.
-  baseR: 0.35,
-  halfWidth: (u) => 0.68 * u ** 0.4,
-  // Rounds the margin so each lobe reads as a billow rather than a wedge with
-  // corners. No cleft and no notch — a cloud has no anatomy to signal.
-  edge: (_u, v) => 1 - 0.22 * v * v,
-  /**
-   * A rounded billow ring, zero at both ends.
-   *
-   * Zero at u = 0 keeps the blade bases flush with the hub, which sits at
-   * z = 0.012–0.055: a dome peaking at the centre instead would lift them above
-   * the hub and open the middle of the cloud. Zero at u = 1 keeps the silhouette
-   * crisp against the terrain.
-   *
-   * 0.11 is small on purpose. At the 34 km radius modes.ts gives this shape, a
-   * blossom-style 0.2–0.3 would be a 7–10 km dome — physically right for cumulus,
-   * and 2–4 px on screen, where it would buy nothing and poke through the 前線
-   * line drawn 4 km above the deck. The dome's real job is to vary the normals so
-   * the Lambert term models the billows at all.
-   */
-  lift: (u, v) => 0.11 * Math.sin(Math.PI * u) * (1 - 0.4 * v * v),
-  // Bright crown falling to a grey rim. Without this the deck is one flat white
-  // sheet: at this scale the only thing separating one puff from its neighbour is
-  // that their crowns are lighter than the seam between them.
-  shade: (u, v) => (0.72 + 0.28 * (1 - u)) * (1 - 0.08 * v * v),
-  // A hair warm, for the same reason terrain.ts tints Japan cream: the additive
-  // blue inscatter at this camera eats anything cool.
-  bias: [1, 0.99, 0.97],
-};
-
 /* -------------------------------------------------------------------- build */
 
 /**
@@ -322,15 +274,6 @@ function recipeOf(shape: FloraShape): FloraRecipe {
         profile: GINKGO,
         hubRadius: 0.12,
         hubTint: shape.hubTint,
-      };
-    case "puff":
-      return {
-        blades: shape.lobes,
-        profile: PUFF,
-        // Wider than the 0.35 the lobes start at, so it fills the core rather
-        // than only bridging the gaps between their pointed bases.
-        hubRadius: 0.4,
-        hubTint: shape.crownTint,
       };
   }
 }

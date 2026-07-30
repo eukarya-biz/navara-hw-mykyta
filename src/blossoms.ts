@@ -188,9 +188,8 @@ export class BlossomMeshDesc extends InstancedMeshDesc<
  * stores the child configs by reference, so a shared matrix would alias across
  * every instance.
  *
- * Exported because tsuyu.ts places its cloud deck on the same descriptor: the
- * mesh only needs something that can put a matrix and a colour on a child config
- * once per frame, and "station" is the historical name for that, not a constraint.
+ * The mesh only needs something that can put a matrix and a colour on a child
+ * config once per frame, and "station" is the natural name for that here.
  */
 export type PlacedStation = {
   child: BlossomChildConfig;
@@ -266,10 +265,9 @@ let registered = false;
 /**
  * Registers the descriptor under the `blossoms` key, once.
  *
- * Exported so tsuyu.ts can add its cloud deck without depending on `addBlossoms`
- * having run first: both call this, whichever goes first pays for it. Calling
- * `registerMesh` twice for one key would otherwise be an ordering trap that only
- * breaks when someone reorders main.ts.
+ * Guarded so multiple callers can each call it and whichever goes first pays
+ * for it — calling `registerMesh` twice for one key would otherwise be an
+ * ordering trap that only breaks when someone reorders main.ts.
  *
  * `registerMesh` is safe after `view.init()` — unlike `addPlugin`, it has no
  * initialisation guard.

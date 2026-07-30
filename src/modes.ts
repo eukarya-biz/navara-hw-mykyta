@@ -42,7 +42,7 @@ export type Mode = {
    * sprite, and stations.ts skips its sprite layer entirely.
    */
   blossom?: BlossomStyle;
-  /** Present only on 梅雨: the cloud deck and the two 前線 lines. */
+  /** Present only on 梅雨: the volumetric cloud deck and the rain overlay. */
   tsuyu?: TsuyuStyle;
 };
 
@@ -60,13 +60,7 @@ export type FloraShape =
       centerTint: [number, number, number];
     }
   | { kind: "maple"; lobes: number; hubTint: [number, number, number] }
-  | { kind: "ginkgo"; fans: number; hubTint: [number, number, number] }
-  /**
-   * A cumulus clump for the 梅雨 deck. Not flora, but it is the same problem —
-   * a handful of rounded blades round a filled hub, normalised to unit radius —
-   * so it rides the same profile machinery rather than duplicating it.
-   */
-  | { kind: "puff"; lobes: number; crownTint: [number, number, number] };
+  | { kind: "ginkgo"; fans: number; hubTint: [number, number, number] };
 
 /** 3D marker style: what to build, how big, and where to sit. */
 export type BlossomStyle = {
@@ -92,64 +86,42 @@ export type BlossomStyle = {
   shape: FloraShape;
 };
 
-/** One 前線 line: an ArcLine drawn across the archipelago at the season's edge. */
-export type FrontStyle = {
-  /** Half-width in screen pixels — the rendered line is twice this. */
-  thickness: number;
-  opacity: number;
-  /** Gradient along the line, west to east. */
-  fromColor: string;
-  toColor: string;
-  emissive: string;
-  emissiveIntensity: number;
-  /** Dash and gap in metres along the arc; omit for a solid line. */
-  dash?: { size: number; gap: number; metresPerSecond: number };
-};
-
 /**
- * 梅雨's 3D style: an elevated cloud deck plus the two lines that bound it.
+ * 梅雨's style: a real volumetric cloud deck plus a screen-space rain overlay.
  *
- * All heights are metres above the ellipsoid and already include the terrain
- * exaggeration, because the deck has to clear the *exaggerated* mountains rather
- * than the real ones. All radii are metres on the ground.
- *
- * The fixed camera resolves about 2,450 m per pixel, and a vertical offset h
- * projects to only h/4,620 px at pitch −58 — so vertical structure is nearly
- * free of visual consequence here and horizontal extent carries everything. That
- * is why the deck is wide and flat rather than tall.
+ * Kept as plain numbers — no three.js import — because this module is data. The
+ * geometry of *where* cloud exists comes from weatherMap.ts painting a coverage
+ * texture per day; everything here just parameterises that painting and the two
+ * effects tsuyu.ts adds.
  */
 export type TsuyuStyle = {
-  deckHeight: number;
-  /** Puff radius at the edge of the ramp and at full season. */
-  minRadius: number;
-  maxRadius: number;
-  deckEmissiveIntensity: number;
   /**
-   * The deck's own colour ramp, walked across the season.
-   *
-   * Separate from `Mode.ramp` on purpose, and the one place in the codebase where
-   * a mode has two palettes. `Mode.ramp` drives the pill, the swatch and the graph
-   * — all DOM, which gets no aerial-perspective inscatter, so it is free to be
-   * rain-blue. This one is in the world, where an additive pale blue is laid over
-   * everything and only luminance and warmth survive it, so it is warm near-white
-   * throughout. Same phenomenon, two media, two right answers.
-   */
-  deckRamp: string[];
-  /**
-   * Fraction of grid cells that ever appear. Below 1 on purpose: at the plateau
-   * every region is inside 梅雨 at once, and a fully populated deck is a white
-   * blob with no coastline showing through it.
+   * The cloud effect's global coverage knob, 0..1. This is a *threshold shaper*,
+   * not an amount of sky: where the painted weather map is zero there is no
+   * cloud at any coverage. It must stay at or below 1 − coverageFilterWidth
+   * (0.25 in tsuyu.ts), because past that the effect's remap floods the whole
+   * globe with cloud regardless of the map.
    */
   coverage: number;
   /**
-   * Per-cell scatter on the window edges, so the deck knits itself in rather than
-   * appearing as a field of growing discs. The ramps themselves come from
-   * `peakLag`/`fadeDays`, which are JMA's own 平均５日間程度.
+   * How far from the nearest 梅雨-region station the weather map may paint, in
+   * kilometres. The 86 stations trace the archipelago closely enough to serve
+   * as a land mask, so the deck follows the country without a coastline to
+   * load — and stops at the Tsugaru Strait, which is the point of the mode.
    */
-  jitterDays: number;
-  frontHeight: number;
-  onset: FrontStyle;
-  withdrawal: FrontStyle;
+  reachKm: number;
+  /** Paint-grid spacing in degrees; must stay well under reachKm. */
+  paintStepDeg: number;
+  /** Diameter of one painted blob on the 1024² weather canvas, in texels. */
+  stampTexels: number;
+  /**
+   * Screen raindrop opacity when every region is inside 梅雨 at once. The
+   * overlay scales linearly with the active fraction, so this is the ceiling,
+   * not the constant.
+   */
+  rainMaxOpacity: number;
+  /** Raindrop spawn density, 0..1 — the effect's own default of 1 is a downpour. */
+  rainDensity: number;
 };
 
 export const MODES: Mode[] = [
@@ -276,49 +248,12 @@ export const MODES: Mode[] = [
     unit: "地方",
     regional: true,
     tsuyu: {
-      // 6,400 m × the 2.5 terrain exaggeration. Clears 富士山 exaggerated (9,440 m)
-      // by 6.5 km, and is only 3.5 px of parallax at this camera, so the deck sits
-      // *on* the country rather than floating visibly above it.
-      deckHeight: 16_000,
-      minRadius: 0,
-      maxRadius: 34_000,
-      // Deliberately far below the blossoms' 0.45–0.5. glow.ts warns that the
-      // bloom already swallows shape at a 19 px marker; several hundred near-white
-      // puffs at that intensity would be one flat blowout.
-      deckEmissiveIntensity: 0.12,
-      // Forming, thickening, saturated, saturated, then the warm break as the
-      // sun starts coming back through at 梅雨明け.
-      deckRamp: ["#cdc6b8", "#e6dfd2", "#f2ece1", "#f2ece1", "#ffe6bc"],
-      coverage: 0.7,
-      jitterDays: 2,
-      frontHeight: 20_000,
-      // Warm near-white, and bright, for the reason terrain.ts documents at
-      // length: aerial-perspective inscatter lays an additive pale blue over
-      // everything at this camera, so only luminance and warmth survive it. A
-      // cool grey rain colour — the obvious choice — dissolves into the haze.
-      // The DOM overlay gets no inscatter at all, which is why `ramp` above is
-      // free to be blue while everything here is not.
-      onset: {
-        thickness: 1.6,
-        opacity: 0.95,
-        fromColor: "#ffe7bd",
-        toColor: "#fff6e4",
-        emissive: "#ffdca8",
-        emissiveIntensity: 0.55,
-        // Solid: a dashed leading edge would read as provisional, and it avoids
-        // the per-instance dash phase break at each chain joint.
-      },
-      withdrawal: {
-        thickness: 1.1,
-        opacity: 0.62,
-        // The tail of the 桜 ramp, already proven legible at this camera.
-        fromColor: "#cfd6cf",
-        toColor: "#e4e9e2",
-        emissive: "#cfd6cf",
-        emissiveIntensity: 0.3,
-        // Dashed reads as "has passed", which is exactly what 梅雨明け is.
-        dash: { size: 140_000, gap: 90_000, metresPerSecond: 18_000 },
-      },
+      coverage: 0.45,
+      reachKm: 140,
+      paintStepDeg: 0.15,
+      stampTexels: 14,
+      rainMaxOpacity: 0.5,
+      rainDensity: 0.35,
     },
   },
 ];

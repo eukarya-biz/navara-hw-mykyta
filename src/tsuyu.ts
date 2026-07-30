@@ -1,34 +1,28 @@
-import {
-  Color,
-  degreeToRadian,
-  eastNorthUpToFixedFrame,
-  geodeticToVector3,
-} from "@navaramap/three";
 import type ThreeView from "@navaramap/three";
+import type { DefaultDescriptions } from "@navaramap/three-default-plugin";
 import type {
-  ArclineMeshConfig,
-  ArclineMeshDesc,
+  CloudOptions,
+  CloudsEffectDesc,
+  RainDropEffectDesc,
 } from "@navaramap/three-default-descs";
-import { Euler, Matrix4, Quaternion, Vector3 } from "three";
+import { Vector2, Vector3 } from "three";
 
-import {
-  registerBlossomMesh,
-  type BlossomMeshDesc,
-  type BlossomsMeshConfig,
-  type PlacedStation,
-} from "./blossoms";
-import { GRID, chain, distanceKm, gridCells, latitudeByDay } from "./front";
-import { GLOW_ID } from "./glow";
-import { phase, sampleRamp, type FrontStyle, type Mode } from "./modes";
+import { phase, type Mode } from "./modes";
 import {
   eventDays,
+  type EventDays,
   type Phenology,
   type SeasonIndex,
   type Station,
   type StationProperties,
 } from "./phenology";
-
-const TAU = Math.PI * 2;
+import {
+  buildPaintGrid,
+  createWeatherPainter,
+  WEATHER_OFFSET,
+  WEATHER_REPEAT,
+  type WeatherAnchor,
+} from "./weatherMap";
 
 /* ----------------------------------------------------------------- the data */
 
@@ -140,74 +134,6 @@ export async function loadTsuyu(phenology: Phenology): Promise<Tsuyu> {
   };
 }
 
-/* ------------------------------------------------------------------ the deck */
-
-type DeckCell = PlacedStation & {
-  /** Window edges for this cell's region, already offset by its own jitter. */
-  start: number;
-  end: number;
-  peak: number;
-};
-
-/**
- * Places one puff.
- *
- * Mirrors `place` in blossoms.ts, including the two things that are not
- * obvious there: each cell owns its own `Matrix4`, because `replaceAll` stores
- * child configs by reference and a shared scratch matrix would alias across every
- * instance; and the composition is pre-multiplied into that matrix, because
- * `composeInstanceMatrix` returns it verbatim once set.
- */
-function placeCell(
-  lng: number,
-  lat: number,
-  height: number,
-  index: number,
-  window: { start: number; end: number; peak: number },
-): DeckCell {
-  const origin = geodeticToVector3({
-    lng: degreeToRadian(lng),
-    lat: degreeToRadian(lat),
-    height,
-  });
-  const frame = eastNorthUpToFixedFrame(origin);
-
-  const matrix = new Matrix4();
-  const local = new Matrix4();
-  const offset = new Vector3();
-  const quaternion = new Quaternion();
-  const euler = new Euler();
-  const scale = new Vector3();
-
-  const cell: DeckCell = {
-    child: { matrix, color: new Color() },
-    days: { start: window.start, peak: window.peak, end: window.end },
-    start: window.start,
-    end: window.end,
-    peak: window.peak,
-    radius: 0,
-    seed: (index * 0.618033988749895) % 1,
-    compose(time) {
-      const { seed, radius } = cell;
-      // Cloud mass churns rather than travels: a monotone drift would have to wrap
-      // and pop, and at 15 days per second of timeline nothing reads as motion
-      // anyway except the shape changing. Three different periods so neighbours
-      // never pulse together.
-      const churn = 1 + 0.1 * Math.sin(time * 0.00008 + seed * 6.3);
-      const driftE = 0.3 * radius * Math.sin(time * 0.00005 + seed * 4.1);
-      const driftN = 0.2 * radius * Math.cos(time * 0.00004 + seed * 2.3);
-      offset.set(driftE, driftN, 0);
-      // Flat to the sky, turned to its own fixed angle. No wobble: a cloud has no
-      // blades to catch the sun at a changing angle, and 350 of them tilting in
-      // unison would read as a shimmer.
-      quaternion.setFromEuler(euler.set(0, 0, seed * TAU));
-      local.compose(offset, quaternion, scale.setScalar(radius * churn));
-      matrix.multiplyMatrices(frame, local);
-    },
-  };
-  return cell;
-}
-
 /* ------------------------------------------------------------------- wiring */
 
 export type TsuyuHandle = {
@@ -215,193 +141,280 @@ export type TsuyuHandle = {
   setDay(day: number, visible: boolean): void;
 };
 
-type TsuyuView = ThreeView<{ mesh: BlossomsMeshConfig | ArclineMeshConfig }>;
-
-function frontConfig(style: FrontStyle, height: number, lat: number) {
-  return {
-    geometry: chain(lat),
-    // 8 instances x 12 samples: enough that the bow reads as a curve rather than
-    // a chain of straight chords, and the geodesic interpolation keeps it on the
-    // ellipsoid across the full 2,000 km span.
-    segments: 12,
-    thickness: style.thickness,
-    transparent: true,
-    opacity: style.opacity,
-    srcColor: new Color().setStyle(style.fromColor),
-    tgtColor: new Color().setStyle(style.toColor),
-    // Straight geodesic. The default 0.3 would bow the line up out of the
-    // atmosphere over a span this long.
-    arcHeightScale: 0,
-    height,
-    dashed: style.dash !== undefined,
-    dashSize: style.dash?.size ?? 1,
-    gapSize: style.dash?.gap ?? 1,
-  };
-}
+/** Weather canvas resolution. Power of two — the shader leans on mipmaps. */
+const MAP_SIZE = 1024;
 
 /**
- * Adds the 梅雨 cloud deck and its two 前線 lines.
+ * How coverage painted into the weather map is thresholded by the effect.
  *
- * The deck rides the same `blossoms` descriptor as the flora: it needs a shape, an
- * emissive and a list of per-instance matrices and colours, which is all that
- * descriptor ever wanted.
+ * The effect remaps the sampled weather value through a window this wide; a
+ * zero texel stays cloud-free only while `coverage` ≤ 1 − this width, which is
+ * why modes.ts documents that bound on its `coverage`. Wide on purpose: a
+ * narrow window snaps most of the painted range to full density, and a
+ * fully-dense texel is beyond the reach of the shape noise (the erosion remap
+ * tops out), leaving a flat slab. The wide window keeps the interior in
+ * mid-densities where the billows live. Constructor-only: the wrapper's
+ * update path does not forward per-layer coverageFilterWidth.
+ */
+const COVERAGE_FILTER_WIDTH = 0.5;
+
+/**
+ * Adds the 梅雨 weather: a volumetric cloud deck confined to the regions
+ * currently inside the season, and a screen-space raindrop overlay whose
+ * strength follows how much of the country is in rain.
+ *
+ * The clouds are the effect the photoreal scene already knows how to light —
+ * real scattering against the same sun `syncSun` steers — so unlike the old
+ * instanced deck nothing here needs a hand-tuned palette to survive the aerial
+ * perspective: the atmosphere is applied to the clouds, not painted onto them.
  */
 export function addTsuyu(
-  view: TsuyuView,
+  view: ThreeView<DefaultDescriptions>,
   { mode, tsuyu }: { mode: Mode; tsuyu: Tsuyu },
 ): TsuyuHandle {
   const style = mode.tsuyu;
   if (!style) throw new Error(`Mode ${mode.id} has no 梅雨 style`);
 
-  /* --- the deck ---------------------------------------------------------- */
+  /* --- the weather map --------------------------------------------------- */
 
-  registerBlossomMesh(view);
-
-  // Every station that has a 梅雨 date, with the region it belongs to. Nearest
-  // *station* rather than nearest region anchor, so the grid inherits the exact
-  // 地方 partition the build asserted: cells around 下関 land in 九州北部 and not
-  // in 中国, which is right and which no distance-to-anchor rule would get.
-  const anchors = tsuyu.regions.flatMap((region) =>
-    region.members.map((station) => ({ station, region })),
+  // Every station that has a 梅雨 date, tagged with its region's index. Nearest
+  // *station* rather than nearest region anchor, so the paint grid inherits the
+  // exact 地方 partition the build asserted: cells around 下関 land in 九州北部
+  // and not in 中国, which is right and which no distance-to-anchor rule would
+  // get.
+  const anchors: WeatherAnchor[] = tsuyu.regions.flatMap((region, index) =>
+    region.members.map((station) => ({
+      lng: station.lng,
+      lat: station.lat,
+      region: index,
+    })),
   );
 
-  const cells: DeckCell[] = [];
-  let index = 0;
-  for (const { lng, lat } of gridCells()) {
-    let nearest = anchors[0];
-    let best = Infinity;
-    for (const candidate of anchors) {
-      const d = distanceKm(lng, lat, candidate.station.lng, candidate.station.lat);
-      if (d < best) {
-        best = d;
-        nearest = candidate;
-      }
-    }
-    if (best > GRID.reachKm) continue;
+  const points = buildPaintGrid(anchors, {
+    size: MAP_SIZE,
+    stepDeg: style.paintStepDeg,
+    reachKm: style.reachKm,
+  });
+  const painter = createWeatherPainter(points, {
+    size: MAP_SIZE,
+    stampTexels: style.stampTexels,
+  });
 
-    // Counted only over cells that survived the land test, so the coverage
-    // pattern is stable against the grid extents changing.
-    const cellIndex = index;
-    index += 1;
-    // A second irrational so coverage and animation do not correlate — sharing
-    // one hash would drop every cell that also happens to churn in phase.
-    const cover = (cellIndex * 0.7548776662466927) % 1;
-    if (cover >= style.coverage) continue;
+  /* --- the clouds -------------------------------------------------------- */
 
-    const days = eventDays(nearest.region.properties, mode);
-    if (days?.end === undefined) continue;
-    // The whole window slides together, so a cell arrives and leaves a day or two
-    // off its neighbours and the deck knits itself in rather than appearing as a
-    // field of growing discs.
-    const jitter =
-      (((cellIndex * 0.618033988749895) % 1) - 0.5) * 2 * style.jitterDays;
-    cells.push(
-      placeCell(lng, lat, style.deckHeight, cellIndex, {
-        start: days.start + jitter,
-        peak: days.peak + jitter,
-        end: days.end + jitter,
-      }),
-    );
-  }
-
-  // Constructed at full radius so the instance capacity is pinned at the real
-  // maximum and replaceAll never reallocates — same reasoning as blossoms.ts.
-  for (const cell of cells) {
-    cell.radius = style.maxRadius;
-    cell.compose(0);
-  }
-
-  const deck = view.addMesh<BlossomMeshDesc>({
-    blossoms: {
-      shape: { kind: "puff", lobes: 5, crownTint: [1, 0.99, 0.96] },
-      emissiveIntensity: style.deckEmissiveIntensity,
-      effectIds: [GLOW_ID],
-      children: cells.map((cell) => cell.child),
+  const clouds = view.addEffect<CloudsEffectDesc>({
+    clouds: {
+      // Vendored into public/ (from @navaramap/three/dist/assets): the
+      // library's own asset URLs are `new URL(..., import.meta.url)`, which
+      // the production bundle does not rewrite — deployed builds would 404.
+      // Served like data/, so the same relative-path deployment rules apply.
+      assetsUrl: "assets/cloud",
+      stbnUrl: "assets/noise/stbn.bin",
+      // "medium" keeps turbulence and light shafts off — right for a deck seen
+      // from 1,600 km, where both are sub-pixel — and the static camera lets
+      // the temporal accumulation do the denoising a higher preset would buy.
+      qualityPreset: "medium",
+      coverage: style.coverage,
+      // The equirectangular tiling weatherMap.ts paints for — see the note on
+      // WEATHER_REPEAT there, and the shader patch below that makes the
+      // mapping actually equirectangular. Velocity stays zero: drift belongs
+      // in the canvas, not in a sliding sample offset.
+      localWeatherRepeat: new Vector2(WEATHER_REPEAT.x, WEATHER_REPEAT.y),
+      localWeatherOffset: new Vector2(WEATHER_OFFSET.x, WEATHER_OFFSET.y),
+      localWeatherVelocity: new Vector2(0, 0),
+      // Cloud shadows need aerial-perspective irradiance, which relights the
+      // terrain globally — not worth coupling the other three seasons to.
+      shadows: false,
+      lightShafts: false,
+      resolutionScale: 0.75,
+      // A slant path through the deck is ~50–60 steps at the shell thickness
+      // below; the preset's 500 would be budget spent on empty sky.
+      maxIterationCount: 128,
+      // The shape-noise defaults are tuned for a camera *inside* the weather:
+      // ~3 km tiles that are one pixel from 1,600 km up, which renders as a
+      // featureless slab. Stretched to ~170 km / ~33 km tiles the billows and
+      // holes come back at a scale this camera can resolve.
+      shapeRepeat: new Vector3(0.000006, 0.000006, 0.000006),
+      shapeDetailRepeat: new Vector3(0.00003, 0.00003, 0.00003),
+      // Pushed well past the physical-ish defaults, because the scene's tone
+      // mapping sits at exposure 1.1 — a night-leaning grade the photoreal
+      // cloud presets never meet (their demos run at 10–60). Without this the
+      // deck renders as dim slate instead of rain-lit white.
+      scatteringCoefficient: 1.4,
+      skyLightScale: 3,
+      groundBounceScale: 1.5,
+      // A touch of absorption darkens the deck's core so it reads as rain
+      // cloud rather than fair-weather cumulus against the dark basemap.
+      absorptionCoefficient: 0.02,
+      // CloudOptions is typed as a full record, but the pass merges each given
+      // field over the layer defaults with `??` — partial entries are safe,
+      // hence the cast.
+      cloudLayers: [
+        {
+          channel: "r",
+          // The defaults put a 650 m-thick deck at 750 m — invisible from
+          // orbit. This is a 2.4 km-thick stratus shelf, dense enough to have
+          // real optical depth straight down.
+          altitude: 2000,
+          height: 2400,
+          densityScale: 0.45,
+          shapeAmount: 1,
+          shapeDetailAmount: 0.15,
+          coverageFilterWidth: COVERAGE_FILTER_WIDTH,
+        },
+        // The painter's stamps are grayscale, so every channel carries the
+        // map; the unused layers must be explicitly dead or the defaults
+        // would draw a second deck and a cirrus veil from the same paint.
+        { channel: "g", densityScale: 0 },
+        { channel: "b", densityScale: 0 },
+        { channel: "a", densityScale: 0 },
+      ] as CloudOptions[],
     },
+    visible: true,
   });
-  deck.ref.setStations(cells);
 
-  /* --- the two lines ----------------------------------------------------- */
+  const inner = clouds.ref.raw?.inner;
+  if (inner) {
+    // The march's first step is minStepSize + (perspectiveStepScale − 1) ×
+    // rayNear. The default 1.01 is tuned for a camera *under* the clouds;
+    // from 1,620 km up, rayNear is ~1.6e6 m and the first step would leap the
+    // whole shell. 1.0 makes stepping uniform. Set on the raw effect — the
+    // descriptor doesn't expose it, and a runtime qualityPreset change would
+    // silently reset it, which is one reason the preset above is final.
+    inner.clouds.perspectiveStepScale = 1;
+    inner.localWeatherTexture = painter.texture;
 
-  const onsetLat = latitudeByDay(
-    tsuyu.regions.map((region) => ({
-      day: Number(region.properties[mode.startKey]),
-      lat: region.lat,
-    })),
-  );
-  const withdrawalLat = latitudeByDay(
-    tsuyu.regions.map((region) => ({
-      day: Number(region.properties[mode.endKey!]),
-      lat: region.lat,
-    })),
-  );
-
-  const lines = ([
-    ["onset", style.onset, onsetLat],
-    ["withdrawal", style.withdrawal, withdrawalLat],
-  ] as const).map(([name, front, latOf]) => {
-    const handle = view.addMesh<ArclineMeshDesc>({
-      arcLines: frontConfig(front, style.frontHeight, GRID.lat.from),
-      emissiveColor: new Color().setStyle(front.emissive),
-      emissiveIntensity: front.emissiveIntensity,
-      effectIds: [GLOW_ID],
-    });
-
-    const root = handle.ref.raw;
-    if (root) {
-      // ArcLine computes its bounding sphere once, on rebuild, and then stubs out
-      // computeBoundingSphere entirely — so the bounds stay at the latitude the
-      // line was born at and it is culled the moment it migrates away from it.
-      // Two sub-meshes' worth of draw call is not worth culling anyway.
-      for (const child of root.children) child.frustumCulled = false;
+    // The shader's default globe→uv mapping (`getCubeSphereUv`) repeats the
+    // weather texture once per cube face, and two of those copies are in frame
+    // at this camera: paint over western Japan comes back as phantom cloud in
+    // the Sea of Japan, Tohoku's over the Pacific. The shader ships the
+    // injective alternative right next to it, so swap the one call. String
+    // surgery on the assembled material is blunt, but the material keeps the
+    // patched source through define-driven recompiles, and the guard below
+    // fails loudly if a library update ever moves the seam.
+    const material = inner.cloudsPass.currentMaterial;
+    const cubeCall = "return getCubeSphereUv(position);";
+    if (material.fragmentShader.includes(cubeCall)) {
+      material.fragmentShader = material.fragmentShader.replace(
+        cubeCall,
+        "return getSphericalUv(position);",
+      );
+      material.needsUpdate = true;
+    } else {
+      console.warn(
+        "tsuyu: clouds shader changed — getCubeSphereUv patch not applied; " +
+          "expect phantom cloud copies over the sea",
+      );
     }
-    // uViewport initialises to a hard-coded 1920x1080 and is only corrected on
-    // resize, and thickness is in pixels, so without this the line is the wrong
-    // width until someone drags the window.
-    handle.ref.onResize(window.innerWidth, window.innerHeight);
+  }
 
-    return { name, front, latOf, handle, root };
+  /* --- the raindrops ------------------------------------------------------ */
+
+  const rain = view.addEffect<RainDropEffectDesc>({
+    rainDrop: {
+      opacity: 0,
+      dropDensity: style.rainDensity,
+      // Smaller, sparser, gentler than the effect's downpour defaults
+      // (12 / 0.015 / 0.3 / 4): the overlay should register as weather on the
+      // glass, not stand between the viewer and the map.
+      dropGridSize: 18,
+      dropSizeFactor: 0.012,
+      refractionStrength: 0.18,
+      dropLayers: 3,
+    },
+    visible: false,
   });
 
-  /* --- per-day state ---------------------------------------------------- */
+  /* --- per-day state ------------------------------------------------------ */
 
-  return {
+  const windows: (EventDays | null)[] = tsuyu.regions.map((region) =>
+    eventDays(region.properties, mode),
+  );
+  const intensities = new Array<number>(tsuyu.regions.length).fill(0);
+
+  let lastQuantized = Number.NaN;
+  let lastVisible: boolean | undefined;
+  let cloudsOn = true;
+  let rainOn = false;
+  let lastRainOpacity = 0;
+
+  const handle: TsuyuHandle = {
     setDay(day, visible) {
-      for (const cell of cells) {
-        const state = visible
-          ? phase(mode, day, cell.start, cell.peak, cell.end)
-          : null;
-        if (!state) {
-          cell.radius = 0;
-          continue;
-        }
-        cell.radius =
-          style.minRadius + (style.maxRadius - style.minRadius) * state.intensity;
-        // The deck's own ramp, not `mode.ramp`. The pill and the graph are DOM and
-        // get no aerial-perspective inscatter, so they can be rain-blue; the deck
-        // is in the world, where an additive pale blue is laid over everything and
-        // only luminance and warmth survive it. Same phenomenon, two palettes.
-        cell.child.color!.setHex(sampleRamp(style.deckRamp, state.progress));
+      // The pass asynchronously loads the default weather PNG at startup and
+      // installs it on arrival — after our texture. Cheap identity check, and
+      // the map is back on the next painted frame no matter who won the race.
+      if (inner && inner.localWeatherTexture !== painter.texture) {
+        inner.localWeatherTexture = painter.texture;
       }
 
-      for (const line of lines) {
-        const lat = visible ? line.latOf(day) : null;
-        // Hidden by visibility rather than by emptying `geometry`: a length change
-        // triggers a full rebuild, and toggling that every frame would rebuild the
-        // instanced geometry continuously.
-        if (line.root) line.root.visible = lat !== null;
-        if (lat === null) continue;
+      // Repainting a 1024² canvas per frame would be waste — the dates only
+      // move day by day. Half-day steps keep the deck's advance smooth at the
+      // slowed 梅雨 playback rate while capping repaints well under the frame
+      // rate. Scrubbing lands on the same quantised days, so it is exactly as
+      // deterministic as playback.
+      const quantized = Math.round(day * 2) / 2;
+      if (quantized === lastQuantized && visible === lastVisible) return;
+      lastQuantized = quantized;
+      lastVisible = visible;
 
-        line.handle.update({
-          arcLines: {
-            // Fresh points every frame — see `chain`.
-            geometry: chain(lat),
-            ...(line.front.dash
-              ? { dashOffset: day * line.front.dash.metresPerSecond }
-              : {}),
-          },
-        });
+      let sum = 0;
+      for (let i = 0; i < windows.length; i += 1) {
+        const window = windows[i];
+        const state =
+          visible && window && window.end !== undefined
+            ? phase(mode, day, window.start, window.peak, window.end)
+            : null;
+        // `phase` opens at intensity 0.25 — right for a marker that must be
+        // seen the day it is announced, but a cloud deck materialising at a
+        // quarter strength in one frame is a pop. One day of ramp at each edge
+        // takes it from and to zero; inside those days the announced ramps
+        // rule as before.
+        const edge = state
+          ? Math.min(1, day - window!.start, window!.end! - day)
+          : 0;
+        const value = state ? state.intensity * Math.max(edge, 0) : 0;
+        intensities[i] = value;
+        sum += value;
+      }
+      painter.paint(intensities);
+
+      // With nothing painted the march still costs its texture taps, so the
+      // pass is switched off entirely outside the season — which is most of
+      // the year.
+      const wantClouds = visible && sum > 0.001;
+      if (wantClouds !== cloudsOn) {
+        cloudsOn = wantClouds;
+        // Through update(), not the handle's `visible` setter — only the
+        // update path reaches the pass's enabled flag (verified: the setter
+        // leaves the deck rendering).
+        clouds.update({ visible: wantClouds });
+        // The clouds also push a scatter overlay into the atmosphere system,
+        // and the atmosphere keeps compositing whatever was pushed last —
+        // disabling the pass alone leaves a frozen ghost of the deck in the
+        // sky (verified). Pull the overlay with the pass, and push it back on
+        // re-enable, since the effect only re-emits it on change.
+        view.atmosphere.overlay.value = wantClouds
+          ? (inner?.atmosphereOverlay ?? null)
+          : null;
+      }
+
+      // The overlay's strength follows how much of the country is in rain:
+      // barely-there while 沖縄 waits alone in May, strongest at the plateau
+      // when all twelve 地方 are inside at once.
+      const opacity = style.rainMaxOpacity * (sum / windows.length);
+      const wantRain = visible && opacity > 0.003;
+      if (
+        wantRain !== rainOn ||
+        Math.abs(opacity - lastRainOpacity) > 0.01
+      ) {
+        rainOn = wantRain;
+        lastRainOpacity = opacity;
+        rain.update({ rainDrop: { opacity }, visible: wantRain });
       }
     },
   };
+
+  // Untyped on purpose: main.ts puts the handle on `window`, and these are the
+  // levers worth reaching for from the console while tuning the deck.
+  return Object.assign(handle, { debug: { painter, clouds, rain, inner } });
 }
