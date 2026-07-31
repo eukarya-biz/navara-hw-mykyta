@@ -31,15 +31,22 @@ await view.init();
 const scene = defaultPlugin.addDefaultPhotorealScene();
 
 /**
- * Terrain geometry exaggeration. Stays low: past ~3x the DEM's high-frequency
- * noise turns into vertical needles that look nothing like Japan. Legibility at
- * archipelago scale comes from the hillshade instead, which can be pushed hard
- * without deforming anything.
+ * Terrain geometry exaggeration. Barely above true scale, and deliberately: at
+ * 2.5x the DEM's high-frequency noise reads as vertical needles and the Alps
+ * stand 7.5 km, which is not what Japan looks like from 1,600 km up. Legibility
+ * at archipelago scale comes from the hillshade instead, which shades the same
+ * relief without deforming it.
+ *
+ * One consequence worth knowing when looking at winter: at 1.3x the spine tops
+ * out around 3.9 km rather than 7.5, so 雪's 900 m deck now sits *above* most of
+ * the terrain instead of being pierced by it — which is the right relationship
+ * for shallow convective cloud, and the reason the streaks read as lying over
+ * the country rather than tangled in it.
  *
  * Hoisted because the blossoms sit on the same exaggerated surface and so must
  * scale station elevations by the identical factor.
  */
-const EXAGGERATION = 2.5;
+const EXAGGERATION = 1.3;
 
 // globe.color is only visible where the basemap isn't. That used to be most of
 // the planet — 淡色地図 covers Japan alone — which is why this was a mid slate
@@ -55,9 +62,11 @@ view.toneMappingExposure = 1.1;
 
 const terrain = addJapanTerrain(view, {
   exaggeration: EXAGGERATION,
-  // Pushed from 6: the relief now has to carry the terrain read on its own,
-  // since the basemap below it is almost black.
-  hillshadeExaggeration: 8,
+  // Was 8, which turned every DEM artefact into a bright speckle — at that
+  // strength the shading stops describing slopes and starts describing the
+  // tile pyramid. Four still separates windward from lee across the spine,
+  // which is the one thing the relief has to do for 雪.
+  hillshadeExaggeration: 4,
   basemap: true,
   basemapOpacity: 0.85,
   // The whole piece is about Japan, so Japan should not look like its
@@ -208,8 +217,20 @@ ui.onTogglePlay(() => {
   render();
 });
 
-// ~24 s for a full year at 60fps, so roughly 15 days a second.
-const DAYS_PER_MS = 365 / 24_000;
+/**
+ * Nominally 32 s for a full year, so roughly 11 days a second.
+ *
+ * Nominally, because `TSUYU_HOLD` below slows 65 of the 365 days to 0.4x, which
+ * costs those days 2.5x their share: the loop actually runs
+ * (300 + 65/0.4) / 365 ≈ 1.27 times this, or about 40 s. The previous figure
+ * here claimed 24 s and the real loop was 30.
+ *
+ * Forty is set by reading rather than by watching. The feed in facts.ts lands
+ * fifteen cards across the year, so the loop length *is* the reading pace — at
+ * the old rate a card was replaced about every two seconds, which is faster
+ * than any of them can be read.
+ */
+const DAYS_PER_MS = 365 / 32_000;
 
 /**
  * The clock slows through 梅雨.

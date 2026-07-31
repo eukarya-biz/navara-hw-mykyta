@@ -85,87 +85,75 @@
 }
 
 /*
- * 北海道に梅雨はない.
+ * The findings feed.
  *
- * Placed absolutely over Hokkaido, which is legitimate only because the camera
- * is fixed for the life of the page — there are no controls and nothing calls
- * setCamera twice. Percentages so a resized viewport keeps it roughly in place.
+ * Under the title on the left, which is the one part of the frame the
+ * archipelago never reaches: main.ts runs it diagonally from lower-left to
+ * upper-right, so this column sits over open water below Kyushu and covers
+ * nothing. The cards it replaces were placed over the very landmasses they were
+ * about.
  */
-/* Labels naming the place a season's finding is about. Positions are per
-   variant below; everything shared lives here. */
-.ui-finding {
+.ui-feed {
   position: absolute;
+  top: 88px;
+  left: 30px;
+  width: 252px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  opacity: 0;
-  transform: translateY(4px);
+  gap: 7px;
+}
+
+.ui-card {
+  /* Same material as the pills, so the overlay stays one system. */
+  background: rgba(10, 16, 23, 0.55);
+  border-radius: 4px;
+  border-left: 2px solid var(--accent);
+  padding: 8px 11px 9px;
+  backdrop-filter: blur(6px);
   transition:
     opacity 420ms ease,
     transform 420ms ease;
 }
 
-.ui-finding.is-shown {
-  opacity: 1;
-  transform: none;
+/*
+ * A card's position in the column and its opacity are both set inline by ui.ts —
+ * flex `order` and `FEED_FADE`, for the reasons given on `place` there. Nothing
+ * here may set either, or it would fight the reconciler; this file owns the
+ * material and the transition, which is what carries both.
+ */
+.ui-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 4px;
 }
 
-.ui-finding-ja {
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: #dce6ef;
-  /* The sunlit relief underneath is the brightest thing in frame during 梅雨,
-     and a snow deck is brighter still, so the text needs its own separation
-     from it. */
-  text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
+.ui-card-date {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: #6d7a87;
+  font-variant-numeric: tabular-nums;
 }
 
-.ui-finding-en {
+.ui-card-mode {
   font-size: 10px;
-  letter-spacing: 0.05em;
-  color: #93a2b0;
-  text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
+  letter-spacing: 0.1em;
+  color: var(--accent);
 }
 
-/* A hairline back to the landmass being named. Two directions, because a label
-   sitting to the right of its subject has to point left and vice versa. */
-.ui-finding::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  width: 46px;
-  height: 1px;
+.ui-card-ja {
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  color: #dce6ef;
 }
 
-.ui-finding.leader-left::before {
-  right: calc(100% + 8px);
-  background: linear-gradient(to left, #93a2b0, transparent);
-}
-
-.ui-finding.leader-right::before {
-  left: calc(100% + 8px);
-  background: linear-gradient(to right, #93a2b0, transparent);
-}
-
-/* Over the open sea east of Hokkaido, which sits upper-right in this framing. */
-.ui-finding.is-hokkaido {
-  top: 20%;
-  left: 63%;
-}
-
-/* Out in the Sea of Japan, off the Hokuriku coast — the windward side, and where
-   the cloud streets come from. */
-.ui-finding.is-japan-sea {
-  top: 36%;
-  left: 21%;
-  align-items: flex-end;
-  text-align: right;
-}
-
-/* Over the Pacific south of the Tokai coast — the lee side. */
-.ui-finding.is-pacific {
-  top: 62%;
-  left: 57%;
+.ui-card-en {
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #8b9aab;
 }
 
 .ui-pills {
@@ -213,6 +201,9 @@
 
 .ui-hint {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   font-size: 9px;
   letter-spacing: 0.08em;
   color: #5f6c79;
@@ -259,8 +250,19 @@
   border-color: #5a6a7a;
 }
 
+/*
+ * The whole band is the scrubber — ui.ts drives it from pointer events on this
+ * element, so the graph and the month row are as grabbable as the slider.
+ * The padding gives the top edge of the chart a few pixels of slack rather than
+ * putting the hit area's boundary exactly on the first pixel of the curves.
+ */
 .ui-track {
   flex: 1;
+  padding-top: 6px;
+  cursor: ew-resize;
+  /* A horizontal drag over a text row otherwise selects the month labels. */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .ui-graph {
@@ -278,7 +280,14 @@
   border-radius: 2px;
   background: #2b3743;
   outline: none;
-  cursor: pointer;
+  /*
+   * Out of hit-testing, so the native thumb drag cannot fight the track's own
+   * pointer handling — two handlers on one gesture, agreeing to within a pixel,
+   * is a bug waiting for a rounding difference. The input stays as the keyboard
+   * control: this affects hit-testing only, so tab focus and arrow keys are
+   * untouched, and the thumb still draws where the day is.
+   */
+  pointer-events: none;
 }
 
 .ui-scrub::-webkit-slider-thumb {

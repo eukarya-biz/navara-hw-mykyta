@@ -6,10 +6,15 @@ single year. The camera never moves: the data does.
 
 Toggle any combination of 桜 (cherry blossom), 紅葉 (maple), 銀杏 (ginkgo),
 梅雨 (the rainy season) and 雪 (snow) — all five are on by default — and scrub the
-one-year timeline. The graph under the scrubber overlays every selected series on a
-shared scale, so it is visible at a glance that 桜 peaks in spring while 紅葉 and
-銀杏 peak in autumn, with 梅雨 filling the one gap between them and 雪 running off
-both ends of the year.
+one-year timeline by dragging anywhere in it, the graph included. That graph overlays
+every selected series on a shared scale, so it is visible at a glance that 桜 peaks in
+spring while 紅葉 and 銀杏 peak in autumn, with 梅雨 filling the one gap between them
+and 雪 running off both ends of the year.
+
+As the year runs, the findings arrive as a feed on the left: a card on the day it
+becomes true, four on screen at once, the older ones receding. It is a pure function
+of the day and the selection, so scrubbing backwards takes cards away again and the
+year wrap clears the column.
 
 桜 runs **south to north**. 紅葉, 銀杏 and 雪 run **north to south**. 梅雨 also runs
 south to north — and then stops: there is no 梅雨 in Hokkaido. 雪 is the mirror
@@ -84,9 +89,11 @@ It is also the only season with **all three edges measured** — 雪の初日, t
 `start` at 120 of the 142 stations. The timeline shows it running off both ends.
 
 And the mirror of 北海道に梅雨はない: fifteen stations have no 雪 at all — 沖縄, 奄美,
-種子島 and 屋久島, and the Ogasawaras. That fact is in the pill's tooltip rather than
-on the map, because the framing deliberately excludes the Ryukyus and a label would
-point off the edge of the frame.
+種子島 and 屋久島, and the Ogasawaras. That one could never be a label on the map,
+because the framing deliberately excludes the Ryukyus and the label would point off
+the edge of the frame at something the viewer cannot see. It is a card in the feed
+instead, which is a good part of why the feed exists: a finding about places outside
+the frame is still a finding.
 
 ## Why this needs a 3D map engine
 
@@ -305,7 +312,8 @@ what has changed is less the date than whether there *is* a date:
 | `src/tsuyu.ts` | The 12 regional 梅雨 windows, their tallies, its cloud channel and the rain overlay |
 | `src/snow.ts` | The 142 snow stations, their tallies and weights, the 筋状雲 channel and the falling snow |
 | `src/modes.ts` | One config per pill: keys, colour ramp, timing envelope, 3D and weather style |
-| `src/ui.ts`, `src/ui.css` | DOM overlay — readout, pills, findings, graph, scrubber |
+| `src/facts.ts` | The feed's cards — one finding per entry, with the day it arrives |
+| `src/ui.ts`, `src/ui.css` | DOM overlay — readout, pills, the fact feed, graph, scrubber |
 | `scripts/build-phenology.mjs` | JMA 生物季節観測 CSV → GeoJSON |
 | `scripts/build-tsuyu.mjs` | JMA 梅雨 CSV → GeoJSON, and the 地方 partition assertions |
 | `scripts/build-snow.mjs` | JMA 地上気象観測平年値 zip → GeoJSON, and the element-code assertions |

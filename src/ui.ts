@@ -1,6 +1,26 @@
+import { FACTS, type Fact } from "./facts";
 import { MODES, sampleRamp, type Mode } from "./modes";
 
 const MONTH_STARTS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+
+/**
+ * Opacity by position in the feed, newest first — and, by its length, how many
+ * cards the feed holds at once.
+ *
+ * Depth by *position* rather than by age in the data: the top card is the one
+ * being read and the ones under it are context receding. Set inline by `place`
+ * rather than in ui.css, because a card's position is a flex `order` and
+ * `:nth-child` would key off DOM order instead.
+ *
+ * Four entries: enough that a finding is still on screen while the next two
+ * arrive — about eleven seconds at the loop's pace, against a card every ~2.7 —
+ * and few enough that the column clears the timeline at the bottom of the frame
+ * without needing to scroll.
+ */
+const FEED_FADE = [1, 0.78, 0.52, 0.3];
+
+/** Derived, so the window and the fade can never disagree about its size. */
+const FEED_LIMIT = FEED_FADE.length;
 
 export function doyToLabel(day: number) {
   const clamped = Math.min(Math.max(Math.round(day), 1), 365);
@@ -59,59 +79,123 @@ export function createUi(container: HTMLElement): Ui {
   );
 
   /**
-   * The things the two weather seasons are *for*, pinned to the places they are
-   * about.
+   * The findings, as a column of cards under the title.
    *
-   * Absolute placement is legitimate here because the camera never moves —
-   * main.ts sets it once and there are no controls — so a given landmass is
-   * always in the same part of the frame. Percentages rather than pixels so it
-   * tracks a resized viewport approximately.
-   *
-   * 雪 gets two labels rather than one because its finding is a *contrast*: the
-   * same latitudes, an order of magnitude apart in snowfall, either side of one
-   * mountain spine. One label naming the deep side would only be half of it.
-   *
-   * What 雪 does *not* get is 「南西諸島に雪はない」, the true mirror of 梅雨's label:
-   * main.ts frames Kyushu→Hokkaido and explicitly declines to pull back far
-   * enough to hold the Ryukyus, so that label would point off the edge of the
-   * frame at something the viewer cannot see. It lives in the pill's tooltip and
-   * in `Snow.withoutSnow` instead.
+   * This replaces three labels absolutely positioned over the map — see
+   * facts.ts for why that device was retired. What matters here is that the feed
+   * is a *pure function* of the day and the selection, computed fresh in
+   * `render`: no accumulated state, so scrubbing backwards removes cards, the
+   * year wrap in main.ts empties the column by itself, and there is no reset
+   * hook to forget to call.
    */
-  const FINDINGS: {
-    modeId: string;
-    ja: string;
-    en: string;
-    /** Placement and leader direction; see ui.css. */
-    variant: string;
-  }[] = [
-    {
-      modeId: "tsuyu",
-      ja: "北海道に梅雨はない",
-      en: "Hokkaido has no rainy season",
-      variant: "is-hokkaido leader-left",
-    },
-    {
-      modeId: "yuki",
-      ja: "日本海側",
-      en: "deep — the monsoon crosses the sea",
-      variant: "is-japan-sea leader-right",
-    },
-    {
-      modeId: "yuki",
-      ja: "太平洋側",
-      en: "bare — the spine wrings it out",
-      variant: "is-pacific leader-left",
-    },
-  ];
+  const feed = el("div", "ui-feed");
+  const feedNodes = new Map<string, HTMLElement>();
+  const modeById = new Map(MODES.map((mode) => [mode.id, mode]));
+  /** First render mounts what is already due without animating it in — see below. */
+  let feedMounted = false;
 
-  const findingEls = FINDINGS.map((finding) => {
-    const node = el("div", `ui-finding ${finding.variant}`);
-    node.append(
-      el("span", "ui-finding-ja", finding.ja),
-      el("span", "ui-finding-en", finding.en),
+  function buildCard(fact: Fact) {
+    const mode = modeById.get(fact.modeId);
+    const node = el("div", "ui-card");
+    if (mode) node.style.setProperty("--accent", accentOf(mode));
+    const { month, day } = doyToLabel(fact.day);
+    const head = el("div", "ui-card-head");
+    head.append(
+      el("span", "ui-card-date", `${month}月${day}日`),
+      el("span", "ui-card-mode", mode?.label ?? fact.modeId),
     );
-    return { finding, node };
-  });
+    node.append(
+      head,
+      el("div", "ui-card-ja", fact.ja),
+      el("div", "ui-card-en", fact.en),
+    );
+    return node;
+  }
+
+  /**
+   * Puts a card in its place: how far down the column it sits, and how far it has
+   * receded.
+   *
+   * Position comes from flex `order` rather than from DOM order, which is the
+   * one decision here worth defending. Reconciling by insertion cannot keep the
+   * column in sequence: a backwards scrub changes the visible set in *both*
+   * directions at once — old cards return while new ones leave — and inserting
+   * only the arrivals then interleaves them wrongly (observed: two 桜 cards
+   * landing under two 雪 cards from a month earlier). Re-appending every node in
+   * the right order each frame would fix the sequence but re-inserts live nodes,
+   * which cancels their transitions mid-flight. `order` is a plain style, so a
+   * card's rank can change without it ever moving in the DOM.
+   */
+  function place(node: HTMLElement, rank: number) {
+    node.style.order = String(rank);
+    node.style.opacity = String(FEED_FADE[rank] ?? 0);
+    node.style.transform = "none";
+  }
+
+  /**
+   * Reconciles the column against the facts that are true on this day.
+   *
+   * A rolling window rather than the whole year's worth: the four newest, the
+   * older ones receding, so the column reads as a feed and cannot outgrow the
+   * frame.
+   */
+  function drawFeed(state: UiState) {
+    // FACTS is sorted by day, so the newest few are simply the tail.
+    const due = FACTS.filter(
+      (fact) => fact.day <= state.day && state.selected.has(fact.modeId),
+    );
+    const shown = due.slice(-FEED_LIMIT);
+    const ids = new Set(shown.map((fact) => fact.id));
+
+    for (const [id, node] of feedNodes) {
+      if (ids.has(id)) continue;
+      node.remove();
+      feedNodes.delete(id);
+    }
+
+    shown.forEach((fact, index) => {
+      // `shown` is oldest-first, and rank 0 is the newest card at the top.
+      const rank = shown.length - 1 - index;
+      const existing = feedNodes.get(fact.id);
+      if (existing) {
+        place(existing, rank);
+        return;
+      }
+
+      const node = buildCard(fact);
+      feedNodes.set(fact.id, node);
+      feed.append(node);
+
+      // The clock starts at day 60, so several winter cards are already due on
+      // the first frame. Animating those in would open the piece with a flurry
+      // of cards about a season the viewer has not watched arrive, so the first
+      // pass mounts them as settled history and only later arrivals animate.
+      if (!feedMounted) {
+        place(node, rank);
+        return;
+      }
+
+      // Mounted in the state it transitions *from* — a transition needs two
+      // frames holding different values to run at all. On a frame rather than on
+      // the next render, because main.ts stops rendering while the clock is
+      // paused, and a card that arrived on the last rendered frame — which is
+      // exactly what ending a drag produces — would otherwise never settle.
+      //
+      // The arrival is a slide and deliberately *not* a fade from zero. A card
+      // whose visibility depends on a transition running is a card that is
+      // invisible whenever one does not: a throttled document (verified — a
+      // hidden tab pins the transition at a few percent and the whole feed
+      // reads as blank), reduced-motion, a stalled compositor. Starting at the
+      // card's real opacity means the worst a frozen transition can do is leave
+      // it six pixels high.
+      node.style.order = String(rank);
+      node.style.opacity = String(FEED_FADE[rank] ?? 0);
+      node.style.transform = "translateY(-6px)";
+      requestAnimationFrame(() => place(node, rank));
+    });
+
+    feedMounted = true;
+  }
 
   // Readout and pills sit on the right, over open Pacific: the archipelago runs
   // diagonally through the lower-left, so a centred control bar would cover
@@ -147,10 +231,10 @@ export function createUi(container: HTMLElement): Ui {
     pills.append(pill);
   }
 
-  const hint = el(
-    "div",
-    "ui-hint",
-    "複数選択できます · toggle any combination",
+  const hint = el("div", "ui-hint");
+  hint.append(
+    el("div", undefined, "複数選択できます · toggle any combination"),
+    el("div", undefined, "ドラッグで日付を移動 · drag the timeline"),
   );
   side.append(dateEl, counts, pills, hint);
 
@@ -171,7 +255,7 @@ export function createUi(container: HTMLElement): Ui {
   track.append(graph, scrub, months);
   bottom.append(playBtn, track);
 
-  root.append(title, ...findingEls.map(({ node }) => node), side, bottom);
+  root.append(title, feed, side, bottom);
   container.append(root);
 
   const toggleHandlers: ((modeId: string) => void)[] = [];
@@ -190,6 +274,59 @@ export function createUi(container: HTMLElement): Ui {
     scrubHandlers.forEach((fn) => fn(Number(scrub.value)));
   });
   playBtn.addEventListener("click", () => playHandlers.forEach((fn) => fn()));
+
+  /* --- scrubbing the whole timeline zone ---------------------------------- */
+
+  /**
+   * The graph is the thing that *looks* like a timeline, so it should be the
+   * thing you can grab. The range input alone gave an 11-pixel thumb under a
+   * 46-pixel chart, and the chart was inert.
+   *
+   * The whole `.ui-track` band — graph, slider and month row — becomes the
+   * control, and the input keeps its job as the *keyboard* control: ui.css takes
+   * it out of hit-testing so a drag is never handled twice, and `pointer-events`
+   * does not affect tab focus or arrow keys, which still arrive as `input`
+   * events on the same channel below.
+   */
+  /** Whether a pointer is currently steering the clock; gates `pointermove`. */
+  let dragging = false;
+
+  /**
+   * Pointer x → day, measured against the canvas rather than the track so it is
+   * the same mapping `drawGraph`'s `xOf` inverts. Anything else and the cursor
+   * line would sit slightly off the pointer that placed it.
+   */
+  function dayAt(clientX: number) {
+    const rect = graph.getBoundingClientRect();
+    if (rect.width === 0) return 1;
+    const t = (clientX - rect.left) / rect.width;
+    return Math.min(Math.max(Math.round(1 + t * 364), 1), 365);
+  }
+
+  function scrubTo(clientX: number) {
+    const day = dayAt(clientX);
+    scrubHandlers.forEach((fn) => fn(day));
+  }
+
+  track.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    // Capture, so a drag that leaves the 65-pixel band — which is easy, it is a
+    // horizontal gesture in a short strip — keeps steering the clock instead of
+    // stopping dead at the edge.
+    track.setPointerCapture(event.pointerId);
+    // Otherwise a drag across the overlay selects the month labels.
+    event.preventDefault();
+    scrubTo(event.clientX);
+  });
+  track.addEventListener("pointermove", (event) => {
+    if (dragging) scrubTo(event.clientX);
+  });
+  // `lostpointercapture` rather than `pointerup` + `pointercancel`: capture is
+  // released implicitly by both of those and by the element going away, and this
+  // fires for all of them. One listener that cannot leave the drag stuck on.
+  track.addEventListener("lostpointercapture", () => {
+    dragging = false;
+  });
 
   let graphKey = "";
 
@@ -281,9 +418,15 @@ export function createUi(container: HTMLElement): Ui {
       const { month, day } = doyToLabel(state.day);
       dateEl.textContent = `${month}月${day}日`;
       playBtn.textContent = state.playing ? "⏸" : "▶";
-      if (document.activeElement !== scrub) {
-        scrub.value = String(Math.round(state.day));
-      }
+      // Unconditional now. This used to be guarded by
+      // `document.activeElement !== scrub`, so that `render` could not fight a
+      // native thumb drag — and there is no native thumb drag any more, because
+      // ui.css takes the input out of hit-testing and the track drives the clock
+      // itself. Any guard here is in fact a bug: main.ts stops the clock when
+      // scrubbed, so the frame that ends a drag is the *last* frame for a while,
+      // and a guard that skipped it would leave the thumb behind until playback
+      // resumed.
+      scrub.value = String(Math.round(state.day));
 
       for (const { mode, active, total } of state.series) {
         const on = state.selected.has(mode.id);
@@ -300,11 +443,7 @@ export function createUi(container: HTMLElement): Ui {
         pillEls.get(mode.id)?.classList.toggle("is-active", on);
       }
 
-      // Each only while the season it is a statement about is on screen.
-      for (const { finding, node } of findingEls) {
-        node.classList.toggle("is-shown", state.selected.has(finding.modeId));
-      }
-
+      drawFeed(state);
       drawGraph(state);
     },
   };

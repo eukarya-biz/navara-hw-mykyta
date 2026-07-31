@@ -329,13 +329,26 @@ export const MODES: Mode[] = [
     // Unused on the measured path: the season runs to 梅雨明け, not for a fixed
     // count of days after a peak. Zero so a misread cannot extend the window.
     holdDays: 0,
-    // Forming, thickening, saturated, saturated, clearing. Cool in the DOM and
-    // warm in the world — see the note on TsuyuStyle colours below.
-    ramp: ["#dbe7ef", "#a9c9de", "#7fb0cd", "#5f97b8", "#c3cfd4"],
+    /**
+     * Forming, thickening, saturated, saturated, clearing — 紫陽花 violet.
+     *
+     * It was a pale blue, and so is 雪's, and the two were not separable: they
+     * are two rows apart in the readout and two curves in the same graph.
+     * Violet is the free hue with 桜 on pink and the autumn pair on orange and
+     * yellow, and it happens to be the colour of the season's own flower.
+     *
+     * This is a DOM-only choice, which is what makes it cheap: `regional: true`
+     * keeps the mode off the sprite path entirely (no `ramp[1]` colour, no
+     * emissive) and it carries no `blossom`, so nothing on the globe samples
+     * this. The deck itself cannot be tinted at any price — `CloudsOptions`
+     * exposes no colour, because the cloud is lit by the same sun and
+     * atmosphere as everything else.
+     */
+    ramp: ["#d6d8ec", "#a9a7dc", "#7b7cc9", "#5d5eab", "#c4c2d6"],
     // Unused: `regional` keeps this mode off the sprite path entirely.
     minSize: 5,
     maxSize: 22,
-    glow: "#5aa8d4",
+    glow: "#8b7fe0",
     // The pill's tooltip, which makes it the free home for the finding.
     direction: "南 → 北 · south to north — 北海道を除く / except Hokkaido",
     unit: "地方",
@@ -371,9 +384,11 @@ export const MODES: Mode[] = [
     // Unused on the measured path, and zero so a misread cannot extend the
     // window past 終雪.
     holdDays: 0,
-    // First flakes, settling, deep, deep, thawing. Kept paler and colder than
-    // 梅雨's ramp so the two blues are still separable as UI accents — the
-    // swatches sit two rows apart.
+    // First flakes, settling, deep, deep, thawing. This used to be a compromise
+    // — paler and colder than 梅雨's blue, in the hope that two blues could be
+    // told apart. 梅雨 is violet now, so the compromise is off and this is
+    // simply the colour of ice, which is also what the crystals want: unlike
+    // 梅雨's ramp, this one is sampled on the globe as well as in the DOM.
     ramp: ["#f2f7fb", "#d5e6f2", "#b8d4ea", "#93b9d8", "#dfe6ea"],
     // Unused: this mode draws as instanced geometry, not sprites.
     minSize: 4,
