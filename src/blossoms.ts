@@ -196,6 +196,16 @@ export type PlacedStation = {
   /** Day-of-year window this station occupies, resolved once at placement. */
   days: EventDays;
   radius: number;
+  /**
+   * Multiplies the radius the seasonal state asks for, resolved once here.
+   *
+   * 1 for the three biological modes, whose data is a *date* and nothing else —
+   * a station either has cherry blossom or it does not, and a bigger marker
+   * would be claiming something the source never measured. 雪 is the first mode
+   * whose source also measures an *amount*, so its weight carries 最深積雪 and
+   * the crystals get large on the Sea of Japan side and small on the Pacific.
+   */
+  weight: number;
   /** Stable 0..1 hash, so spin and wobble differ per station but never drift. */
   seed: number;
   compose(time: number): void;
@@ -207,6 +217,7 @@ function place(
   index: number,
   exaggeration: number,
   anchor: [number, number],
+  weight: number,
 ): PlacedStation {
   // The station's own recorded elevation, scaled to match the exaggerated DEM.
   // Terrain sampling would be more faithful in principle but returns the
@@ -229,6 +240,7 @@ function place(
     child: { matrix, color: new Color() },
     days,
     radius: 0,
+    weight,
     seed: (index * 0.618033988749895) % 1,
     compose(time) {
       const { seed, radius } = placed;
@@ -285,7 +297,18 @@ export function addBlossoms(
     mode,
     stations,
     exaggeration,
-  }: { mode: Mode; stations: Station[]; exaggeration: number },
+    weightOf,
+  }: {
+    mode: Mode;
+    stations: Station[];
+    exaggeration: number;
+    /**
+     * Per-station radius multiplier, for a mode whose source measures an amount
+     * as well as a date. Omitted by the three biological modes — see
+     * {@link PlacedStation.weight}.
+     */
+    weightOf?: (station: Station) => number;
+  },
 ): BlossomHandle {
   const style = mode.blossom;
   if (!style) throw new Error(`Mode ${mode.id} has no 3D style`);
@@ -298,14 +321,21 @@ export function addBlossoms(
       return days ? [{ station, days }] : [];
     })
     .map(({ station, days }, index) =>
-      place(station, days, index, exaggeration, style.anchor),
+      place(
+        station,
+        days,
+        index,
+        exaggeration,
+        style.anchor,
+        weightOf ? weightOf(station) : 1,
+      ),
     );
 
   // Constructed with every station present, which pins the instance capacity at
   // the real maximum so replaceAll never has to reallocate, and avoids the
   // empty-mesh bounding sphere that three would cache and cull against forever.
   for (const station of placed) {
-    station.radius = style.minRadius;
+    station.radius = style.minRadius * station.weight;
     station.compose(0);
   }
 
@@ -333,8 +363,9 @@ export function addBlossoms(
         // The same two calls the sprite evaluator makes, so the mesh and the
         // counts can never disagree about what is in bloom.
         station.radius =
-          style.minRadius +
-          (style.maxRadius - style.minRadius) * state.intensity;
+          (style.minRadius +
+            (style.maxRadius - style.minRadius) * state.intensity) *
+          station.weight;
         station.child.color!.setHex(sampleRamp(mode.ramp, state.progress));
       }
     },

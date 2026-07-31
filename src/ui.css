@@ -91,10 +91,10 @@
  * is fixed for the life of the page — there are no controls and nothing calls
  * setCamera twice. Percentages so a resized viewport keeps it roughly in place.
  */
-.ui-dry {
+/* Labels naming the place a season's finding is about. Positions are per
+   variant below; everything shared lives here. */
+.ui-finding {
   position: absolute;
-  top: 20%;
-  left: 63%;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -105,36 +105,67 @@
     transform 420ms ease;
 }
 
-.ui-dry.is-shown {
+.ui-finding.is-shown {
   opacity: 1;
   transform: none;
 }
 
-.ui-dry-ja {
+.ui-finding-ja {
   font-size: 13px;
   letter-spacing: 0.1em;
   color: #dce6ef;
   /* The sunlit relief underneath is the brightest thing in frame during 梅雨,
-     so the text needs its own separation from it. */
+     and a snow deck is brighter still, so the text needs its own separation
+     from it. */
   text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
 }
 
-.ui-dry-en {
+.ui-finding-en {
   font-size: 10px;
   letter-spacing: 0.05em;
   color: #93a2b0;
   text-shadow: 0 1px 6px rgba(4, 7, 12, 0.9);
 }
 
-/* A hairline back to the landmass it is naming. */
-.ui-dry::before {
+/* A hairline back to the landmass being named. Two directions, because a label
+   sitting to the right of its subject has to point left and vice versa. */
+.ui-finding::before {
   content: "";
   position: absolute;
   top: 7px;
-  right: calc(100% + 8px);
   width: 46px;
   height: 1px;
+}
+
+.ui-finding.leader-left::before {
+  right: calc(100% + 8px);
   background: linear-gradient(to left, #93a2b0, transparent);
+}
+
+.ui-finding.leader-right::before {
+  left: calc(100% + 8px);
+  background: linear-gradient(to right, #93a2b0, transparent);
+}
+
+/* Over the open sea east of Hokkaido, which sits upper-right in this framing. */
+.ui-finding.is-hokkaido {
+  top: 20%;
+  left: 63%;
+}
+
+/* Out in the Sea of Japan, off the Hokuriku coast — the windward side, and where
+   the cloud streets come from. */
+.ui-finding.is-japan-sea {
+  top: 36%;
+  left: 21%;
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Over the Pacific south of the Tokai coast — the lee side. */
+.ui-finding.is-pacific {
+  top: 62%;
+  left: 57%;
 }
 
 .ui-pills {

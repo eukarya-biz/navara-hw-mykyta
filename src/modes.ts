@@ -44,6 +44,8 @@ export type Mode = {
   blossom?: BlossomStyle;
   /** Present only on 梅雨: the volumetric cloud deck and the rain overlay. */
   tsuyu?: TsuyuStyle;
+  /** Present only on 雪: the 筋状雲 deck and the falling-snow overlay. */
+  snow?: SnowStyle;
 };
 
 /**
@@ -60,7 +62,8 @@ export type FloraShape =
       centerTint: [number, number, number];
     }
   | { kind: "maple"; lobes: number; hubTint: [number, number, number] }
-  | { kind: "ginkgo"; fans: number; hubTint: [number, number, number] };
+  | { kind: "ginkgo"; fans: number; hubTint: [number, number, number] }
+  | { kind: "crystal"; arms: number; hubTint: [number, number, number] };
 
 /** 3D marker style: what to build, how big, and where to sit. */
 export type BlossomStyle = {
@@ -110,6 +113,13 @@ export type TsuyuStyle = {
    * load — and stops at the Tsugaru Strait, which is the point of the mode.
    */
   reachKm: number;
+  /**
+   * Width of the fade band at the outer edge of `reachKm`, in km. Fifty: full
+   * strength up to 90 km from a station and easing to nothing over the last
+   * fifty, so the deck edge is a fade over water rather than a stamp-shaped
+   * sawtooth.
+   */
+  shoreKm: number;
   /** Paint-grid spacing in degrees; must stay well under reachKm. */
   paintStepDeg: number;
   /** Diameter of one painted blob on the 1024² weather canvas, in texels. */
@@ -122,6 +132,89 @@ export type TsuyuStyle = {
   rainMaxOpacity: number;
   /** Raindrop spawn density, 0..1 — the effect's own default of 1 is a downpour. */
   rainDensity: number;
+};
+
+/**
+ * 雪's style: the 筋状雲 cloud deck and the falling-snow overlay.
+ *
+ * Same division of labour as {@link TsuyuStyle} — plain numbers, no three.js
+ * import, parameterising a painting done in weatherMap.ts and two things
+ * snow.ts adds. The one structural difference is that 雪 does not get its own
+ * cloud effect: `CloudsEffectDesc` carries no `allowDuplication`, so there is
+ * exactly one volumetric pass in the scene and the two weather seasons share it
+ * through separate channels of one texture. Hence `cloudChannel` here and the
+ * per-channel client API in weather.ts.
+ */
+export type SnowStyle = {
+  /**
+   * How far from the nearest snow-observing station the weather map may paint,
+   * in kilometres. Wider than 梅雨's 140: the deck that matters is the one over
+   * the *sea*, because that is where the monsoon picks up the moisture, and the
+   * cloud streets are visible from the Korean coast to Honshu. The stations are
+   * still the mask, so this is what lets the paint reach out over the Sea of
+   * Japan without a coastline to load.
+   */
+  reachKm: number;
+  /**
+   * Width of the fade band at the outer edge of `reachKm`, in km. Much wider
+   * than 梅雨's fifty, because there is no coast to stop at out here: the deck
+   * should thin out gradually across the open sea rather than end on a line
+   * 260 km offshore that means nothing.
+   */
+  shoreKm: number;
+  /** Paint-grid spacing in degrees; must stay well under reachKm. */
+  paintStepDeg: number;
+  /**
+   * One painted streak on the 1024² canvas, `[along, across]` in texels.
+   *
+   * Anisotropic on purpose, and this is the whole wind device: 筋状の雲 are
+   * cloud *streets*, parallel bands lying along the wind, and a field of
+   * blobs stretched along one bearing is what reads as them from orbit.
+   */
+  streakTexels: [number, number];
+  /**
+   * Bearing the winter monsoon blows *towards*, in degrees clockwise from
+   * north. 135° is southeast: the Siberian high pushes cold air out of the
+   * northwest, it crosses the Sea of Japan, and it unloads on the windward
+   * side of the spine.
+   *
+   * This is the *only* place the wind's direction is expressed, and it reaches
+   * the screen as the orientation of the painted bands and nothing else. There
+   * is deliberately no animated drift: the cloud pass integrates its velocity
+   * into the very texture offset the paint is projected against, so drifting the
+   * field walks the deck off the country — see the note in weather.ts.
+   */
+  windBearing: number;
+  /**
+   * Which channel of the shared weather texture this deck reads. Not alpha —
+   * canvas 2D stores premultiplied colour, so painting into alpha would rescale
+   * the channels that carry the actual weather; see weatherMap.ts.
+   */
+  cloudChannel: "r" | "g" | "b";
+  /** Base of the deck in metres, and its thickness. */
+  cloudAltitude: number;
+  cloudHeight: number;
+  cloudDensity: number;
+  /**
+   * The cloud effect's global coverage knob while 雪 owns it, 0..1. Same bound
+   * as 梅雨's: at or below 1 − the layer's coverageFilterWidth.
+   */
+  coverage: number;
+  /**
+   * Falling-snow overlay opacity when the whole country is at peak depth. The
+   * overlay scales with the active fraction, so this is the ceiling.
+   */
+  snowMaxOpacity: number;
+  /** Particles in the overlay field. */
+  particleCount: number;
+  /** Particle sprite size, in the point material's own units. */
+  particleSize: number;
+  /**
+   * How far a particle is blown off vertical, in metres, at the peak of the
+   * season. The falling snow is the one place the wind is drawn directly rather
+   * than through its consequence, so this is what makes it slant.
+   */
+  particleDrift: number;
 };
 
 export const MODES: Mode[] = [
@@ -250,10 +343,109 @@ export const MODES: Mode[] = [
     tsuyu: {
       coverage: 0.45,
       reachKm: 140,
+      shoreKm: 50,
       paintStepDeg: 0.15,
       stampTexels: 14,
       rainMaxOpacity: 0.5,
       rainDensity: 0.35,
+    },
+  },
+  {
+    id: "yuki",
+    label: "雪",
+    labelEn: "Snow",
+    startKey: "yukiHatsu",
+    // The only mode with all three edges measured. 初雪 and 終雪 are announced
+    // dates like 梅雨's, and the peak is the month 最深積雪 actually peaks in,
+    // derived per station in build-snow.mjs rather than assumed.
+    peakKey: "sekisetsuPeak",
+    endKey: "yukiShu",
+    // Unused while `peakKey` resolves, and deliberately long: it is the fallback
+    // for a station whose peak month went missing, and snow at these latitudes
+    // takes six weeks to reach its depth, not five days.
+    peakLag: 45,
+    // The withdrawal. `phase` clamps this to half the span, so 稚内's 203-day
+    // season melts over 45 days and 高知's 43-day one over 21 — which is right:
+    // the thaw is proportional to what fell.
+    fadeDays: 45,
+    // Unused on the measured path, and zero so a misread cannot extend the
+    // window past 終雪.
+    holdDays: 0,
+    // First flakes, settling, deep, deep, thawing. Kept paler and colder than
+    // 梅雨's ramp so the two blues are still separable as UI accents — the
+    // swatches sit two rows apart.
+    ramp: ["#f2f7fb", "#d5e6f2", "#b8d4ea", "#93b9d8", "#dfe6ea"],
+    // Unused: this mode draws as instanced geometry, not sprites.
+    minSize: 4,
+    maxSize: 20,
+    glow: "#cfe8ff",
+    // The pill's tooltip, and so the home for the finding the labels also carry.
+    direction:
+      "北 → 南 · north to south — 日本海側に厚く / deep on the Sea of Japan side",
+    unit: "地点",
+    blossom: {
+      // A six-armed crystal is mostly gaps, so it needs a little more radius
+      // than a maple to read at the same apparent size. These are the *unweighted*
+      // bounds: snow.ts scales each station by its own 最深積雪, so only the
+      // deepest station ever reaches maxRadius.
+      minRadius: 5_500,
+      maxRadius: 29_000,
+      emissiveIntensity: 0.55,
+      // Northwest — the one quadrant 紅葉 (southwest) and 銀杏 (northeast) leave
+      // free, which matters because 雪 genuinely overlaps both: 初雪 arrives in
+      // November while the leaves are still turning, and 終雪 in Hokkaido lands
+      // in the first week of May, after 桜 has opened there. Also happens to be
+      // the direction the snow comes from.
+      anchor: [-0.55, 0.45],
+      shape: {
+        kind: "crystal",
+        // Six-fold, like a real one, and for the same reason 銀杏 uses three
+        // fans: `place` spins each marker about its own axis, so a radially
+        // symmetric marker sits on its station instead of swinging around it.
+        arms: 6,
+        // A faintly blue hub, so the arms read as joined at a core rather than
+        // crossing through each other.
+        hubTint: [0.72, 0.82, 0.92],
+      },
+    },
+    snow: {
+      // Well past 梅雨's 140 km: the cloud that matters forms *over the sea*, on
+      // the fetch between the continent and Honshu, so the paint has to be able
+      // to leave the coast.
+      reachKm: 260,
+      shoreKm: 120,
+      paintStepDeg: 0.2,
+      // Long enough to read as a band at this camera; not so narrow that the
+      // stamp's bright core is squeezed to a texel or two and disappears under
+      // the shader's own sampling. Four texels across was invisible.
+      streakTexels: [44, 6],
+      // Southeast.
+      windBearing: 135,
+      // 梅雨 owns `r`; tsuyu.ts already zeroes the other three.
+      cloudChannel: "g",
+      // Lower and thinner than 梅雨's 2.4 km shelf at 2 km. 筋状雲 are shallow
+      // convective cloud in a cold airmass, and a low deck also keeps the
+      // streaks legible against the relief they are dumping snow on.
+      cloudAltitude: 900,
+      cloudHeight: 1_400,
+      // Four times 梅雨's 0.45, and every bit of it is needed. The effect's
+      // height profile only makes cloud in roughly the bottom 40% of a layer
+      // (`shapeAlteringBias` peaks at a height fraction of ~0.14), so this
+      // 1.4 km shell has about 560 m of usable depth against 梅雨's 960 m — and
+      // 雪's paint is dimmer on top of that, because its per-station weight is
+      // below 1 almost everywhere. At 0.6 the deck was there in the buffers and
+      // invisible on screen.
+      cloudDensity: 1.8,
+      // Just under the hard bound of 1 − coverageFilterWidth (0.5 in
+      // weather.ts). Past it an *unpainted* texel starts producing cloud and
+      // the whole globe floods — and because `coverage` is global while the
+      // filter width is per layer, the flood would come out of whichever layer
+      // has the widest window, not necessarily this one.
+      coverage: 0.48,
+      snowMaxOpacity: 0.45,
+      particleCount: 6_000,
+      particleSize: 2.2,
+      particleDrift: 4_200,
     },
   },
 ];
@@ -282,22 +474,37 @@ export function phase(
     // inside it, so a marker never appears on a day the source did not name —
     // which matters here, because JMA's 「○月○日頃」 already carries the ±5-day
     // vagueness that these ramps are depicting.
-    if (day < start || day > end) return null;
-    const span = Math.max(end - start, 0.001);
+    //
+    // 雪 is the first mode whose season crosses the new year — 稚内's 初雪 is
+    // 10月19日 and its 終雪 is 5月10日, so `end` is numerically *before* `start`
+    // at 120 of the 142 stations. Lifting every value into the same year as
+    // `start` puts the whole window back on a monotone line, and the rest of
+    // the arithmetic below is unchanged.
+    //
+    // Uniform rather than conditional on a wrap: for a season that sits inside
+    // one year, lifting a day that precedes `start` pushes it past `end`, and
+    // the guard rejects it — which is the answer the plain comparison already
+    // gave. So 梅雨 and 桜 keep their exact previous behaviour.
+    const lift = (value: number) => (value < start ? value + 365 : value);
+    const liftedEnd = lift(end);
+    const liftedPeak = lift(peak);
+    const today = lift(day);
+    if (today < start || today > liftedEnd) return null;
+    const span = Math.max(liftedEnd - start, 0.001);
     // Clamped to half the span so a short season cannot have its two ramps
     // overlap and dip in the middle. 梅雨's normals run 42–48 days, but the
     // per-year record includes spans as short as 25.
-    const rise = Math.max(Math.min(peak - start, span / 2), 0.001);
+    const rise = Math.max(Math.min(liftedPeak - start, span / 2), 0.001);
     const fall = Math.max(Math.min(mode.fadeDays, span / 2), 0.001);
     const intensity =
-      day < start + rise
-        ? 0.25 + 0.75 * ((day - start) / rise)
-        : day > end - fall
-          ? 0.25 + 0.75 * ((end - day) / fall)
+      today < start + rise
+        ? 0.25 + 0.75 * ((today - start) / rise)
+        : today > liftedEnd - fall
+          ? 0.25 + 0.75 * ((liftedEnd - today) / fall)
           : 1;
     // Progress walks the whole season rather than tracking the size envelope, so
     // the ramp reads as early/mid/late 梅雨.
-    return { progress: (day - start) / span, intensity };
+    return { progress: (today - start) / span, intensity };
   }
 
   // Synthesised span, for the three modes whose source gives no end date.

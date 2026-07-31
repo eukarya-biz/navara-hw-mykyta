@@ -227,6 +227,54 @@ const GINKGO: BladeProfile = {
   bias: [1, 0.98, 0.9],
 };
 
+/* ---------------------------------------------------------------- 雪 crystal */
+
+/**
+ * A stellar dendrite arm: a narrow shaft carrying two pairs of side branches and
+ * closing to a point.
+ *
+ * The blade model has no way to angle a branch off the shaft — `halfWidth` is
+ * symmetric in `v`, so what it can make is a *swelling* of the arm at a given
+ * radius. That is enough: at the ~20 px these markers occupy, two swellings at
+ * distinct radii read as branch pairs, and an actually-angled dendrite would be
+ * sub-pixel detail either way. The important thing is that the arms stay
+ * separated — six of them at 0.13 half-width have less than a third of their
+ * available circumference each, so the gaps between them survive, and a snow
+ * crystal that closes into a disc is a daisy.
+ */
+const CRYSTAL: BladeProfile = {
+  // Set by the branch swellings: each is a Gaussian about 0.22 wide in u, so at
+  // nu = 24 there are five samples across one and the pair stays symmetric.
+  // Halve this and they alias into a single off-centre lump.
+  nu: 24,
+  // Nothing varies across the arm but the margin rounding and the spine
+  // highlight, both of which are smooth.
+  nv: 3,
+  baseR: 0.05,
+  halfWidth: (u) =>
+    (// Shaft, tapering outward the way a real one thins away from the core.
+    0.055 * (1 - 0.55 * u) +
+      // Inner branch pair.
+      0.085 * Math.exp(-(((u - 0.4) / 0.055) ** 2)) +
+      // Outer pair, a little longer — dendrites branch bigger further out.
+      0.105 * Math.exp(-(((u - 0.7) / 0.06) ** 2))) *
+    // Closes to a point over the last ~15%, which is what makes the silhouette
+    // spiky rather than club-ended.
+    (1 - u ** 7),
+  // Rounds the margin corners, the same job it does on the ginkgo.
+  edge: (_u, v) => 1 - 0.18 * v * v,
+  // Nearly flat, because ice is. Just enough of a spine ridge that the arms
+  // catch the low winter sun as the marker wobbles — without it a radially
+  // symmetric flat star is close to invisible.
+  lift: (u, v) => 0.045 * u * (1 - v * v),
+  // Brightest at the tips and along the spine, which is also where a real
+  // crystal is thickest.
+  shade: (u, v) => (0.84 + 0.16 * u) * (1 - 0.1 * Math.abs(v)),
+  // A hair blue. The ramp is already near-white, so this is what stops the
+  // crystals reading as the same colour as the 桜 at the end of its own ramp.
+  bias: [0.96, 0.99, 1.02],
+};
+
 /* -------------------------------------------------------------------- build */
 
 /**
@@ -273,6 +321,16 @@ function recipeOf(shape: FloraShape): FloraRecipe {
         blades: shape.fans,
         profile: GINKGO,
         hubRadius: 0.12,
+        hubTint: shape.hubTint,
+      };
+    case "crystal":
+      return {
+        blades: shape.arms,
+        profile: CRYSTAL,
+        // Larger than the maple's despite a similar base width: six arms leave
+        // six chord gaps at the centre rather than five, and the core of a real
+        // crystal is a solid hexagonal plate anyway.
+        hubRadius: 0.15,
         hubTint: shape.hubTint,
       };
   }

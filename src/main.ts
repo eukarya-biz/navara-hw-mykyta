@@ -10,7 +10,9 @@ import { MODES, type Mode } from "./modes";
 import { loadPhenology, type SeasonIndex } from "./phenology";
 import { addStations } from "./stations";
 import { addBlossoms } from "./blossoms";
-import { addTsuyu, loadTsuyu } from "./tsuyu";
+import { addTsuyu, loadTsuyu, tsuyuDeck } from "./tsuyu";
+import { addSnowfall, loadSnow, snowDeck } from "./snow";
+import { addWeather } from "./weather";
 import { createUi } from "./ui";
 
 const container = document.getElementById("main")!;
@@ -79,40 +81,76 @@ view.setCamera({
 // build time, so the bloom slot has to exist first or the markers never glow.
 const glow = addSeasonGlow(view);
 
-// All four fronts on by default: they occupy different parts of the year, so
+// All five fronts on by default: they occupy different parts of the year, so
 // showing them together is what makes the opposing directions legible — and 梅雨
 // sits in the one gap between spring and autumn, which is what makes the timeline
-// graph cover the whole year rather than two humps with a hole in the middle.
+// graph cover the whole year rather than two humps with a hole in the middle. 雪
+// then closes the loop by running off both ends of it.
 const selected = new Set(MODES.map((mode) => mode.id));
 let day = 60;
 let playing = true;
 
 const phenology = await loadPhenology();
 const tsuyu = await loadTsuyu(phenology);
+const snow = await loadSnow();
 const stations = addStations(view, phenology, selected);
 
+const tsuyuMode = MODES.find((mode) => mode.tsuyu)!;
+const snowMode = MODES.find((mode) => mode.snow)!;
+
+/**
+ * Which station roster a mode's markers are placed on.
+ *
+ * 雪 is read at the 気象官署 and the other three at the 生物季節観測 stations, which
+ * are a different and smaller set — so this is not one list with more columns on
+ * it, and `addBlossoms` taking its stations as an argument is what makes that
+ * free.
+ */
+const rosterFor = (mode: Mode) =>
+  mode.snow ? snow.stations : phenology.stations;
+
 // The modes carrying a `blossom` style get instanced 3D geometry; stations.ts
-// has already skipped their sprite layers.
+// has already skipped their sprite layers. 雪 also passes a weight, because its
+// source measures an amount as well as a date.
 const blossoms = MODES.filter((mode) => mode.blossom).map((mode) => ({
   mode,
   handle: addBlossoms(view, {
     mode,
-    stations: phenology.stations,
+    stations: rosterFor(mode),
     exaggeration: EXAGGERATION,
+    weightOf: mode.snow ? (station) => snow.depthWeight(station) : undefined,
   }),
 }));
 
 // After the blossoms, so the `blossoms` descriptor key is already registered and
-// the bloom slot already exists — the deck shares both.
-const tsuyuMode = MODES.find((mode) => mode.tsuyu)!;
-const tsuyuHandle = addTsuyu(view, { mode: tsuyuMode, tsuyu });
+// the bloom slot already exists.
+//
+// One cloud pass for both weather seasons — `CloudsEffectDesc` allows no
+// duplicate — so both decks have to be declared here, before it is built: its
+// layer roster and their coverage windows are constructor-only.
+const weather = addWeather(view, [
+  tsuyuDeck({ mode: tsuyuMode, tsuyu }),
+  snowDeck({ mode: snowMode, snow }),
+]);
+const tsuyuHandle = addTsuyu(view, { mode: tsuyuMode, tsuyu, weather });
+const snowHandle = addSnowfall(view, { mode: snowMode, snow, weather });
 
 /**
- * 梅雨 is counted in 地方 and the other three in 地点, so the tallies come from two
- * different indexes. Both satisfy `SeasonIndex`, and both read the single clock
- * that `stations.setDay` advances.
+ * 梅雨 is counted in 地方, 雪 at the 気象官署 and the other three at the 生物季節
+ * stations, so the tallies come from three different indexes. All three satisfy
+ * `SeasonIndex`, and all three read the one clock `render` advances.
+ *
+ * A lookup rather than a chain of ternaries: with three of them the conditional
+ * stopped being readable, and this way adding a fourth unit is a line here
+ * instead of another nested branch.
  */
-const indexFor = (mode: Mode): SeasonIndex => (mode.regional ? tsuyu : stations);
+const indexes = new Map<string, SeasonIndex>(
+  MODES.map((mode) => [
+    mode.id,
+    mode.regional ? tsuyu : mode.snow ? snow : stations,
+  ]),
+);
+const indexFor = (mode: Mode): SeasonIndex => indexes.get(mode.id)!;
 
 const ui = createUi(container);
 
@@ -130,10 +168,12 @@ function syncSun(dayOfYear: number) {
 
 function render() {
   stations.setDay(day);
+  snow.setDay(day);
   for (const { mode, handle } of blossoms) {
     handle.setDay(day, selected.has(mode.id));
   }
   tsuyuHandle.setDay(day, selected.has(tsuyuMode.id));
+  snowHandle.setDay(day, selected.has(snowMode.id));
 
   syncSun(day);
   ui.render({
@@ -214,6 +254,9 @@ Object.assign(window as unknown as Record<string, unknown>, {
   blossoms,
   tsuyu,
   tsuyuHandle,
+  snow,
+  snowHandle,
+  weather,
   terrain,
   scene,
   glow,

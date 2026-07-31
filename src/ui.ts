@@ -53,23 +53,65 @@ export function createUi(container: HTMLElement): Ui {
     el(
       "p",
       "ui-sub",
-      "Japan's seasonal fronts · 気象庁 生物季節観測 1953–2026 · 梅雨入り明け 1951–2025",
+      "Japan's seasonal fronts · 気象庁 生物季節観測 1953–2026 · " +
+        "梅雨入り明け 1951–2025 · 地上気象観測平年値 1991–2020",
     ),
   );
 
   /**
-   * The one thing 梅雨 is for.
+   * The things the two weather seasons are *for*, pinned to the places they are
+   * about.
    *
-   * Sits over Hokkaido, and only while 梅雨 is selected. Absolute placement is
-   * legitimate here because the camera never moves — main.ts sets it once and
-   * there are no controls — so Hokkaido is always in the same part of the frame.
-   * Percentages rather than pixels so it tracks a resized viewport approximately.
+   * Absolute placement is legitimate here because the camera never moves —
+   * main.ts sets it once and there are no controls — so a given landmass is
+   * always in the same part of the frame. Percentages rather than pixels so it
+   * tracks a resized viewport approximately.
+   *
+   * 雪 gets two labels rather than one because its finding is a *contrast*: the
+   * same latitudes, an order of magnitude apart in snowfall, either side of one
+   * mountain spine. One label naming the deep side would only be half of it.
+   *
+   * What 雪 does *not* get is 「南西諸島に雪はない」, the true mirror of 梅雨's label:
+   * main.ts frames Kyushu→Hokkaido and explicitly declines to pull back far
+   * enough to hold the Ryukyus, so that label would point off the edge of the
+   * frame at something the viewer cannot see. It lives in the pill's tooltip and
+   * in `Snow.withoutSnow` instead.
    */
-  const drySpot = el("div", "ui-dry");
-  drySpot.append(
-    el("span", "ui-dry-ja", "北海道に梅雨はない"),
-    el("span", "ui-dry-en", "Hokkaido has no rainy season"),
-  );
+  const FINDINGS: {
+    modeId: string;
+    ja: string;
+    en: string;
+    /** Placement and leader direction; see ui.css. */
+    variant: string;
+  }[] = [
+    {
+      modeId: "tsuyu",
+      ja: "北海道に梅雨はない",
+      en: "Hokkaido has no rainy season",
+      variant: "is-hokkaido leader-left",
+    },
+    {
+      modeId: "yuki",
+      ja: "日本海側",
+      en: "deep — the monsoon crosses the sea",
+      variant: "is-japan-sea leader-right",
+    },
+    {
+      modeId: "yuki",
+      ja: "太平洋側",
+      en: "bare — the spine wrings it out",
+      variant: "is-pacific leader-left",
+    },
+  ];
+
+  const findingEls = FINDINGS.map((finding) => {
+    const node = el("div", `ui-finding ${finding.variant}`);
+    node.append(
+      el("span", "ui-finding-ja", finding.ja),
+      el("span", "ui-finding-en", finding.en),
+    );
+    return { finding, node };
+  });
 
   // Readout and pills sit on the right, over open Pacific: the archipelago runs
   // diagonally through the lower-left, so a centred control bar would cover
@@ -129,7 +171,7 @@ export function createUi(container: HTMLElement): Ui {
   track.append(graph, scrub, months);
   bottom.append(playBtn, track);
 
-  root.append(title, drySpot, side, bottom);
+  root.append(title, ...findingEls.map(({ node }) => node), side, bottom);
   container.append(root);
 
   const toggleHandlers: ((modeId: string) => void)[] = [];
@@ -258,13 +300,10 @@ export function createUi(container: HTMLElement): Ui {
         pillEls.get(mode.id)?.classList.toggle("is-active", on);
       }
 
-      // Only while the season it is a statement about is on screen.
-      drySpot.classList.toggle(
-        "is-shown",
-        MODES.some(
-          (mode) => mode.regional && state.selected.has(mode.id),
-        ),
-      );
+      // Each only while the season it is a statement about is on screen.
+      for (const { finding, node } of findingEls) {
+        node.classList.toggle("is-shown", state.selected.has(finding.modeId));
+      }
 
       drawGraph(state);
     },
