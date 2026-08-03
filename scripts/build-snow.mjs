@@ -4,34 +4,36 @@
  * Unlike the other two datasets this one arrives as a 21 MB zip of per-station
  * CSVs rather than one CSV per series, so the shape of the parse is different:
  * a station index gives the roster and the coordinates, and then two files per
- * station carry the values. Node has no zip reader, so the archive is unpacked
- * by shelling out to `unzip` — these scripts are hand-run dev tooling, so that
- * is cheaper than a dependency, and the extraction is scoped to the three
- * directories actually read.
+ * station carry the values. Getting the archive open and cut into rows lives in
+ * normals.mjs, which build-heat.mjs shares.
  *
- * The files are Shift_JIS and *code-keyed*, not header-keyed: every row is
- * `type, block_no, element_code, years, from, to, value, flag, …`. There is no
- * label anywhere in the archive saying which code is which element, which makes
- * this the most fragile parse of the three — so every code below records how it
- * was pinned down, and `EXPECTED_SNOW` re-checks the result against
- * hand-transcribed values before anything is written.
+ * What stays here is the fragile part. The files are *code-keyed*, not
+ * header-keyed, and there is no label anywhere in the archive saying which code
+ * is which element — so every code below records how it was pinned down, and
+ * `EXPECTED_SNOW` re-checks the result against hand-transcribed values before
+ * anything is written.
  */
-import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
-import { execFile } from "node:child_process";
-import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 
-import { MONTH_STARTS, monthDayToDoy, parseCsv, round1, squeeze } from "./jma.mjs";
-
-const run = promisify(execFile);
+import { MONTH_STARTS, monthDayToDoy, round1 } from "./jma.mjs";
+import {
+  ANNUAL,
+  assertInJapan,
+  cell,
+  degrees,
+  fail,
+  fetchNormals,
+  monthIndex,
+  NORMALS,
+  readMonthly,
+  readSeasonal,
+  readStationIndex,
+} from "./normals.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = resolve(ROOT, "public/data/snow.geojson");
-
-const NORMALS =
-  "https://www.data.jma.go.jp/stats/data/mdrr/normal/2020/data/normal_surface.zip";
 
 /**
  * 季節現象 element codes, from `seasonal_phenomena/nml_sfc_sph_<block>.csv`.
@@ -56,9 +58,8 @@ const SNOW_END = "7400"; // 雪の終日
  * here and 積雪(≧0cm)の初日 there — which is the trap this whole comment block
  * exists to keep someone out of.
  *
- * Row layout is `11, block, code, years, from, to,` then twelve
- * `value, flag` pairs for January…December, then the annual `value, flag`, so
- * the annual value sits at index 30.
+ * Row layout is the one normals.mjs documents: `ANNUAL` is the annual value and
+ * `monthIndex(m)` a month's.
  *
  * Pinned down by matching published annual normals: 6000 gives 青森 567 cm,
  * 金沢 157 cm, 新潟 139 cm, 東京 8 cm — JMA's 降雪量年合計平年値 exactly — and 6200
@@ -67,7 +68,6 @@ const SNOW_END = "7400"; // 雪の終日
  */
 const SNOWFALL_TOTAL = "6000"; // 降雪の深さ合計 (cm)
 const MAX_DEPTH = "6200"; // 最深積雪 (cm)
-const ANNUAL = 30;
 
 /**
  * The fifteen stations in the surface network with no 雪の初日 normal.
@@ -117,35 +117,11 @@ const EXPECTED_SNOW = {
   鹿児島: { start: [1, 5], end: [2, 17], depth: 3 },
 };
 
-/** Everything in the surface network is inside this box except 昭和. */
-const JAPAN = { lat: [24, 46], lng: [122, 154] };
-
-function fail(message) {
-  throw new Error(message);
-}
-
 /** MMDD integer -> day of year, or null when JMA publishes no normal (0). */
 function mmddToDoy(mmdd) {
   if (!Number.isFinite(mmdd) || mmdd === 0) return null;
   return monthDayToDoy(Math.floor(mmdd / 100), mmdd % 100);
 }
-
-/** Reads a code-keyed CSV into `Map<elementCode, cells[]>`, first row wins. */
-async function readCoded(path) {
-  const text = new TextDecoder("shift_jis").decode(await readFile(path));
-  const byCode = new Map();
-  for (const cells of parseCsv(text)) {
-    const code = cells[2]?.trim();
-    if (!code || byCode.has(code)) continue;
-    byCode.set(code, cells);
-  }
-  return byCode;
-}
-
-const cell = (cells, index) => Number.parseInt(cells?.[index]?.trim() ?? "", 10);
-
-/** Degrees-and-minutes converted to five decimal places — about a metre. */
-const degrees = (value) => Math.round(value * 1e5) / 1e5;
 
 /**
  * The day-of-year 最深積雪 normally peaks, from the twelve monthly values.
@@ -163,7 +139,7 @@ const degrees = (value) => Math.round(value * 1e5) / 1e5;
 function peakDepthDoy(monthly, startDoy) {
   let best = null;
   for (let month = 1; month <= 12; month += 1) {
-    const depth = cell(monthly, 6 + 2 * (month - 1));
+    const depth = cell(monthly, monthIndex(month));
     if (!Number.isFinite(depth) || depth <= 0) continue;
     const doy = MONTH_STARTS[month - 1] + 15;
     // Lifted into the same year as the start, so "later in the season" is a
@@ -177,51 +153,11 @@ function peakDepthDoy(monthly, startDoy) {
 }
 
 async function main() {
-  const dir = await mkdtemp(join(tmpdir(), "jma-normals-"));
-  const zip = join(dir, "normal_surface.zip");
-
-  const response = await fetch(NORMALS);
-  if (!response.ok) fail(`${NORMALS} -> ${response.status}`);
-  await writeFile(zip, Buffer.from(await response.arrayBuffer()));
-
-  // Scoped to what is read. The archive also holds daily, 5-day, 10-day,
-  // monthly-basis and regional-average normals — 1,963 files and 194 MB
-  // unpacked — none of which this dataset needs.
-  await run("unzip", [
-    "-oq",
-    zip,
-    "normal_surface/surface_station_index.csv",
-    "normal_surface/seasonal_phenomena/*",
-    "normal_surface/monthly/*",
-    "-d",
-    dir,
-  ]);
-  const base = join(dir, "normal_surface");
+  const base = await fetchNormals(["seasonal_phenomena", "monthly"]);
 
   /* --- the roster ------------------------------------------------------- */
 
-  // Coordinates come from the archive's own index rather than the AMeDAS join
-  // build-phenology.mjs needs: these are 気象官署, and the index carries
-  // degrees, minutes and elevation for every one of them, so there is no name
-  // matching to get wrong.
-  const indexText = new TextDecoder("shift_jis").decode(
-    await readFile(join(base, "surface_station_index.csv")),
-  );
-  const stations = [];
-  for (const cells of parseCsv(indexText)) {
-    const block = cells[0]?.trim();
-    // Two header rows precede the data; station rows start with a block number.
-    if (!/^\d+$/.test(block ?? "")) continue;
-    const name = squeeze(cells[1]);
-    // Columns: block, 漢字, カナ, English, lat°, lat′, lng°, lng′, altitude.
-    const nameEn = squeeze(cells[3]);
-    const lat = Number(cells[4]) + Number(cells[5]) / 60;
-    const lng = Number(cells[6]) + Number(cells[7]) / 60;
-    if (!name || !Number.isFinite(lat) || !Number.isFinite(lng)) {
-      fail(`unreadable station index row: ${cells.slice(0, 9).join(",")}`);
-    }
-    stations.push({ block, name, nameEn, lat, lng, alt: Number(cells[8]) });
-  }
+  const stations = await readStationIndex(base);
   console.log(`surface station index: ${stations.length} stations`);
 
   /* --- the values ------------------------------------------------------- */
@@ -231,12 +167,8 @@ async function main() {
   const seen = new Map();
 
   for (const station of stations) {
-    const seasonal = await readCoded(
-      join(base, "seasonal_phenomena", `nml_sfc_sph_${station.block}.csv`),
-    );
-    const monthly = await readCoded(
-      join(base, "monthly", `nml_sfc_m_${station.block}.csv`),
-    );
+    const seasonal = await readSeasonal(base, station.block);
+    const monthly = await readMonthly(base, station.block);
 
     const startRow = seasonal.get(SNOW_START);
     const endRow = seasonal.get(SNOW_END);
@@ -251,17 +183,7 @@ async function main() {
     // Outside Japan the mode is meaningless and the marker would be nowhere
     // near the framed archipelago. 昭和 is the only such station today and it
     // has no 雪の初日 anyway, so this is a guard against JMA adding another.
-    if (
-      station.lat < JAPAN.lat[0] ||
-      station.lat > JAPAN.lat[1] ||
-      station.lng < JAPAN.lng[0] ||
-      station.lng > JAPAN.lng[1]
-    ) {
-      fail(
-        `${station.name} has a 雪の初日 but sits at ${round1(station.lat)}N ` +
-          `${round1(station.lng)}E, outside Japan`,
-      );
-    }
+    assertInJapan(station, "has a 雪の初日");
 
     const depthRow = monthly.get(MAX_DEPTH);
     const fallRow = monthly.get(SNOWFALL_TOTAL);

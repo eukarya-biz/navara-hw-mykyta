@@ -1,3 +1,18 @@
+/**
+ * First day-of-year of each month on a common non-leap calendar.
+ *
+ * Lives here because this module is the one that imports nothing — ui.ts needs
+ * it for the date readout and natsu.ts for the field's temperature curve, and
+ * neither should have to depend on the other to get it.
+ *
+ * Still duplicated in scripts/jma.mjs, which cannot import from `src`:
+ * `tsconfig.json` has `include: ["src"]` and the build scripts are plain .mjs.
+ * If the calendar convention ever changes, both must change.
+ */
+export const MONTH_STARTS = [
+  0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334,
+];
+
 export type Mode = {
   id: string;
   label: string;
@@ -8,8 +23,10 @@ export type Mode = {
   peakKey?: string;
   /**
    * Property holding the day-of-year the phenomenon *ends*, when the source
-   * measures it. 梅雨 is the only mode that has one: JMA announces 梅雨明け, while
-   * 桜, 紅葉 and 銀杏 have their end synthesised from peakLag/holdDays/fadeDays.
+   * gives one. 桜, 紅葉 and 銀杏 have their end synthesised from
+   * peakLag/holdDays/fadeDays; 梅雨 and 雪 take theirs from JMA's announced
+   * 梅雨明け and 終雪; 猛暑 takes a *derived* one — see NatsuStyle, which is the
+   * one place in the set where an end date is computed rather than read.
    */
   endKey?: string;
   peakLag: number;
@@ -46,6 +63,8 @@ export type Mode = {
   tsuyu?: TsuyuStyle;
   /** Present only on 雪: the 筋状雲 deck and the falling-snow overlay. */
   snow?: SnowStyle;
+  /** Present only on 猛暑: the painted 真夏日 field. */
+  natsu?: NatsuStyle;
 };
 
 /**
@@ -217,6 +236,83 @@ export type SnowStyle = {
   particleDrift: number;
 };
 
+/**
+ * 猛暑's style: the painted 真夏日 field on the ground, and 入道雲 above it.
+ *
+ * **The one mode whose dates are derived.** 桜's 開花, 梅雨's 入り and 明け, 雪's
+ * 初日 and 終日 are days JMA announces. There is no announced 猛暑の初日 — what the
+ * archive publishes is twelve monthly means of 日最高気温 per station, so
+ * build-heat.mjs fits a curve through them and takes the season as the days that
+ * curve is at or above 30 °C. A monthly mean is one number for thirty days, so
+ * every edge here carries roughly ±5–10 days of slop, and none of it is the same
+ * kind of statement as a 梅雨明け. Said again in build-heat.mjs and in the README;
+ * it should not fall out of any of the three.
+ *
+ * What the season draws is the temperature itself, as a painted area on the
+ * ground — the only mode here that is not markers or cloud. That is not for want
+ * of trying the alternatives: a full-frame warm grade was too subtle to notice,
+ * and 入道雲 on the shared cloud pass, which is physically the right consequence
+ * of heat over land, read from straight overhead as flat grey blobs sitting on
+ * top of the thing they were supposed to explain. See `field` and natsu.ts.
+ *
+ * Heat has no shape of its own at this scale, and a temperature is a property of
+ * everywhere rather than of the 101 points that happen to measure it — so an
+ * area is the honest form for it, and the interpolation that area requires is
+ * the price. build-heat.mjs states that price.
+ */
+export type NatsuStyle = {
+  /**
+   * The painted 真夏日 field on the ground — the whole of what this mode draws.
+   *
+   * This replaced a full-frame warm colour grade. The grade was the only device
+   * available that could speak about the whole country at once, and it was too
+   * subtle to notice: at its ceiling of 0.31 opacity over a scene that is mostly
+   * dark sea and darker sky, the difference between peak August and early June
+   * was a tint most viewers would never catch. A field on the ground says the
+   * same thing by drawing it, and it can be read against the coastline.
+   */
+  field: {
+    /**
+     * Colour ramp for the field, walked from the threshold to the hottest cell
+     * in the country — *not* through the season the way `Mode.ramp` is.
+     *
+     * A separate ramp because it answers a different question. `Mode.ramp` is
+     * "how far through its season is this station", which is what the pill and
+     * the timeline curve want. This is "how hot is this cell right now", and it
+     * has only 3.8 °C of range to work with: every painted cell is at or above
+     * 30 °C by construction, and the hottest in the country is 33.8. Spending
+     * the whole ramp on that narrow band is what keeps 京都 distinguishable from
+     * 厳原 instead of the entire footprint arriving as one flat red.
+     */
+    ramp: string[];
+    /**
+     * Temperature the ramp starts at, °C — the threshold itself, so the coolest
+     * painted cell is ramp[0] rather than something already halfway up it.
+     */
+    from: number;
+    /** Temperature the ramp tops out at, °C: the hottest cell in the dataset. */
+    to: number;
+    /**
+     * Opacity of the field at full strength.
+     *
+     * Not 1: the hillshade underneath is what makes the archipelago read as
+     * Japan rather than as a red blob, and the whole point of clamping the field
+     * to the ground is that the relief stays visible through it.
+     */
+    opacity: number;
+    /**
+     * Days of fade at each edge of a cell's own window.
+     *
+     * Without this every cell pops in at full strength on its start day, and
+     * because whole regions share nearly the same crossing date the footprint
+     * arrives in visible slabs. Short, because the window edges are already
+     * ±5–10 days uncertain and a long fade would claim the season is gentler
+     * than the data says.
+     */
+    edgeDays: number;
+  };
+};
+
 export const MODES: Mode[] = [
   {
     id: "sakura",
@@ -361,6 +457,74 @@ export const MODES: Mode[] = [
       stampTexels: 14,
       rainMaxOpacity: 0.5,
       rainDensity: 0.35,
+    },
+  },
+  {
+    id: "natsu",
+    label: "猛暑",
+    labelEn: "Summer heat",
+    // All three edges present, so this takes `phase`'s measured branch — but
+    // unlike 梅雨's and 雪's, all three are computed. See NatsuStyle.
+    startKey: "natsuKaishi",
+    peakKey: "natsuPeak",
+    endKey: "natsuOwari",
+    // Unused while `peakKey` resolves, and it always does: the peak is the
+    // maximum of the same curve the edges are crossings of, so a station cannot
+    // have the edges without it. Set to the country's median rise anyway, so a
+    // fallback would land somewhere sane rather than on the start.
+    peakLag: 30,
+    // The withdrawal. Deliberately longer than the onset ramp `phase` derives
+    // from peak − start: the curve is not symmetric, because September holds
+    // its heat while June is still climbing out of 梅雨. `phase` clamps this to
+    // half the span, so 厳原's eight-day season still fades over four.
+    fadeDays: 24,
+    // Unused on the measured path, and zero so a misread cannot extend the
+    // window past the last day the curve is over the line.
+    holdDays: 0,
+    /**
+     * Building, hot, peak, peak, breaking.
+     *
+     * Red, which is the last free warm hue and a tight fit: 紅葉 is on burnt
+     * orange two rows up. They are separable here because the ramp is
+     * *saturated* where 紅葉's is earthy, and because `accentOf` samples at 0.35
+     * — landing on index 1, which is a pure vermilion against 紅葉's `#f0a23c`.
+     * The two curves also barely share any x in the graph: 猛暑 is over by day
+     * 293 at the latest and 紅葉 opens at 287.
+     *
+     * DOM-only, like 梅雨's, and cheap to change for the same reason: this mode
+     * carries no `blossom` and takes no sprite layer, so nothing on the globe
+     * samples it. The deck cannot be tinted at any price — `CloudsOptions`
+     * exposes no colour, because the cloud is lit by the same sun as everything
+     * else. What carries the heat's colour on screen is the grade, and that is
+     * the LUT, not this.
+     */
+    ramp: ["#ffdec8", "#f83a26", "#d4121f", "#8e0f1c", "#f2b49c"],
+    // Unused: no sprite layer, no instanced geometry.
+    minSize: 4,
+    maxSize: 20,
+    glow: "#ff5a3c",
+    // The pill's tooltip, and so the home for the finding. The advance is
+    // south-to-north like 桜's, but the *depth* is the thing worth saying: the
+    // hottest place in Japan is not the southernmost.
+    direction: "南 → 北 · south to north — 内陸の盆地が最も暑い / hottest inland",
+    unit: "地点",
+    natsu: {
+      field: {
+        // Threshold to peak in four steps. Amber at 真夏日 itself, through
+        // orange, to the deep red of the Inland Sea basins — warm all the way,
+        // with no cool end, because there is no cool end to a 真夏日. Reads
+        // clearly against both the dark basemap and the tan hillshade, which a
+        // ramp starting near white did not.
+        ramp: ["#f6b64a", "#f0812e", "#e0451f", "#a81419"],
+        from: 30,
+        // 京都 and 大阪, the hottest cells in the country.
+        to: 33.8,
+        // High enough to be unmistakable, low enough that the hillshade still
+        // reads through it — which is what keeps this a map of Japan rather than
+        // a red shape.
+        opacity: 0.82,
+        edgeDays: 6,
+      },
     },
   },
   {

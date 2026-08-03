@@ -41,9 +41,15 @@ const ANCHORS: [number, number][] = [
  * would keep re-evaluating 102 features to draw nothing:
  *
  * - `blossom` modes, which blossoms.ts renders as an instanced mesh instead.
- * - `regional` modes, whose data is not on these features at all — 梅雨 is
- *   announced per 地方, so no station carries a `tsuyuIri` for the evaluator to
- *   read, and every feature would fail the `eventDays` guard.
+ * - modes whose data is not on these features at all, and so would fail the
+ *   `eventDays` guard on every one of them: 梅雨 is announced per 地方, so no
+ *   station carries a `tsuyuIri`, and 猛暑 is read at the 気象官署, which are a
+ *   different roster from these 生物季節観測 stations.
+ *
+ * As it stands that is every mode in the set, so this builds nothing at all
+ * today — the layer survives entirely as the documented fallback. Note that the
+ * `ANCHORS` indexing below is by position in MODES and the table is only three
+ * long, so a new mode that is *not* skipped here needs an entry there too.
  *
  * The counts are unaffected either way: they come from a season index, not from
  * any evaluator.
@@ -63,7 +69,7 @@ export function addStations(
   let active = new Set(selected);
 
   const layers = MODES.flatMap((mode, index) => {
-    if (mode.blossom || mode.regional) return [];
+    if (mode.blossom || mode.regional || mode.natsu) return [];
 
     const layer = view.addLayer({
       type: "vector",

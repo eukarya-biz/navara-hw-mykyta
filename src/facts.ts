@@ -46,10 +46,25 @@ export type Fact = {
  * Sorted by `day`. ui.ts relies on that ordering to take the newest few without
  * sorting per frame, so keep it sorted when adding to it.
  *
- * Fifteen entries over a ~40 s loop is a card every ~2.7 s, and the rolling
- * window of four holds each one on screen for about eleven. That pacing is why
- * the loop was slowed from 24 s nominal: at the old rate a card was replaced
- * before it could be read.
+ * Twenty-one entries over a ~40 s loop is a card every ~1.9 s, and the rolling
+ * window of four holds each one on screen for about seven and a half. That
+ * pacing is why the loop was slowed from 24 s nominal: at the old rate a card
+ * was replaced before it could be read.
+ *
+ * The pacing is not uniform, and it is the reason a card cannot simply be
+ * dropped wherever a finding happens to belong. `TSUYU_HOLD` in main.ts runs
+ * days 148–212 at 0.4×, so those 64 days are 14 of the loop's 40 seconds —
+ * a third of the reading time for a sixth of the year. It used to carry three
+ * cards and now carries six, which is where the four newest findings went and
+ * why 猛暑 could finally have more than two: its season opens under 梅雨 in the
+ * south in late June, so a 猛暑 card can sit inside the hold and still have
+ * something on screen to point at.
+ *
+ * What that does *not* buy is room in the other two stretches. Days 1–148 and
+ * 212–365 each run about 13 s and each carry seven or eight cards, so a new
+ * finding there costs every card around it screen time. A card that has to go
+ * outside the hold has to be worth that, which is the bar 桜前線は一本の木では
+ * ない met and the reason nothing else was added at either end.
  */
 export const FACTS: Fact[] = [
   {
@@ -71,9 +86,13 @@ export const FACTS: Fact[] = [
   {
     id: "yuki-zero",
     modeId: "yuki",
+    // Led with the behaviour rather than with the count. "22 地点は最深積雪 0 cm"
+    // is the same finding, but it asks the reader to work out what a maximum
+    // depth of zero implies before it can land; this states the implication and
+    // keeps the number underneath as the evidence for it.
     day: 43,
-    ja: "22 地点は最深積雪 0 cm",
-    en: "of 142 — it falls there every year, and never lies",
+    ja: "降っても、積もらない",
+    en: "22 of the 142 stations record snow every year and a maximum depth of zero",
   },
   {
     id: "sakura-elevation",
@@ -106,6 +125,18 @@ export const FACTS: Fact[] = [
     en: "203 days — the only season here that crosses the new year",
   },
   {
+    id: "sakura-species",
+    modeId: "sakura",
+    // 根室's 開花 — the last station the front reaches, and the whole point of
+    // the card: it gets there on a different tree from the one it started on.
+    // Placed outside the hold, which costs the six 桜/雪 cards around it screen
+    // time, because the alternative is a card about the front's end arriving a
+    // fortnight after the front has ended.
+    day: 138,
+    ja: "桜前線は一本の木ではない",
+    en: "ソメイヨシノ over most of Japan, 寒緋桜 in Okinawa, エゾヤマザクラ in Hokkaido — three species, one line",
+  },
+  {
     id: "tsuyu-hokkaido",
     modeId: "tsuyu",
     // 九州北部's 梅雨入り, the day the mainland turns on.
@@ -122,12 +153,66 @@ export const FACTS: Fact[] = [
     en: "九州北部 6月4日 → 東北北部 6月15日 · 桜 takes 110 days over the same ground",
   },
   {
+    id: "natsu-capes",
+    modeId: "natsu",
+    // 猛暑's first card, and it arrives while the field is still only the
+    // southern basins — which is the right moment for a card about the places
+    // that never light up at all, because the viewer can still see them not
+    // lighting up one by one as the rest of the country fills in.
+    day: 180,
+    ja: "岬と島には夏が来ない",
+    en: "潮岬, 室戸岬, 銚子, 八丈島 — latitudes that are hot everywhere else, held under the line by the sea around them",
+  },
+  {
+    id: "natsu-yamagata",
+    modeId: "natsu",
+    // The other half of the same absence, and the one that makes the shape of
+    // the season legible: the field has a hard northern edge, and it is a
+    // latitude rather than a coastline.
+    day: 192,
+    ja: "山形 38.3°N が北限",
+    en: "仙台 and 石巻 sit at the same latitude and never get there — 猛暑 stops at Tohoku, which is 雪's map with the colours swapped",
+  },
+  {
     id: "tsuyu-fuzzy",
     modeId: "tsuyu",
     // 7月19日, the day five regions end together.
     day: 200,
     ja: "明けの方が決めにくい",
     en: "1951–2025: 2 梅雨入り could not be determined, against 26 梅雨明け",
+  },
+  {
+    id: "tsuyu-1993",
+    modeId: "tsuyu",
+    // Deliberately right behind the card above, as its instance: 26 undetermined
+    // 明け across 75 years is a statistic, and one summer holding ten of them is
+    // what the statistic was hiding.
+    day: 209,
+    ja: "1993 年だけで十地方",
+    en: "one summer accounts for ten of those 26 — every region except 沖縄 and 奄美",
+  },
+  {
+    id: "natsu-inland",
+    modeId: "natsu",
+    // Two days before the peak, when all 101 stations are above the line at
+    // once and the contrast this card is about is at its widest.
+    day: 220,
+    ja: "京都 33.8 °C · 那覇 32.1 °C",
+    en: "the hottest place in Japan is not the southernmost — a basin ringed by hills has nothing to moderate it",
+  },
+  {
+    id: "natsu-none",
+    modeId: "natsu",
+    // Late in the season, by which point the empty north has been on screen for
+    // six weeks and the card names something the viewer is already looking at.
+    //
+    // Twenty-seven days after the one above rather than ten: days 212–259 run at
+    // the clock's full rate, so ten days here is under a second of screen time.
+    // A third 猛暑 card would have to sit inside that same stretch and there is
+    // no room for it — see the pacing note at the top of this file.
+    day: 247,
+    ja: "北海道に真夏日はない",
+    en: "56 of 157 stations never reach a 30 °C monthly mean — all of Hokkaido, the high ground, and the capes",
   },
   {
     id: "kouyou-descends",
@@ -144,18 +229,27 @@ export const FACTS: Fact[] = [
     en: "median, at 66 of 69 stations — autumn has moved more than spring has",
   },
   {
-    id: "icho-shared",
+    id: "icho-later",
     modeId: "icho",
+    // Was 紅葉と銀杏は同じ地点, which explained why the two autumn markers sit
+    // slightly off their station rather than saying anything about Japan. A note
+    // about the drawing is not a finding, and it was the only card 銀杏 had — so
+    // the one mode with no finding of its own now carries the one number that is
+    // genuinely its own.
     day: 300,
-    ja: "紅葉と銀杏は同じ地点",
-    en: "overlapping windows at one station, so each marker sits a little off its point",
+    ja: "銀杏も 10.0 日遅い",
+    en: "median at 62 of 68 stations — the ginkgo moved with the maple, not with the cherry",
   },
   {
     id: "kouyou-stretching",
     modeId: "kouyou",
+    // The closing card, and the only one that is about the whole dataset rather
+    // than about one season. Stated as a movement rather than as the two numbers
+    // again — both have already been cards by now, and repeating them reads as a
+    // summary slide.
     day: 314,
-    ja: "生長期間は両端に伸びている",
-    en: "spring 4.7 days earlier, autumn 11.8 days later",
+    ja: "春と秋は逆向きに離れていく",
+    en: "spring pulls 4.7 days earlier and autumn pushes 11.8 later — the growing season is stretching at both ends",
   },
   {
     id: "yuki-none",

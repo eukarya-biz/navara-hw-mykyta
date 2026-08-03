@@ -12,6 +12,7 @@ import { addStations } from "./stations";
 import { addBlossoms } from "./blossoms";
 import { addTsuyu, loadTsuyu, tsuyuDeck } from "./tsuyu";
 import { addSnowfall, loadSnow, snowDeck } from "./snow";
+import { addNatsu, loadNatsu } from "./natsu";
 import { addWeather } from "./weather";
 import { createUi } from "./ui";
 
@@ -74,7 +75,11 @@ const terrain = addJapanTerrain(view, {
   highlight: true,
 });
 
-// Fixed oblique view of the archipelago. The camera never moves; the data does.
+// Fixed oblique view of the archipelago. The camera *starts* here and the data
+// moves under it — nothing in the app ever re-frames it — but the viewer can,
+// and code that assumed otherwise has been wrong at least once: see the march
+// budget in weather.ts, which culled half the country's cloud from any camera
+// low enough to look along the deck rather than down onto it.
 // Framed on Kyushu→Hokkaido: pulling back far enough to also hold the Ryukyus
 // shrinks the main islands to the point where the front stops reading.
 view.setCamera({
@@ -90,22 +95,70 @@ view.setCamera({
 // build time, so the bloom slot has to exist first or the markers never glow.
 const glow = addSeasonGlow(view);
 
-// All five fronts on by default: they occupy different parts of the year, so
-// showing them together is what makes the opposing directions legible — and 梅雨
-// sits in the one gap between spring and autumn, which is what makes the timeline
-// graph cover the whole year rather than two humps with a hole in the middle. 雪
-// then closes the loop by running off both ends of it.
+// All six fronts on by default: they occupy different parts of the year, so
+// showing them together is what makes the opposing directions legible.
+//
+// The set is now continuous, which took three tries. 桜 and the autumn pair left
+// two humps with a hole between them; 梅雨 filled May to late July and 雪 closed
+// the winter end, and the graph still sat flat on the axis from day 210 to 259 —
+// fifty days from the end of 梅雨 to the first 初雪 with nothing in any mode, which
+// is the emptiest the country ever looks and the least true. 猛暑 is those fifty
+// days: it opens under 梅雨 in the south, holds through August at every station in
+// the dataset, and hands over to 雪 in mid-September.
 const selected = new Set(MODES.map((mode) => mode.id));
+
+/**
+ * The clock starts stopped, on 3月1日.
+ *
+ * Autoplay dropped the viewer into a year already under way: by the time the
+ * frame they landed on had been read the date had moved off it, and the winter
+ * cards already in the feed were about a season they had not watched arrive.
+ * Starting the year is now the one thing the piece asks of them, and the ▶ that
+ * ui.ts renders while `playing` is false is the whole of the ask.
+ *
+ * Day 60 is the frame it starts stopped *on*, and it is chosen to imply motion
+ * rather than to summarise: the winter deck is still down over 北陸, 雪 is coming
+ * off its peak at 119 of 142 stations, and 桜 has opened at exactly one. Every
+ * number on screen is mid-move, and none of them is the year's answer.
+ *
+ * Nothing else had to change for this, because a stopped clock is exactly the
+ * state ending a scrub already produces: `render()` runs once unconditionally
+ * below the rAF loop, `last` is advanced outside the `playing` guard so idle
+ * time cannot accumulate into a jump on the first press, and ui.ts mounts the
+ * cards that are already due without animating them in.
+ */
 let day = 60;
-let playing = true;
+let playing = false;
+
+/**
+ * Whether the viewer has touched the piece yet.
+ *
+ * The still frame withholds the weather. On day 60 雪 has 119 of its 142 stations
+ * open, which paints a deck over very nearly the whole country — the busiest the
+ * globe ever looks, arriving before the viewer has been given any reason to read
+ * it, and covering the terrain and the markers that are the reason to keep
+ * looking. The land, the crystals, the readout and the feed are all there on
+ * load; the two volumetric decks are not.
+ *
+ * Any interaction ends it, not only ▶. Scrubbing to late June and finding no
+ * 梅雨 over 九州 would be a bug rather than a reveal, and toggling the 雪 pill and
+ * watching nothing happen would be worse — so the mode pills count too.
+ *
+ * It is one-way. Pausing again does not take the weather back off: by then the
+ * viewer has seen the year run, and a deck that came and went with the clock
+ * would read as a rendering fault rather than as an opening.
+ */
+let started = false;
 
 const phenology = await loadPhenology();
 const tsuyu = await loadTsuyu(phenology);
 const snow = await loadSnow();
+const natsu = await loadNatsu();
 const stations = addStations(view, phenology, selected);
 
 const tsuyuMode = MODES.find((mode) => mode.tsuyu)!;
 const snowMode = MODES.find((mode) => mode.snow)!;
+const natsuMode = MODES.find((mode) => mode.natsu)!;
 
 /**
  * Which station roster a mode's markers are placed on.
@@ -137,26 +190,33 @@ const blossoms = MODES.filter((mode) => mode.blossom).map((mode) => ({
 // One cloud pass for both weather seasons — `CloudsEffectDesc` allows no
 // duplicate — so both decks have to be declared here, before it is built: its
 // layer roster and their coverage windows are constructor-only.
+//
+// 猛暑 is not among them. It was, briefly, on the free `b` channel as 入道雲 — the
+// physically correct consequence of heat over land — and from this camera a
+// convective tower reads as a flat grey blob sitting on top of the field that
+// was doing the explaining. It is a painted ground layer only now, which is also
+// why these two get the pass to themselves again and never overlap.
 const weather = addWeather(view, [
   tsuyuDeck({ mode: tsuyuMode, tsuyu }),
   snowDeck({ mode: snowMode, snow }),
 ]);
 const tsuyuHandle = addTsuyu(view, { mode: tsuyuMode, tsuyu, weather });
 const snowHandle = addSnowfall(view, { mode: snowMode, snow, weather });
+const natsuHandle = addNatsu(view, { mode: natsuMode, natsu });
 
 /**
- * 梅雨 is counted in 地方, 雪 at the 気象官署 and the other three at the 生物季節
- * stations, so the tallies come from three different indexes. All three satisfy
- * `SeasonIndex`, and all three read the one clock `render` advances.
+ * 梅雨 is counted in 地方, 雪 and 猛暑 at the 気象官署 — on different subsets of
+ * them — and the other three at the 生物季節 stations, so the tallies come from
+ * four different indexes. All four satisfy `SeasonIndex`, and all four read the
+ * one clock `render` advances.
  *
  * A lookup rather than a chain of ternaries: with three of them the conditional
- * stopped being readable, and this way adding a fourth unit is a line here
- * instead of another nested branch.
+ * stopped being readable, and adding the fourth was the one line it promised.
  */
 const indexes = new Map<string, SeasonIndex>(
   MODES.map((mode) => [
     mode.id,
-    mode.regional ? tsuyu : mode.snow ? snow : stations,
+    mode.regional ? tsuyu : mode.snow ? snow : mode.natsu ? natsu : stations,
   ]),
 );
 const indexFor = (mode: Mode): SeasonIndex => indexes.get(mode.id)!;
@@ -178,11 +238,17 @@ function syncSun(dayOfYear: number) {
 function render() {
   stations.setDay(day);
   snow.setDay(day);
+  natsu.setDay(day);
   for (const { mode, handle } of blossoms) {
     handle.setDay(day, selected.has(mode.id));
   }
-  tsuyuHandle.setDay(day, selected.has(tsuyuMode.id));
-  snowHandle.setDay(day, selected.has(snowMode.id));
+  // `started` gates only the two cloud decks — see its note above. 猛暑 is left
+  // alone deliberately: its field is painted on the terrain rather than over it,
+  // and at day 60 it is 0 of 101 anyway, so gating it would be a claim with
+  // nothing behind it.
+  tsuyuHandle.setDay(day, started && selected.has(tsuyuMode.id));
+  snowHandle.setDay(day, started && selected.has(snowMode.id));
+  natsuHandle.setDay(day, selected.has(natsuMode.id));
 
   syncSun(day);
   ui.render({
@@ -205,15 +271,18 @@ ui.onModeToggle((modeId) => {
   if (selected.has(modeId)) selected.delete(modeId);
   else selected.add(modeId);
   stations.setSelected(selected);
+  started = true;
   render();
 });
 ui.onScrub((next) => {
   day = next;
   playing = false;
+  started = true;
   render();
 });
 ui.onTogglePlay(() => {
   playing = !playing;
+  started = true;
   render();
 });
 
@@ -226,7 +295,7 @@ ui.onTogglePlay(() => {
  * here claimed 24 s and the real loop was 30.
  *
  * Forty is set by reading rather than by watching. The feed in facts.ts lands
- * fifteen cards across the year, so the loop length *is* the reading pace — at
+ * seventeen cards across the year, so the loop length *is* the reading pace — at
  * the old rate a card was replaced about every two seconds, which is faster
  * than any of them can be read.
  */
@@ -277,6 +346,8 @@ Object.assign(window as unknown as Record<string, unknown>, {
   tsuyuHandle,
   snow,
   snowHandle,
+  natsu,
+  natsuHandle,
   weather,
   terrain,
   scene,

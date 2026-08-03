@@ -146,8 +146,10 @@ export function addWeather(
       assetsUrl: "assets/cloud",
       stbnUrl: "assets/noise/stbn.bin",
       // "medium" keeps turbulence and light shafts off — right for a deck seen
-      // from 1,600 km, where both are sub-pixel — and the static camera lets
-      // the temporal accumulation do the denoising a higher preset would buy.
+      // from 1,600 km, where both are sub-pixel — and a camera that is mostly
+      // parked lets the temporal accumulation do the denoising a higher preset
+      // would buy. Mostly: the view is authored, not locked, and under an
+      // active drag the accumulation converges more slowly.
       qualityPreset: "medium",
       coverage: decks[0].coverage,
       // The equirectangular tiling weatherMap.ts paints for — see the note on
@@ -174,9 +176,41 @@ export function addWeather(
       shadows: false,
       lightShafts: false,
       resolutionScale: 0.75,
-      // A slant path through the deck is ~50–60 steps at these shell
-      // thicknesses; the preset's 500 would be budget spent on empty sky.
-      maxIterationCount: 128,
+      // The preset's own 500, restored, because the previous 128 was a distance
+      // cull nobody asked for.
+      //
+      // This is a *cap* on a loop whose real exit is `rayDistance >
+      // maxRayDistance`, and both are measured from the **shell entry**: the
+      // call site starts the ray at `rayNearFar.x`, so the budget is spent on
+      // the chord through the deck and never on the camera-to-shell gap.
+      // Iterations a short chord does not need are not spent, so a generous cap
+      // is not a generous cost.
+      //
+      // The note that used to sit here — "a slant path is ~50–60 steps; the
+      // preset's 500 would be budget spent on empty sky" — had the step count
+      // about right for the authored camera and the conclusion backwards. From
+      // 1,620 km the longest chord in frame is ~6 km down to Hokkaido and ~11 km
+      // at the top edge, which is ~75 and ~105 steps: 128 was never reached
+      // there, so 500 renders that view identically and for the same money.
+      //
+      // 128 *was* reached, and catastrophically, the moment anyone zoomed in. A
+      // ray from a low 本州 camera to Hokkaido goes near-tangential, enters the
+      // shell 150 km short of the coast, and needs 60–340 km of chord; 128 steps
+      // buy about 17 km, because `perspectiveStepScale` below pins every step at
+      // `minStepSize` until the `mix(stepSize, maxStepSize, mipLevel)` term
+      // saturates around 100 km. The march ran out before it arrived,
+      // `marchedFrontDepth` came back −1, and the far half of the country simply
+      // had no cloud — verified from 170 km up, where grazing rays are most of
+      // the frame and *nothing* rendered. 500 buys ~330 km, which covers every
+      // ray from any camera high enough for Hokkaido to clear the horizon at all
+      // (about 55 km); below that there is genuinely nothing to draw.
+      //
+      // `minStepSize` deliberately stays at the preset's 50 m. Raising it buys
+      // the same reach for fewer iterations, but it is the one knob here that
+      // *does* cost the authored view something — at 250 m that 6 km slant path
+      // drops from ~75 samples to ~26, which is how streaked 筋状の雲 turn into a
+      // banded slab.
+      maxIterationCount: 500,
       // The shape-noise defaults are tuned for a camera *inside* the weather:
       // ~3 km tiles that are one pixel from 1,600 km up, which renders as a
       // featureless slab. Stretched to ~170 km / ~33 km tiles the billows and
@@ -203,12 +237,30 @@ export function addWeather(
 
   const inner = clouds.ref.raw?.inner;
   if (inner) {
+    // Two effects, and only the first was the reason it was set.
+    //
     // The march's first step is minStepSize + (perspectiveStepScale − 1) ×
-    // rayNear. The default 1.01 is tuned for a camera *under* the clouds;
-    // from 1,620 km up, rayNear is ~1.6e6 m and the first step would leap the
-    // whole shell. 1.0 makes stepping uniform. Set on the raw effect — the
-    // descriptor doesn't expose it, and a runtime qualityPreset change would
-    // silently reset it, which is one reason the preset above is final.
+    // rayNear, and rayNear is the camera-to-shell distance. The default 1.01 is
+    // tuned for a camera *under* the clouds; from 1,620 km up rayNear is ~1.6e6 m
+    // and that first step would leap the whole shell in one go. 1.0 makes
+    // stepping uniform, and that much is still right.
+    //
+    // The second effect is the one that matters to the budget above:
+    // `stepSize *= perspectiveStepScale` runs in every branch of the loop, so
+    // 1.0 also switches off the geometric growth and pins every step at
+    // minStepSize until the mip term takes over. That is why the march is
+    // expensive per kilometre of chord, and why maxIterationCount has to be the
+    // preset's full 500 rather than a number that merely sounds generous.
+    //
+    // Note this reasoning is a property of the *authored* camera and not of the
+    // scene: low down, rayNear is small and geometric growth is exactly what a
+    // long grazing chord wants. Making this camera-dependent is the next lever
+    // if 500 ever proves too dear. It is not taken now because at the authored
+    // camera the cap is not reached at all, so there is nothing to claw back.
+    //
+    // Set on the raw effect — the descriptor doesn't expose it, and a runtime
+    // qualityPreset change would silently reset it, which is one reason the
+    // preset above is final.
     inner.clouds.perspectiveStepScale = 1;
     inner.localWeatherTexture = painter.texture;
 

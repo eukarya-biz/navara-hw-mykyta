@@ -1,7 +1,5 @@
 import { FACTS, type Fact } from "./facts";
-import { MODES, sampleRamp, type Mode } from "./modes";
-
-const MONTH_STARTS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+import { MODES, MONTH_STARTS, sampleRamp, type Mode } from "./modes";
 
 /**
  * Opacity by position in the feed, newest first — and, by its length, how many
@@ -231,10 +229,14 @@ export function createUi(container: HTMLElement): Ui {
     pills.append(pill);
   }
 
+  // The clock starts stopped (see main.ts), so the first line has to be the one
+  // that starts it. Scrubbing is the second thing a viewer reaches for, and
+  // stays on the second line.
   const hint = el("div", "ui-hint");
   hint.append(
-    el("div", undefined, "複数選択できます · toggle any combination"),
+    el("div", undefined, "▶ で一年が動きます · press play to run the year"),
     el("div", undefined, "ドラッグで日付を移動 · drag the timeline"),
+    el("div", undefined, "複数選択できます · toggle any combination"),
   );
   side.append(dateEl, counts, pills, hint);
 
