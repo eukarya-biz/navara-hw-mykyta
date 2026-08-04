@@ -22,6 +22,41 @@ const view = new ThreeView<DefaultDescriptions>({
   container,
   shadow: true,
   animation: true,
+  /**
+   * Both of these point at `public/assets`, and they have to be given
+   * explicitly, because Navara's own defaults are resolved against the module
+   * that asks for them.
+   *
+   * In dev that module is served out of `node_modules`, the relative URL lands
+   * on the package's own `dist/assets`, and everything works. In a build the
+   * module *is* the bundle, at `assets/index-<hash>.js`, so the same relative URL
+   * resolves to `assets/assets/atmosphere/…` — a path that exists nowhere. All
+   * five files come back as the host's 404 page, and because one of them is
+   * `stars.bin`, the page throws `byte length of Int16Array should be a multiple
+   * of 2` while parsing 9,379 bytes of HTML as star positions.
+   *
+   * The visible cost is the whole atmosphere: no limb, no sky, and none of the
+   * aerial-perspective inscatter the terrain's highlight colour was chosen
+   * against — the built page renders the archipelago on flat black and looks
+   * like a different piece of work from the one that runs locally.
+   *
+   * Page-relative, not absolute, and not `import.meta.env.BASE_URL` either: the
+   * strings resolve against the document, so they follow the base wherever it
+   * goes — `/` locally and `/navara-hw-mykyta/` on Pages — which is the same
+   * reason the GeoJSON fetches in phenology.ts and the cloud URLs in weather.ts
+   * are written this way.
+   *
+   * These two options reach the four scattering LUTs and the blue noise. They do
+   * *not* reach `stars.bin`, which belongs to the stars mesh and has no option
+   * that gets to it; see `public/assets/assets/README.md` for where that file has
+   * to be put instead and why.
+   */
+  atmosphere: {
+    atmosphereAssetsUrl: "assets/atmosphere",
+    // Shared with the cloud pass, which asks for the same file under its own
+    // option — see `stbnUrl` in weather.ts. One copy in public/assets/noise.
+    stbnUrl: "assets/noise/stbn.bin",
+  },
 });
 
 const defaultPlugin = new DefaultPlugin();
