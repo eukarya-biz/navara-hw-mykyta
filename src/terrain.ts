@@ -96,6 +96,16 @@ export function addJapanTerrain(
     url: GSI_DEM_URL,
     elevationDecoder: exaggeratedGsiDecoder(exaggeration),
     maxZoom: 14,
+    /**
+     * GSI has no z0 標高タイル: `dem_png/0/0/0.png` 404s, while every zoom from 1
+     * up is served. Without this the traversal asks for that root on every load
+     * and eats the failure.
+     *
+     * Housekeeping, not a cure — the DEM pyramid also stalls a few levels in on
+     * a load where the camera never moves, and this does not change that. CARTO
+     * needs no equivalent; it serves z0.
+     */
+    minZoom: 1,
   });
 
   // Render order is add order: terrain first, then everything draped on it.
