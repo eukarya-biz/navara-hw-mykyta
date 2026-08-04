@@ -47,13 +47,13 @@ jobs:
       # a blank page.
       - run: pnpm build
 
-      # `enablement: true` asks the API to turn Pages on for the repo, which can
-      # save waiting on an admin. It is not a substitute for one: if the
-      # organisation restricts Pages, this step fails with a permissions error
-      # and someone with the Admin role has to flip it in Settings → Pages.
+      # No `enablement: true`. It was here to try to turn Pages on without an
+      # admin, and it is what failed run #1: creating a Pages site is not
+      # something GITHUB_TOKEN may do in this organisation, so the step died on
+      # `Resource not accessible by integration` before anything was uploaded.
+      # The site now exists — enabled by hand, source set to GitHub Actions — so
+      # this only has to read its settings to learn the base URL.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
