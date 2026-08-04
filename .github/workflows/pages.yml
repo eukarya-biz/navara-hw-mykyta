@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+# The work lives on dark-theme-3d-blossoms, not main — main is several commits
+# behind and would deploy a version without 雪 or 猛暑 — so both branches build.
+# Pages hosts one site, so whichever ran last wins; the concurrency group below
+# is what keeps two pushes from racing into a half-published state.
+on:
+  push:
+    branches: [main, dark-theme-3d-blossoms]
+  workflow_dispatch:
+
+# pages + id-token are what deploy-pages needs to mint its OIDC token; contents
+# stays read because nothing here writes back to the repo.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm before setup-node, or `cache: pnpm` has no pnpm to ask for a store
+      # path and the run fails before installing anything. Version is pinned
+      # explicitly because package.json carries no `packageManager` field, and
+      # pnpm/action-setup errors out rather than guessing; 10 matches the
+      # lockfileVersion 9.0 in pnpm-lock.yaml.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # `pnpm build` is `tsc && vite build` — the type check gates the deploy,
+      # which is deliberate: a broken build should fail here rather than publish
+      # a blank page.
+      - run: pnpm build
+
+      # `enablement: true` asks the API to turn Pages on for the repo, which can
+      # save waiting on an admin. It is not a substitute for one: if the
+      # organisation restricts Pages, this step fails with a permissions error
+      # and someone with the Admin role has to flip it in Settings → Pages.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
