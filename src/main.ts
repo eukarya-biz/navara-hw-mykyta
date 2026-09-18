@@ -3,6 +3,7 @@ import {
   DefaultPlugin,
   type DefaultDescriptions,
 } from "@navaramap/three-default-plugin";
+import { TileJsonPlugin } from "@navaramap/three-plugins";
 import "./ui.css";
 import { addJapanTerrain } from "./terrain";
 import { addSeasonGlow } from "./glow";
@@ -61,6 +62,10 @@ const view = new ThreeView<DefaultDescriptions>({
 
 const defaultPlugin = new DefaultPlugin();
 view.addPlugin(defaultPlugin);
+// For the Natural Earth basemap in terrain.ts — plugins must all be in before
+// init, even though its addSource can only run after.
+const tileJsonPlugin = new TileJsonPlugin();
+view.addPlugin(tileJsonPlugin);
 
 await view.init();
 
@@ -84,11 +89,12 @@ const scene = defaultPlugin.addDefaultPhotorealScene();
  */
 const EXAGGERATION = 1.3;
 
-// globe.color is only visible where the basemap isn't. That used to be most of
-// the planet — 淡色地図 covers Japan alone — which is why this was a mid slate
-// that read as water. CARTO covers the whole globe, so this is now just the
-// colour of the gaps, and a near-black keeps the horizon from glowing.
-view.globe.color = new Color().setStyle("#101720");
+// globe.color *is* the ocean. The basemap draws only land polygons, so
+// everything they don't cover — every sea on the planet — renders as this.
+// A mid grey pitched between two failure modes: light enough that the
+// near-black land still reads against it, dark enough that the horizon
+// doesn't glow.
+view.globe.color = new Color().setStyle("#232425");
 
 // Going dark crushes the sunlit relief; a little extra exposure brings the
 // hillshade back without lifting the basemap off its blacks. Kept modest — the
@@ -96,8 +102,9 @@ view.globe.color = new Color().setStyle("#101720");
 // the highlight it is supposed to be lighting.
 view.toneMappingExposure = 1.1;
 
-const terrain = addJapanTerrain(view, {
+const terrain = await addJapanTerrain(view, {
   exaggeration: EXAGGERATION,
+  tilejson: tileJsonPlugin,
   // Was 8, which turned every DEM artefact into a bright speckle — at that
   // strength the shading stops describing slopes and starts describing the
   // tile pyramid. Four still separates windward from lee across the spine,
@@ -189,6 +196,32 @@ const phenology = await loadPhenology();
 const tsuyu = await loadTsuyu(phenology);
 const snow = await loadSnow();
 const natsu = await loadNatsu();
+
+/**
+ * JMA's terms (公共データ利用規約 第1.0版, via
+ * https://www.jma.go.jp/jma/kishou/info/coment.html) ask for a source line —
+ * and, because every GeoJSON under data/ is JMA's published data reshaped by
+ * scripts/, for the processed form of it: 「気象庁「○○」（URL）を加工して作成」,
+ * one line per dataset. 桜・紅葉・銀杏 come from 生物季節観測 (station
+ * coordinates joined from JMA's アメダス観測所一覧), 梅雨 from the 確定値
+ * tables, and both 雪 and 猛暑 from the 平年値 archive — which is why three
+ * lines cover six modes.
+ */
+view.attribution?.add([
+  {
+    attribution: "気象庁「生物季節観測」を加工して作成",
+    attributionUrl: "https://www.data.jma.go.jp/sakura/data/",
+  },
+  {
+    attribution: "気象庁「梅雨入りと梅雨明け」を加工して作成",
+    attributionUrl: "https://www.data.jma.go.jp/cpd/baiu/index.html",
+  },
+  {
+    attribution: "気象庁「地上気象観測平年値」を加工して作成",
+    attributionUrl: "https://www.data.jma.go.jp/stats/data/mdrr/normal/index.html",
+  },
+]);
+
 const stations = addStations(view, phenology, selected);
 
 const tsuyuMode = MODES.find((mode) => mode.tsuyu)!;
