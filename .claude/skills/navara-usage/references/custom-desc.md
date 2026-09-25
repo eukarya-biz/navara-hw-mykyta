@@ -43,6 +43,8 @@ handle.update({ vignette: { darkness: 0.7 } });      // partial merge
 
 Ordering is declared statically via `key` / `insertAfter` / `insertBefore` relative to other effects' keys. Runnable reference: `example/pages/custom-effect/` (Navara repo).
 
+Placement rule: the built-in `transparent` pass renders overlay content that writes no depth/G-buffer data, so an effect that samples depth or G-buffer textures must use `insertBefore: ["transparent"]` (running after it paints over that content). Whole-frame screen effects (vignette, grading) insert after it via `insertBefore: ["smaa", "fxaa", "final"]`. Note that insertion resolves against passes that already exist at `addEffect` time — anchor to built-ins (`mrt`, `transparent`, `final`) when possible.
+
 ## Depth & normal buffer access
 
 Navara renders into a multi-render-target (MRT) G-buffer, so custom work can both **write to** and **read from** it:
@@ -123,4 +125,4 @@ class PickableTorusKnot extends Object3D implements PickableMesh {
 // fragment shader: R = high byte, G = mid byte, B = low byte of batchId
 ```
 
-Reference: `example/pages/mesh-layers/custom-pickable/main.ts` (Navara repo). Full authoring guide: https://navara-docs.netlify.app/three/core/custom-desc/
+Reference: `example/pages/mesh-layers/custom-pickable/main.ts` (Navara repo). Full authoring guide: https://navara.world/docs/three/core/custom-desc/

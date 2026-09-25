@@ -1,7 +1,6 @@
 import {
   Color,
   InstancedMeshDesc,
-  degreeToRadian,
   eastNorthUpToFixedFrame,
   geodeticToVector3,
   setupSelectiveEffectUniforms,
@@ -223,8 +222,8 @@ function place(
   // Terrain sampling would be more faithful in principle but returns the
   // currently loaded LOD, so every marker would pop as tiles refine.
   const origin = geodeticToVector3({
-    lng: degreeToRadian(station.lng),
-    lat: degreeToRadian(station.lat),
+    lng: station.lng,
+    lat: station.lat,
     height: station.alt * exaggeration,
   });
   const frame = eastNorthUpToFixedFrame(origin);

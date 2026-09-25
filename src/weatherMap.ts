@@ -219,8 +219,8 @@ export function buildPaintGrid(
       if (weight <= 0) continue;
 
       const position = geodeticToVector3({
-        lng: degreeToRadian(lng),
-        lat: degreeToRadian(lat),
+        lng,
+        lat,
         height: 0,
       });
       const length = Math.hypot(position.x, position.y, position.z);
