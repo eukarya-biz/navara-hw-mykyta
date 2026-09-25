@@ -17,8 +17,8 @@ import { defineConfig } from "vite";
  *
  * The GeoJSON fetches need no equivalent. They are relative (`fetch("data/…")`),
  * so they resolve against the page's own URL and follow the base wherever it
- * goes; it is `public/assets/` and the bundle, which Vite rewrites to
- * base-prefixed absolute URLs, that depend on this being right.
+ * goes; it is the bundle and the runtime assets Vite emits beside it, both
+ * rewritten to base-prefixed absolute URLs, that depend on this being right.
  */
 export default defineConfig(({ command }) => ({
   base: command === "build" ? "/navara-hw-mykyta/" : "/",

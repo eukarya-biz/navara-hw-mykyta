@@ -139,12 +139,6 @@ export function addWeather(
 
   const clouds = view.addEffect<CloudsEffectDesc>({
     clouds: {
-      // Vendored into public/ (from @navaramap/three/dist/assets): the
-      // library's own asset URLs are `new URL(..., import.meta.url)`, which
-      // the production bundle does not rewrite — deployed builds would 404.
-      // Served like data/, so the same relative-path deployment rules apply.
-      assetsUrl: "assets/cloud",
-      stbnUrl: "assets/noise/stbn.bin",
       // "medium" keeps turbulence and light shafts off — right for a deck seen
       // from 1,600 km, where both are sub-pixel — and a camera that is mostly
       // parked lets the temporal accumulation do the denoising a higher preset
