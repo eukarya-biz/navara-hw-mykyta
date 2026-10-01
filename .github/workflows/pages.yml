@@ -1,12 +1,21 @@
 name: Deploy to GitHub Pages
 
-# The work lives on dark-theme-3d-blossoms, not main — main is several commits
-# behind and would deploy a version without 雪 or 猛暑 — so both branches build.
-# Pages hosts one site, so whichever ran last wins; the concurrency group below
-# is what keeps two pushes from racing into a half-published state.
+# One branch, and it has to be the repository's default one.
+#
+# The `github-pages` environment carries a deployment branch rule that admits the
+# default branch and nothing else, so a run from anywhere else builds, uploads its
+# artifact, and is then turned away at the deploy step with `Branch "…" is not
+# allowed to deploy to github-pages`. Listing two branches also had them racing:
+# both fired on one push, and the cancellation below killed the run that was
+# allowed to deploy in favour of the one that wasn't.
+#
+# The default branch here is dark-theme-3d-blossoms — it was the first branch
+# pushed to an empty repository, which is what GitHub takes the default from.
+# main now points at the same commit, so if the default is ever moved to main,
+# change this line with it.
 on:
   push:
-    branches: [main, dark-theme-3d-blossoms]
+    branches: [dark-theme-3d-blossoms]
   workflow_dispatch:
 
 # pages + id-token are what deploy-pages needs to mint its OIDC token; contents
@@ -16,9 +25,12 @@ permissions:
   pages: write
   id-token: write
 
+# Queue rather than cancel. A deploy is not a check that can be safely abandoned
+# half-way: cancelling one to start another is how run #4 was lost, and letting
+# them finish in order costs only the wait.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:

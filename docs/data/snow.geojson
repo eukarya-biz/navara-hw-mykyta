@@ -1,0 +1,3726 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "source": "気象庁 地上気象観測平年値 (1991–2020)",
+  "sourceUrl": "https://www.data.jma.go.jp/stats/data/mdrr/normal/index.html",
+  "archive": "https://www.data.jma.go.jp/stats/data/mdrr/normal/2020/data/normal_surface.zip",
+  "elements": {
+   "yukiHatsu": "季節現象 7300 雪の初日",
+   "yukiShu": "季節現象 7400 雪の終日",
+   "saishinSekisetsu": "月別 6200 最深積雪 年値 (cm)",
+   "kousetsu": "月別 6000 降雪の深さ合計 年値 (cm)"
+  },
+  "stationsWithoutSnow": [
+   "屋久島",
+   "種子島",
+   "名瀬",
+   "与那国島",
+   "西表島",
+   "石垣島",
+   "宮古島",
+   "久米島",
+   "那覇",
+   "名護",
+   "沖永良部",
+   "南大東島",
+   "父島",
+   "南鳥島",
+   "昭和"
+  ],
+  "note": "1991–2020 normals, but the window is shorter at stations relocated during the period — see yukiHatsu_from/_to per feature. There is no then-vs-now shift for 雪 the way there is for 桜 and 梅雨: this archive publishes one normals window, not a per-year series. 昭和 (Syowa, Antarctica) is in JMA's surface network and is excluded."
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.21,
+     41.28333
+    ]
+   },
+   "properties": {
+    "name": "むつ",
+    "nameEn": "MUTSU",
+    "alt": 2.9,
+    "yukiHatsu": 312,
+    "yukiShu": 107,
+    "yukiSpan": 160,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 60,
+    "kousetsu": 365,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1999,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.2,
+     32.02667
+    ]
+   },
+   "properties": {
+    "name": "阿久根",
+    "nameEn": "AKUNE",
+    "alt": 40.1,
+    "yukiHatsu": 1,
+    "yukiShu": 52,
+    "yukiSpan": 51,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 20,
+    "yukiHatsu_from": 2001,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.07333,
+     32.88
+    ]
+   },
+   "properties": {
+    "name": "阿蘇山",
+    "nameEn": "ASOSAN",
+    "alt": 1142.3,
+    "yukiHatsu": 317,
+    "yukiShu": 106,
+    "yukiSpan": 154,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2017,
+    "yukiHatsu_provisional": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     142.37167,
+     43.75667
+    ]
+   },
+   "properties": {
+    "name": "旭川",
+    "nameEn": "ASAHIKAWA",
+    "alt": 119.8,
+    "yukiHatsu": 292,
+    "yukiShu": 121,
+    "yukiSpan": 194,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 89,
+    "kousetsu": 557,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.09333,
+     34.62833
+    ]
+   },
+   "properties": {
+    "name": "伊良湖",
+    "nameEn": "IRAKO",
+    "alt": 6.2,
+    "yukiHatsu": 5,
+    "yukiShu": 63,
+    "yukiSpan": 58,
+    "sekisetsuPeak": 34,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1998,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.86833,
+     36.54833
+    ]
+   },
+   "properties": {
+    "name": "宇都宮",
+    "nameEn": "UTSUNOMIYA",
+    "alt": 119.4,
+    "yukiHatsu": 350,
+    "yukiShu": 91,
+    "yukiSpan": 106,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 9,
+    "kousetsu": 18,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.55167,
+     33.22667
+    ]
+   },
+   "properties": {
+    "name": "宇和島",
+    "nameEn": "UWAJIMA",
+    "alt": 2.4,
+    "yukiHatsu": 352,
+    "yukiShu": 52,
+    "yukiSpan": 65,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 6,
+    "yukiHatsu_n": 14,
+    "yukiHatsu_from": 2007,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.7,
+     44.36333
+    ]
+   },
+   "properties": {
+    "name": "羽幌",
+    "nameEn": "HABORO",
+    "alt": 7.9,
+    "yukiHatsu": 300,
+    "yukiShu": 112,
+    "yukiSpan": 177,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 99,
+    "kousetsu": 535,
+    "yukiHatsu_n": 21,
+    "yukiHatsu_from": 2000,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     142.77667,
+     42.16167
+    ]
+   },
+   "properties": {
+    "name": "浦河",
+    "nameEn": "URAKAWA",
+    "alt": 36.7,
+    "yukiHatsu": 308,
+    "yukiShu": 114,
+    "yukiSpan": 171,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 19,
+    "kousetsu": 128,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.26167,
+     32.73667
+    ]
+   },
+   "properties": {
+    "name": "雲仙岳",
+    "nameEn": "UNZENDAKE",
+    "alt": 677.5,
+    "yukiHatsu": 340,
+    "yukiShu": 87,
+    "yukiSpan": 112,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 9,
+    "kousetsu": 25,
+    "yukiHatsu_n": 14,
+    "yukiHatsu_from": 2007,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.65667,
+     32.58167
+    ]
+   },
+   "properties": {
+    "name": "延岡",
+    "nameEn": "NOBEOKA",
+    "alt": 19.2,
+    "yukiHatsu": 5,
+    "yukiShu": 50,
+    "yukiSpan": 45,
+    "sekisetsuPeak": 28,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2001,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.65167,
+     35.43833
+    ]
+   },
+   "properties": {
+    "name": "横浜",
+    "nameEn": "YOKOHAMA",
+    "alt": 39.1,
+    "yukiHatsu": 349,
+    "yukiShu": 78,
+    "yukiSpan": 94,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 7,
+    "kousetsu": 9,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.925,
+     34.685
+    ]
+   },
+   "properties": {
+    "name": "岡山",
+    "nameEn": "OKAYAMA",
+    "alt": 5.3,
+    "yukiHatsu": 344,
+    "yukiShu": 78,
+    "yukiSpan": 99,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.925,
+     33.94833
+    ]
+   },
+   "properties": {
+    "name": "下関",
+    "nameEn": "SHIMONOSEKI",
+    "alt": 3.3,
+    "yukiHatsu": 344,
+    "yukiShu": 73,
+    "yukiSpan": 94,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 2,
+    "kousetsu": 2,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.76,
+     35.5
+    ]
+   },
+   "properties": {
+    "name": "河口湖",
+    "nameEn": "KAWAGUCHIKO",
+    "alt": 859.6,
+    "yukiHatsu": 333,
+    "yukiShu": 98,
+    "yukiSpan": 130,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 36,
+    "kousetsu": 97,
+    "yukiHatsu_n": 16,
+    "yukiHatsu_from": 2005,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.865,
+     34.98667
+    ]
+   },
+   "properties": {
+    "name": "館山",
+    "nameEn": "TATEYAMA",
+    "alt": 5.8,
+    "yukiHatsu": 1,
+    "yukiShu": 64,
+    "yukiSpan": 63,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2008,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.125,
+     36.05667
+    ]
+   },
+   "properties": {
+    "name": "館野",
+    "nameEn": "TATENO",
+    "alt": 25.2,
+    "yukiHatsu": 10,
+    "yukiShu": 64,
+    "yukiSpan": 54,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 7,
+    "kousetsu": 13,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1994,
+    "yukiHatsu_to": 2016,
+    "yukiHatsu_provisional": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.785,
+     43.21167
+    ]
+   },
+   "properties": {
+    "name": "岩見沢",
+    "nameEn": "IWAMIZAWA",
+    "alt": 42.3,
+    "yukiHatsu": 303,
+    "yukiShu": 111,
+    "yukiSpan": 173,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 120,
+    "kousetsu": 664,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2008,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.76167,
+     35.4
+    ]
+   },
+   "properties": {
+    "name": "岐阜",
+    "nameEn": "GIFU",
+    "alt": 12.7,
+    "yukiHatsu": 347,
+    "yukiShu": 83,
+    "yukiSpan": 101,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 15,
+    "kousetsu": 34,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.965,
+     39.64667
+    ]
+   },
+   "properties": {
+    "name": "宮古",
+    "nameEn": "MIYAKO",
+    "alt": 42.5,
+    "yukiHatsu": 324,
+    "yukiShu": 105,
+    "yukiSpan": 146,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 91,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.41333,
+     31.93833
+    ]
+   },
+   "properties": {
+    "name": "宮崎",
+    "nameEn": "MIYAZAKI",
+    "alt": 9.2,
+    "yukiHatsu": 13,
+    "yukiShu": 36,
+    "yukiSpan": 23,
+    "sekisetsuPeak": 25,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 21,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.02667,
+     32.19667
+    ]
+   },
+   "properties": {
+    "name": "牛深",
+    "nameEn": "USHIBUKA",
+    "alt": 3,
+    "yukiHatsu": 362,
+    "yukiShu": 54,
+    "yukiSpan": 57,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.73167,
+     35.01333
+    ]
+   },
+   "properties": {
+    "name": "京都",
+    "nameEn": "KYOTO",
+    "alt": 40.8,
+    "yukiHatsu": 345,
+    "yukiShu": 82,
+    "yukiSpan": 102,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 7,
+    "kousetsu": 15,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.235,
+     35.54333
+    ]
+   },
+   "properties": {
+    "name": "境",
+    "nameEn": "SAKAI",
+    "alt": 2,
+    "yukiHatsu": 345,
+    "yukiShu": 82,
+    "yukiSpan": 102,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 21,
+    "kousetsu": 75,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2004,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.63333,
+     36.58833
+    ]
+   },
+   "properties": {
+    "name": "金沢",
+    "nameEn": "KANAZAWA",
+    "alt": 5.7,
+    "yukiHatsu": 328,
+    "yukiShu": 97,
+    "yukiSpan": 134,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 32,
+    "kousetsu": 157,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.75667,
+     42.9
+    ]
+   },
+   "properties": {
+    "name": "倶知安",
+    "nameEn": "KUTCHAN",
+    "alt": 176.1,
+    "yukiHatsu": 293,
+    "yukiShu": 117,
+    "yukiSpan": 189,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 183,
+    "kousetsu": 921,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2008,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     144.37667,
+     42.985
+    ]
+   },
+   "properties": {
+    "name": "釧路",
+    "nameEn": "KUSHIRO",
+    "alt": 4.5,
+    "yukiHatsu": 311,
+    "yukiShu": 121,
+    "yukiSpan": 175,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 34,
+    "kousetsu": 127,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.38,
+     36.15
+    ]
+   },
+   "properties": {
+    "name": "熊谷",
+    "nameEn": "KUMAGAYA",
+    "alt": 30,
+    "yukiHatsu": 354,
+    "yukiShu": 74,
+    "yukiSpan": 85,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 9,
+    "kousetsu": 16,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.70667,
+     32.81333
+    ]
+   },
+   "properties": {
+    "name": "熊本",
+    "nameEn": "KUMAMOTO",
+    "alt": 37.7,
+    "yukiHatsu": 350,
+    "yukiShu": 65,
+    "yukiSpan": 80,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.54667,
+     36.34167
+    ]
+   },
+   "properties": {
+    "name": "軽井沢",
+    "nameEn": "KARUIZAWA",
+    "alt": 999.1,
+    "yukiHatsu": 321,
+    "yukiShu": 107,
+    "yukiSpan": 151,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 35,
+    "kousetsu": 141,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.29167,
+     34.19667
+    ]
+   },
+   "properties": {
+    "name": "厳原",
+    "nameEn": "IZUHARA",
+    "alt": 4.6,
+    "yukiHatsu": 349,
+    "yukiShu": 58,
+    "yukiSpan": 74,
+    "sekisetsuPeak": 21,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.55,
+     34.24
+    ]
+   },
+   "properties": {
+    "name": "呉",
+    "nameEn": "KURE",
+    "alt": 3.5,
+    "yukiHatsu": 352,
+    "yukiShu": 65,
+    "yukiSpan": 78,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 2,
+    "kousetsu": 3,
+    "yukiHatsu_n": 18,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.21333,
+     34.60333
+    ]
+   },
+   "properties": {
+    "name": "御前崎",
+    "nameEn": "OMAEZAKI",
+    "alt": 45.1,
+    "yukiHatsu": 6,
+    "yukiShu": 51,
+    "yukiSpan": 45,
+    "sekisetsuPeak": 29,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.46167,
+     34.39833
+    ]
+   },
+   "properties": {
+    "name": "広島",
+    "nameEn": "HIROSHIMA",
+    "alt": 3.6,
+    "yukiHatsu": 342,
+    "yukiShu": 83,
+    "yukiSpan": 106,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 8,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     143.31667,
+     42.29333
+    ]
+   },
+   "properties": {
+    "name": "広尾",
+    "nameEn": "HIROO",
+    "alt": 32.4,
+    "yukiHatsu": 309,
+    "yukiShu": 119,
+    "yukiSpan": 175,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 98,
+    "kousetsu": 297,
+    "yukiHatsu_n": 21,
+    "yukiHatsu_from": 2000,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.12333,
+     41.86667
+    ]
+   },
+   "properties": {
+    "name": "江差",
+    "nameEn": "ESASHI",
+    "alt": 3.7,
+    "yukiHatsu": 308,
+    "yukiShu": 107,
+    "yukiSpan": 164,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 219,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.55333,
+     35.66667
+    ]
+   },
+   "properties": {
+    "name": "甲府",
+    "nameEn": "KOFU",
+    "alt": 272.8,
+    "yukiHatsu": 345,
+    "yukiShu": 82,
+    "yukiSpan": 102,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 15,
+    "kousetsu": 23,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.25333,
+     36.155
+    ]
+   },
+   "properties": {
+    "name": "高山",
+    "nameEn": "TAKAYAMA",
+    "alt": 560,
+    "yukiHatsu": 321,
+    "yukiShu": 101,
+    "yukiSpan": 145,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 55,
+    "kousetsu": 305,
+    "yukiHatsu_n": 14,
+    "yukiHatsu_from": 2007,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.05333,
+     34.31833
+    ]
+   },
+   "properties": {
+    "name": "高松",
+    "nameEn": "TAKAMATSU",
+    "alt": 9.4,
+    "yukiHatsu": 353,
+    "yukiShu": 65,
+    "yukiSpan": 77,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.54833,
+     33.56667
+    ]
+   },
+   "properties": {
+    "name": "高知",
+    "nameEn": "KOCHI",
+    "alt": 0.5,
+    "yukiHatsu": 355,
+    "yukiShu": 52,
+    "yukiSpan": 62,
+    "sekisetsuPeak": 21,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.24667,
+     37.10667
+    ]
+   },
+   "properties": {
+    "name": "高田",
+    "nameEn": "TAKADA",
+    "alt": 12.9,
+    "yukiHatsu": 329,
+    "yukiShu": 96,
+    "yukiSpan": 132,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 96,
+    "kousetsu": 413,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     145.585,
+     43.33
+    ]
+   },
+   "properties": {
+    "name": "根室",
+    "nameEn": "NEMURO",
+    "alt": 25.2,
+    "yukiHatsu": 310,
+    "yukiShu": 126,
+    "yukiSpan": 181,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 34,
+    "kousetsu": 159,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.305,
+     33.265
+    ]
+   },
+   "properties": {
+    "name": "佐賀",
+    "nameEn": "SAGA",
+    "alt": 5.5,
+    "yukiHatsu": 345,
+    "yukiShu": 72,
+    "yukiSpan": 92,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 3,
+    "kousetsu": 4,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.72667,
+     33.15833
+    ]
+   },
+   "properties": {
+    "name": "佐世保",
+    "nameEn": "SASEBO",
+    "alt": 3.9,
+    "yukiHatsu": 351,
+    "yukiShu": 62,
+    "yukiSpan": 76,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.32833,
+     43.06
+    ]
+   },
+   "properties": {
+    "name": "札幌",
+    "nameEn": "SAPPORO",
+    "alt": 17.4,
+    "yukiHatsu": 301,
+    "yukiShu": 111,
+    "yukiSpan": 175,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 97,
+    "kousetsu": 479,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.52,
+     34.12333
+    ]
+   },
+   "properties": {
+    "name": "三宅島",
+    "nameEn": "MIYAKEJIMA",
+    "alt": 38.2,
+    "yukiHatsu": 22,
+    "yukiShu": 46,
+    "yukiSpan": 24,
+    "sekisetsuPeak": 34,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.925,
+     35.11333
+    ]
+   },
+   "properties": {
+    "name": "三島",
+    "nameEn": "MISHIMA",
+    "alt": 20.5,
+    "yukiHatsu": 12,
+    "yukiShu": 61,
+    "yukiSpan": 49,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 2,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.345,
+     38.255
+    ]
+   },
+   "properties": {
+    "name": "山形",
+    "nameEn": "YAMAGATA",
+    "alt": 152.5,
+    "yukiHatsu": 320,
+    "yukiShu": 101,
+    "yukiSpan": 146,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 51,
+    "kousetsu": 285,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.46167,
+     34.16167
+    ]
+   },
+   "properties": {
+    "name": "山口",
+    "nameEn": "YAMAGUCHI",
+    "alt": 18.1,
+    "yukiHatsu": 339,
+    "yukiShu": 86,
+    "yukiSpan": 112,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 9,
+    "kousetsu": 26,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.58,
+     34.94
+    ]
+   },
+   "properties": {
+    "name": "四日市",
+    "nameEn": "YOKKAICHI",
+    "alt": 55.1,
+    "yukiHatsu": 352,
+    "yukiShu": 79,
+    "yukiSpan": 92,
+    "sekisetsuPeak": 33,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1998,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.54667,
+     31.555
+    ]
+   },
+   "properties": {
+    "name": "鹿児島",
+    "nameEn": "KAGOSHIMA",
+    "alt": 3.9,
+    "yukiHatsu": 5,
+    "yukiShu": 48,
+    "yukiSpan": 43,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 3,
+    "kousetsu": 2,
+    "yukiHatsu_n": 28,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.17667,
+     33.25167
+    ]
+   },
+   "properties": {
+    "name": "室戸岬",
+    "nameEn": "MUROTOMISAKI",
+    "alt": 185,
+    "yukiHatsu": 14,
+    "yukiShu": 42,
+    "yukiSpan": 28,
+    "sekisetsuPeak": 28,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.975,
+     42.31167
+    ]
+   },
+   "properties": {
+    "name": "室蘭",
+    "nameEn": "MURORAN",
+    "alt": 39.9,
+    "yukiHatsu": 306,
+    "yukiShu": 109,
+    "yukiSpan": 168,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 157,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.91,
+     37.48833
+    ]
+   },
+   "properties": {
+    "name": "若松",
+    "nameEn": "WAKAMATSU",
+    "alt": 211.7,
+    "yukiHatsu": 318,
+    "yukiShu": 101,
+    "yukiSpan": 148,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 59,
+    "kousetsu": 328,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.84333,
+     38.90833
+    ]
+   },
+   "properties": {
+    "name": "酒田",
+    "nameEn": "SAKATA",
+    "alt": 3.1,
+    "yukiHatsu": 323,
+    "yukiShu": 98,
+    "yukiSpan": 140,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 32,
+    "kousetsu": 211,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.22333,
+     42.795
+    ]
+   },
+   "properties": {
+    "name": "寿都",
+    "nameEn": "SUTTSU",
+    "alt": 33.4,
+    "yukiHatsu": 301,
+    "yukiShu": 109,
+    "yukiSpan": 173,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 73,
+    "kousetsu": 454,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.84833,
+     34.31
+    ]
+   },
+   "properties": {
+    "name": "洲本",
+    "nameEn": "SUMOTO",
+    "alt": 68.8,
+    "yukiHatsu": 354,
+    "yukiShu": 63,
+    "yukiSpan": 74,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 2,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2004,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.09833,
+     39.71667
+    ]
+   },
+   "properties": {
+    "name": "秋田",
+    "nameEn": "AKITA",
+    "alt": 6.3,
+    "yukiHatsu": 319,
+    "yukiShu": 100,
+    "yukiSpan": 146,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 37,
+    "kousetsu": 273,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.695,
+     32.92
+    ]
+   },
+   "properties": {
+    "name": "宿毛",
+    "nameEn": "SUKUMO",
+    "alt": 2.2,
+    "yukiHatsu": 357,
+    "yukiShu": 59,
+    "yukiSpan": 67,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 3,
+    "kousetsu": 4,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.31167,
+     35.15
+    ]
+   },
+   "properties": {
+    "name": "勝浦",
+    "nameEn": "KATSUURA",
+    "alt": 11.9,
+    "yukiHatsu": 6,
+    "yukiShu": 64,
+    "yukiSpan": 58,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.015,
+     43.18167
+    ]
+   },
+   "properties": {
+    "name": "小樽",
+    "nameEn": "OTARU",
+    "alt": 24.9,
+    "yukiHatsu": 304,
+    "yukiShu": 112,
+    "yukiSpan": 173,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 118,
+    "kousetsu": 556,
+    "yukiHatsu_n": 21,
+    "yukiHatsu_from": 2000,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.90333,
+     36.94667
+    ]
+   },
+   "properties": {
+    "name": "小名浜",
+    "nameEn": "ONAHAMA",
+    "alt": 3.3,
+    "yukiHatsu": 350,
+    "yukiShu": 91,
+    "yukiSpan": 106,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 9,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.065,
+     35.45667
+    ]
+   },
+   "properties": {
+    "name": "松江",
+    "nameEn": "MATSUE",
+    "alt": 16.9,
+    "yukiHatsu": 341,
+    "yukiShu": 87,
+    "yukiSpan": 111,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 20,
+    "kousetsu": 68,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.77667,
+     33.84333
+    ]
+   },
+   "properties": {
+    "name": "松山",
+    "nameEn": "MATSUYAMA",
+    "alt": 32.2,
+    "yukiHatsu": 353,
+    "yukiShu": 64,
+    "yukiSpan": 76,
+    "sekisetsuPeak": 26,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.97,
+     36.24667
+    ]
+   },
+   "properties": {
+    "name": "松本",
+    "nameEn": "MATSUMOTO",
+    "alt": 610,
+    "yukiHatsu": 321,
+    "yukiShu": 99,
+    "yukiSpan": 143,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 76,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.14167,
+     34.76167
+    ]
+   },
+   "properties": {
+    "name": "上野",
+    "nameEn": "UENO",
+    "alt": 159.2,
+    "yukiHatsu": 346,
+    "yukiShu": 83,
+    "yukiSpan": 102,
+    "sekisetsuPeak": 32,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1998,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.01833,
+     37.89333
+    ]
+   },
+   "properties": {
+    "name": "新潟",
+    "nameEn": "NIIGATA",
+    "alt": 4.1,
+    "yukiHatsu": 327,
+    "yukiShu": 96,
+    "yukiSpan": 134,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 32,
+    "kousetsu": 139,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.31167,
+     38.75667
+    ]
+   },
+   "properties": {
+    "name": "新庄",
+    "nameEn": "SHINJO",
+    "alt": 105.1,
+    "yukiHatsu": 318,
+    "yukiShu": 103,
+    "yukiSpan": 150,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 128,
+    "kousetsu": 637,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1999,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.93167,
+     40.645
+    ]
+   },
+   "properties": {
+    "name": "深浦",
+    "nameEn": "FUKAURA",
+    "alt": 66.1,
+    "yukiHatsu": 315,
+    "yukiShu": 103,
+    "yukiSpan": 153,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 38,
+    "kousetsu": 226,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2006,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.21167,
+     34.69667
+    ]
+   },
+   "properties": {
+    "name": "神戸",
+    "nameEn": "KOBE",
+    "alt": 5.3,
+    "yukiHatsu": 347,
+    "yukiShu": 86,
+    "yukiSpan": 104,
+    "sekisetsuPeak": 34,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.755,
+     32.21667
+    ]
+   },
+   "properties": {
+    "name": "人吉",
+    "nameEn": "HITOYOSHI",
+    "alt": 145.8,
+    "yukiHatsu": 345,
+    "yukiShu": 65,
+    "yukiSpan": 85,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 4,
+    "kousetsu": 5,
+    "yukiHatsu_n": 20,
+    "yukiHatsu_from": 2001,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.10833,
+     36.045
+    ]
+   },
+   "properties": {
+    "name": "諏訪",
+    "nameEn": "SUWA",
+    "alt": 760.1,
+    "yukiHatsu": 332,
+    "yukiShu": 99,
+    "yukiSpan": 132,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 21,
+    "kousetsu": 71,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1998,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.46667,
+     36.38
+    ]
+   },
+   "properties": {
+    "name": "水戸",
+    "nameEn": "MITO",
+    "alt": 29,
+    "yukiHatsu": 353,
+    "yukiShu": 80,
+    "yukiSpan": 92,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 7,
+    "kousetsu": 12,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.01,
+     32.72167
+    ]
+   },
+   "properties": {
+    "name": "清水",
+    "nameEn": "SHIMIZU",
+    "alt": 31,
+    "yukiHatsu": 358,
+    "yukiShu": 45,
+    "yukiSpan": 52,
+    "sekisetsuPeak": 19,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 1,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.165,
+     39.69833
+    ]
+   },
+   "properties": {
+    "name": "盛岡",
+    "nameEn": "MORIOKA",
+    "alt": 155.2,
+    "yukiHatsu": 313,
+    "yukiShu": 111,
+    "yukiSpan": 163,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 36,
+    "kousetsu": 209,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.33333,
+     36.20333
+    ]
+   },
+   "properties": {
+    "name": "西郷",
+    "nameEn": "SAIGO",
+    "alt": 26.5,
+    "yukiHatsu": 336,
+    "yukiShu": 89,
+    "yukiSpan": 118,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 21,
+    "kousetsu": 93,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.76833,
+     40.82167
+    ]
+   },
+   "properties": {
+    "name": "青森",
+    "nameEn": "AOMORI",
+    "alt": 2.8,
+    "yukiHatsu": 312,
+    "yukiShu": 105,
+    "yukiSpan": 158,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 101,
+    "kousetsu": 567,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.40333,
+     34.975
+    ]
+   },
+   "properties": {
+    "name": "静岡",
+    "nameEn": "SHIZUOKA",
+    "alt": 14.1,
+    "yukiHatsu": 6,
+    "yukiShu": 43,
+    "yukiSpan": 37,
+    "sekisetsuPeak": 25,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 27,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.29833,
+     38.42667
+    ]
+   },
+   "properties": {
+    "name": "石巻",
+    "nameEn": "ISHINOMAKI",
+    "alt": 42.5,
+    "yukiHatsu": 332,
+    "yukiShu": 96,
+    "yukiSpan": 129,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 16,
+    "kousetsu": 51,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2004,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.84167,
+     34.60333
+    ]
+   },
+   "properties": {
+    "name": "石廊崎",
+    "nameEn": "IROZAKI",
+    "alt": 52.2,
+    "yukiHatsu": 28,
+    "yukiShu": 49,
+    "yukiSpan": 21,
+    "sekisetsuPeak": 39,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2005,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.89667,
+     38.26167
+    ]
+   },
+   "properties": {
+    "name": "仙台",
+    "nameEn": "SENDAI",
+    "alt": 38.9,
+    "yukiHatsu": 321,
+    "yukiShu": 99,
+    "yukiSpan": 143,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 16,
+    "kousetsu": 59,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.10333,
+     35.60167
+    ]
+   },
+   "properties": {
+    "name": "千葉",
+    "nameEn": "CHIBA",
+    "alt": 3.5,
+    "yukiHatsu": 344,
+    "yukiShu": 82,
+    "yukiSpan": 103,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 7,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.06,
+     36.405
+    ]
+   },
+   "properties": {
+    "name": "前橋",
+    "nameEn": "MAEBASHI",
+    "alt": 112.1,
+    "yukiHatsu": 343,
+    "yukiShu": 89,
+    "yukiSpan": 111,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 11,
+    "kousetsu": 19,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.24,
+     38.02833
+    ]
+   },
+   "properties": {
+    "name": "相川",
+    "nameEn": "AIKAWA",
+    "alt": 5.5,
+    "yukiHatsu": 331,
+    "yukiShu": 95,
+    "yukiSpan": 129,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 16,
+    "kousetsu": 67,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.75167,
+     34.275
+    ]
+   },
+   "properties": {
+    "name": "多度津",
+    "nameEn": "TADOTSU",
+    "alt": 3.7,
+    "yukiHatsu": 363,
+    "yukiShu": 62,
+    "yukiSpan": 64,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     143.21167,
+     42.92167
+    ]
+   },
+   "properties": {
+    "name": "帯広",
+    "nameEn": "OBIHIRO",
+    "alt": 38.4,
+    "yukiHatsu": 305,
+    "yukiShu": 116,
+    "yukiSpan": 176,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 71,
+    "kousetsu": 198,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.51833,
+     34.68167
+    ]
+   },
+   "properties": {
+    "name": "大阪",
+    "nameEn": "OSAKA",
+    "alt": 23,
+    "yukiHatsu": 360,
+    "yukiShu": 67,
+    "yukiSpan": 72,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.71333,
+     39.06333
+    ]
+   },
+   "properties": {
+    "name": "大船渡",
+    "nameEn": "OFUNATO",
+    "alt": 36.9,
+    "yukiHatsu": 323,
+    "yukiShu": 97,
+    "yukiSpan": 139,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 11,
+    "kousetsu": 45,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2008,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.36167,
+     34.74833
+    ]
+   },
+   "properties": {
+    "name": "大島",
+    "nameEn": "OSHIMA",
+    "alt": 74,
+    "yukiHatsu": 364,
+    "yukiShu": 66,
+    "yukiSpan": 67,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 2,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.61833,
+     33.235
+    ]
+   },
+   "properties": {
+    "name": "大分",
+    "nameEn": "OITA",
+    "alt": 4.6,
+    "yukiHatsu": 344,
+    "yukiShu": 63,
+    "yukiSpan": 84,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.67833,
+     45.415
+    ]
+   },
+   "properties": {
+    "name": "稚内",
+    "nameEn": "WAKKANAI",
+    "alt": 2.8,
+    "yukiHatsu": 292,
+    "yukiShu": 130,
+    "yukiSpan": 203,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 72,
+    "kousetsu": 477,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.07333,
+     35.99
+    ]
+   },
+   "properties": {
+    "name": "秩父",
+    "nameEn": "CHICHIBU",
+    "alt": 232.1,
+    "yukiHatsu": 347,
+    "yukiShu": 85,
+    "yukiSpan": 103,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 18,
+    "kousetsu": 36,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1999,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.75667,
+     33.45
+    ]
+   },
+   "properties": {
+    "name": "潮岬",
+    "nameEn": "SHIONOMISAKI",
+    "alt": 67.5,
+    "yukiHatsu": 2,
+    "yukiShu": 55,
+    "yukiSpan": 53,
+    "sekisetsuPeak": 29,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.85667,
+     35.73833
+    ]
+   },
+   "properties": {
+    "name": "銚子",
+    "nameEn": "CHOSHI",
+    "alt": 20.1,
+    "yukiHatsu": 5,
+    "yukiShu": 69,
+    "yukiSpan": 64,
+    "sekisetsuPeak": 37,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.86667,
+     32.73333
+    ]
+   },
+   "properties": {
+    "name": "長崎",
+    "nameEn": "NAGASAKI",
+    "alt": 26.9,
+    "yukiHatsu": 345,
+    "yukiShu": 60,
+    "yukiSpan": 80,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 3,
+    "kousetsu": 4,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.19167,
+     36.66167
+    ]
+   },
+   "properties": {
+    "name": "長野",
+    "nameEn": "NAGANO",
+    "alt": 418.2,
+    "yukiHatsu": 322,
+    "yukiShu": 98,
+    "yukiSpan": 141,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 33,
+    "kousetsu": 163,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.23833,
+     35.48667
+    ]
+   },
+   "properties": {
+    "name": "鳥取",
+    "nameEn": "TOTTORI",
+    "alt": 7.1,
+    "yukiHatsu": 339,
+    "yukiShu": 86,
+    "yukiSpan": 112,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 37,
+    "kousetsu": 140,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.51833,
+     34.73333
+    ]
+   },
+   "properties": {
+    "name": "津",
+    "nameEn": "TSU",
+    "alt": 2.7,
+    "yukiHatsu": 358,
+    "yukiShu": 78,
+    "yukiSpan": 85,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 4,
+    "kousetsu": 6,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.00833,
+     35.06333
+    ]
+   },
+   "properties": {
+    "name": "津山",
+    "nameEn": "TSUYAMA",
+    "alt": 145.7,
+    "yukiHatsu": 340,
+    "yukiShu": 84,
+    "yukiSpan": 109,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 15,
+    "kousetsu": 44,
+    "yukiHatsu_n": 18,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.08167,
+     31.73
+    ]
+   },
+   "properties": {
+    "name": "都城",
+    "nameEn": "MIYAKONOJO",
+    "alt": 153.8,
+    "yukiHatsu": 362,
+    "yukiShu": 54,
+    "yukiSpan": 57,
+    "sekisetsuPeak": 26,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2001,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.75,
+     35.69167
+    ]
+   },
+   "properties": {
+    "name": "東京",
+    "nameEn": "TOKYO",
+    "alt": 25.2,
+    "yukiHatsu": 3,
+    "yukiShu": 68,
+    "yukiSpan": 65,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 6,
+    "kousetsu": 8,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.57333,
+     34.06667
+    ]
+   },
+   "properties": {
+    "name": "徳島",
+    "nameEn": "TOKUSHIMA",
+    "alt": 1.6,
+    "yukiHatsu": 352,
+    "yukiShu": 64,
+    "yukiSpan": 77,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 2,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.54667,
+     42.62333
+    ]
+   },
+   "properties": {
+    "name": "苫小牧",
+    "nameEn": "TOMAKOMAI",
+    "alt": 6.3,
+    "yukiHatsu": 306,
+    "yukiShu": 109,
+    "yukiSpan": 168,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 31,
+    "kousetsu": 145,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2006,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.06167,
+     35.65333
+    ]
+   },
+   "properties": {
+    "name": "敦賀",
+    "nameEn": "TSURUGA",
+    "alt": 1.6,
+    "yukiHatsu": 339,
+    "yukiShu": 85,
+    "yukiSpan": 111,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 39,
+    "kousetsu": 126,
+    "yukiHatsu_n": 14,
+    "yukiHatsu_from": 2007,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.83667,
+     34.67333
+    ]
+   },
+   "properties": {
+    "name": "奈良",
+    "nameEn": "NARA",
+    "alt": 102.1,
+    "yukiHatsu": 347,
+    "yukiShu": 81,
+    "yukiSpan": 99,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 3,
+    "kousetsu": 5,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.5,
+     36.73833
+    ]
+   },
+   "properties": {
+    "name": "日光",
+    "nameEn": "NIKKO",
+    "alt": 1291.9,
+    "yukiHatsu": 306,
+    "yukiShu": 122,
+    "yukiSpan": 181,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 40,
+    "kousetsu": 227,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1998,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.92833,
+     33.32167
+    ]
+   },
+   "properties": {
+    "name": "日田",
+    "nameEn": "HITA",
+    "alt": 82.9,
+    "yukiHatsu": 343,
+    "yukiShu": 73,
+    "yukiSpan": 95,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 11,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.405,
+     34.41
+    ]
+   },
+   "properties": {
+    "name": "萩",
+    "nameEn": "HAGI",
+    "alt": 2.2,
+    "yukiHatsu": 345,
+    "yukiShu": 75,
+    "yukiSpan": 95,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 4,
+    "kousetsu": 5,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.215,
+     37.13167
+    ]
+   },
+   "properties": {
+    "name": "白河",
+    "nameEn": "SHIRAKAWA",
+    "alt": 355,
+    "yukiHatsu": 323,
+    "yukiShu": 99,
+    "yukiSpan": 141,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 25,
+    "kousetsu": 90,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1999,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.75333,
+     41.81667
+    ]
+   },
+   "properties": {
+    "name": "函館",
+    "nameEn": "HAKODATE",
+    "alt": 35,
+    "yukiHatsu": 305,
+    "yukiShu": 106,
+    "yukiSpan": 166,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 45,
+    "kousetsu": 306,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.52167,
+     40.52667
+    ]
+   },
+   "properties": {
+    "name": "八戸",
+    "nameEn": "HACHINOHE",
+    "alt": 27.1,
+    "yukiHatsu": 315,
+    "yukiShu": 107,
+    "yukiSpan": 157,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 27,
+    "kousetsu": 134,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.77833,
+     33.12167
+    ]
+   },
+   "properties": {
+    "name": "八丈島",
+    "nameEn": "HACHIJOJIMA",
+    "alt": 151.2,
+    "yukiHatsu": 2,
+    "yukiShu": 57,
+    "yukiSpan": 55,
+    "sekisetsuPeak": 30,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.69333,
+     33.65167
+    ]
+   },
+   "properties": {
+    "name": "飯塚",
+    "nameEn": "IIZUKA",
+    "alt": 37.1,
+    "yukiHatsu": 346,
+    "yukiShu": 70,
+    "yukiSpan": 89,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 7,
+    "yukiHatsu_n": 19,
+    "yukiHatsu_from": 2002,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.82167,
+     35.52333
+    ]
+   },
+   "properties": {
+    "name": "飯田",
+    "nameEn": "IIDA",
+    "alt": 516.4,
+    "yukiHatsu": 331,
+    "yukiShu": 93,
+    "yukiSpan": 127,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 20,
+    "kousetsu": 61,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2008,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.19333,
+     34.06833
+    ]
+   },
+   "properties": {
+    "name": "尾鷲",
+    "nameEn": "OWASE",
+    "alt": 15.3,
+    "yukiHatsu": 355,
+    "yukiShu": 65,
+    "yukiSpan": 75,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.24333,
+     35.275
+    ]
+   },
+   "properties": {
+    "name": "彦根",
+    "nameEn": "HIKONE",
+    "alt": 87.3,
+    "yukiHatsu": 344,
+    "yukiShu": 87,
+    "yukiSpan": 108,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 81,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.67,
+     34.83833
+    ]
+   },
+   "properties": {
+    "name": "姫路",
+    "nameEn": "HIMEJI",
+    "alt": 38.2,
+    "yukiHatsu": 357,
+    "yukiShu": 74,
+    "yukiSpan": 82,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 5,
+    "kousetsu": 6,
+    "yukiHatsu_n": 17,
+    "yukiHatsu_from": 2004,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.71167,
+     34.75333
+    ]
+   },
+   "properties": {
+    "name": "浜松",
+    "nameEn": "HAMAMATSU",
+    "alt": 45.9,
+    "yukiHatsu": 7,
+    "yukiShu": 59,
+    "yukiSpan": 52,
+    "sekisetsuPeak": 33,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 13,
+    "yukiHatsu_from": 2007,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.07,
+     34.89667
+    ]
+   },
+   "properties": {
+    "name": "浜田",
+    "nameEn": "HAMADA",
+    "alt": 19,
+    "yukiHatsu": 340,
+    "yukiShu": 79,
+    "yukiSpan": 104,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 6,
+    "kousetsu": 10,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.20167,
+     36.70833
+    ]
+   },
+   "properties": {
+    "name": "富山",
+    "nameEn": "TOYAMA",
+    "alt": 8.6,
+    "yukiHatsu": 337,
+    "yukiShu": 95,
+    "yukiSpan": 123,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 51,
+    "kousetsu": 253,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.72667,
+     35.36
+    ]
+   },
+   "properties": {
+    "name": "富士山",
+    "nameEn": "FUJISAN",
+    "alt": 3775.1,
+    "yukiHatsu": 260,
+    "yukiShu": 156,
+    "yukiSpan": 261,
+    "sekisetsuPeak": 105,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 214,
+    "kousetsu": 0,
+    "yukiHatsu_n": 14,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2004,
+    "yukiHatsu_provisional": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.31667,
+     35.45
+    ]
+   },
+   "properties": {
+    "name": "舞鶴",
+    "nameEn": "MAIZURU",
+    "alt": 2.4,
+    "yukiHatsu": 346,
+    "yukiShu": 83,
+    "yukiSpan": 102,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 33,
+    "kousetsu": 135,
+    "yukiHatsu_n": 23,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2013,
+    "yukiHatsu_provisional": true
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.055,
+     36.79167
+    ]
+   },
+   "properties": {
+    "name": "伏木",
+    "nameEn": "FUSHIKI",
+    "alt": 11.6,
+    "yukiHatsu": 334,
+    "yukiShu": 89,
+    "yukiSpan": 120,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 54,
+    "kousetsu": 238,
+    "yukiHatsu_n": 22,
+    "yukiHatsu_from": 1999,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.22167,
+     36.055
+    ]
+   },
+   "properties": {
+    "name": "福井",
+    "nameEn": "FUKUI",
+    "alt": 8.8,
+    "yukiHatsu": 337,
+    "yukiShu": 90,
+    "yukiSpan": 118,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 48,
+    "kousetsu": 186,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.375,
+     33.58167
+    ]
+   },
+   "properties": {
+    "name": "福岡",
+    "nameEn": "FUKUOKA",
+    "alt": 2.5,
+    "yukiHatsu": 350,
+    "yukiShu": 66,
+    "yukiSpan": 81,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 2,
+    "kousetsu": 2,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     128.82667,
+     32.69333
+    ]
+   },
+   "properties": {
+    "name": "福江",
+    "nameEn": "FUKUE",
+    "alt": 25.1,
+    "yukiHatsu": 349,
+    "yukiShu": 56,
+    "yukiSpan": 72,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 2,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2011,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.24667,
+     34.44667
+    ]
+   },
+   "properties": {
+    "name": "福山",
+    "nameEn": "FUKUYAMA",
+    "alt": 1.6,
+    "yukiHatsu": 353,
+    "yukiShu": 68,
+    "yukiSpan": 80,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 2,
+    "kousetsu": 4,
+    "yukiHatsu_n": 18,
+    "yukiHatsu_from": 2003,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.47,
+     37.75833
+    ]
+   },
+   "properties": {
+    "name": "福島",
+    "nameEn": "FUKUSHIMA",
+    "alt": 67.4,
+    "yukiHatsu": 323,
+    "yukiShu": 95,
+    "yukiSpan": 137,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 26,
+    "kousetsu": 122,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.55,
+     33.36
+    ]
+   },
+   "properties": {
+    "name": "平戸",
+    "nameEn": "HIRADO",
+    "alt": 57.8,
+    "yukiHatsu": 352,
+    "yukiShu": 57,
+    "yukiSpan": 70,
+    "sekisetsuPeak": 22,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 20,
+    "yukiHatsu_from": 2001,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.33833,
+     35.43333
+    ]
+   },
+   "properties": {
+    "name": "米子",
+    "nameEn": "YONAGO",
+    "alt": 6.5,
+    "yukiHatsu": 340,
+    "yukiShu": 86,
+    "yukiSpan": 111,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 25,
+    "kousetsu": 95,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.82167,
+     35.535
+    ]
+   },
+   "properties": {
+    "name": "豊岡",
+    "nameEn": "TOYOOKA",
+    "alt": 3.4,
+    "yukiHatsu": 339,
+    "yukiShu": 86,
+    "yukiSpan": 112,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 45,
+    "kousetsu": 204,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     142.585,
+     44.94
+    ]
+   },
+   "properties": {
+    "name": "北見枝幸",
+    "nameEn": "KITAMIESASHI",
+    "alt": 6.7,
+    "yukiHatsu": 301,
+    "yukiShu": 126,
+    "yukiSpan": 190,
+    "sekisetsuPeak": 74,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 104,
+    "kousetsu": 562,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2006,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.29167,
+     31.27167
+    ]
+   },
+   "properties": {
+    "name": "枕崎",
+    "nameEn": "MAKURAZAKI",
+    "alt": 29.5,
+    "yukiHatsu": 6,
+    "yukiShu": 53,
+    "yukiSpan": 47,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2005,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.965,
+     35.16667
+    ]
+   },
+   "properties": {
+    "name": "名古屋",
+    "nameEn": "NAGOYA",
+    "alt": 51.1,
+    "yukiHatsu": 352,
+    "yukiShu": 71,
+    "yukiSpan": 84,
+    "sekisetsuPeak": 349,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 8,
+    "kousetsu": 12,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     144.27833,
+     44.01667
+    ]
+   },
+   "properties": {
+    "name": "網走",
+    "nameEn": "ABASHIRI",
+    "alt": 37.6,
+    "yukiHatsu": 303,
+    "yukiShu": 131,
+    "yukiSpan": 193,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 63,
+    "kousetsu": 312,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.09167,
+     35.045
+    ]
+   },
+   "properties": {
+    "name": "網代",
+    "nameEn": "AJIRO",
+    "alt": 66.9,
+    "yukiHatsu": 10,
+    "yukiShu": 66,
+    "yukiSpan": 56,
+    "sekisetsuPeak": 38,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 1,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2005,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     143.355,
+     44.345
+    ]
+   },
+   "properties": {
+    "name": "紋別",
+    "nameEn": "MOMBETSU",
+    "alt": 15.8,
+    "yukiHatsu": 300,
+    "yukiShu": 128,
+    "yukiSpan": 193,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 63,
+    "kousetsu": 338,
+    "yukiHatsu_n": 12,
+    "yukiHatsu_from": 2009,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.40667,
+     31.57833
+    ]
+   },
+   "properties": {
+    "name": "油津",
+    "nameEn": "ABURATSU",
+    "alt": 2.9,
+    "yukiHatsu": 17,
+    "yukiShu": 30,
+    "yukiSpan": 13,
+    "sekisetsuPeak": 24,
+    "sekisetsuPeakMeasured": false,
+    "saishinSekisetsu": 0,
+    "kousetsu": 0,
+    "yukiHatsu_n": 10,
+    "yukiHatsu_from": 2005,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     142.96333,
+     44.58
+    ]
+   },
+   "properties": {
+    "name": "雄武",
+    "nameEn": "OMU",
+    "alt": 14.1,
+    "yukiHatsu": 300,
+    "yukiShu": 127,
+    "yukiSpan": 192,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 73,
+    "kousetsu": 343,
+    "yukiHatsu_n": 15,
+    "yukiHatsu_from": 2006,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     141.63167,
+     43.945
+    ]
+   },
+   "properties": {
+    "name": "留萌",
+    "nameEn": "RUMOI",
+    "alt": 23.6,
+    "yukiHatsu": 298,
+    "yukiShu": 116,
+    "yukiSpan": 183,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 90,
+    "kousetsu": 546,
+    "yukiHatsu_n": 11,
+    "yukiHatsu_from": 2010,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.895,
+     37.39
+    ]
+   },
+   "properties": {
+    "name": "輪島",
+    "nameEn": "WAJIMA",
+    "alt": 5.2,
+    "yukiHatsu": 329,
+    "yukiShu": 99,
+    "yukiSpan": 135,
+    "sekisetsuPeak": 15,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 27,
+    "kousetsu": 121,
+    "yukiHatsu_n": 9,
+    "yukiHatsu_from": 2012,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.16333,
+     34.22833
+    ]
+   },
+   "properties": {
+    "name": "和歌山",
+    "nameEn": "WAKAYAMA",
+    "alt": 13.9,
+    "yukiHatsu": 352,
+    "yukiShu": 71,
+    "yukiSpan": 84,
+    "sekisetsuPeak": 46,
+    "sekisetsuPeakMeasured": true,
+    "saishinSekisetsu": 1,
+    "kousetsu": 1,
+    "yukiHatsu_n": 30,
+    "yukiHatsu_from": 1991,
+    "yukiHatsu_to": 2020,
+    "yukiHatsu_provisional": false
+   }
+  }
+ ]
+}

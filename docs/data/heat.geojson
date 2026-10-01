@@ -1,0 +1,3612 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "source": "気象庁 地上気象観測平年値 (1991–2020)",
+  "sourceUrl": "https://www.data.jma.go.jp/stats/data/mdrr/normal/index.html",
+  "archive": "https://www.data.jma.go.jp/stats/data/mdrr/normal/2020/data/normal_surface.zip",
+  "elements": {
+   "kion": "月別 0600 日最高気温の月平均 (°C)"
+  },
+  "derived": {
+   "threshold": 30,
+   "method": "The twelve monthly 日最高気温 normals are anchored at each month's midpoint and interpolated with a cyclic Catmull-Rom spline; natsuKaishi/natsuOwari are the days that curve crosses the threshold and natsuPeak is its maximum.",
+   "caveat": "These days are DERIVED, not announced. JMA publishes no 猛暑の初日 the way it publishes 梅雨入り or 初雪, and a day named by crossing a curve fitted to monthly means carries roughly ±5–10 days of slop. The shape of the season is the source's; the edges are this script's reading of it."
+  },
+  "stationsWithoutHeat": [
+   "稚内",
+   "北見枝幸",
+   "羽幌",
+   "雄武",
+   "留萌",
+   "旭川",
+   "網走",
+   "小樽",
+   "札幌",
+   "岩見沢",
+   "帯広",
+   "釧路",
+   "根室",
+   "寿都",
+   "室蘭",
+   "苫小牧",
+   "浦河",
+   "江差",
+   "函館",
+   "倶知安",
+   "紋別",
+   "広尾",
+   "大船渡",
+   "新庄",
+   "深浦",
+   "青森",
+   "むつ",
+   "八戸",
+   "秋田",
+   "盛岡",
+   "宮古",
+   "酒田",
+   "仙台",
+   "石巻",
+   "白河",
+   "小名浜",
+   "相川",
+   "諏訪",
+   "軽井沢",
+   "富士山",
+   "河口湖",
+   "銚子",
+   "御前崎",
+   "石廊崎",
+   "勝浦",
+   "大島",
+   "三宅島",
+   "八丈島",
+   "日光",
+   "西郷",
+   "潮岬",
+   "平戸",
+   "雲仙岳",
+   "阿蘇山",
+   "室戸岬",
+   "昭和"
+  ],
+  "note": "1991–2020 normals. Fifty-six of the 157 surface stations never reach a 30 °C monthly mean daily maximum — all of Hokkaido, most of the Tohoku coast, the summit stations, and 昭和 (Syowa, Antarctica), which is in JMA's surface network and is excluded."
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.2,
+     32.02667
+    ]
+   },
+   "properties": {
+    "name": "阿久根",
+    "nameEn": "AKUNE",
+    "alt": 40.1,
+    "natsuKaishi": 199,
+    "natsuPeak": 224,
+    "natsuOwari": 245,
+    "natsuNichisu": 47,
+    "natsuMax": 31.2,
+    "hachigatsu": 31.2,
+    "kion": [
+     11.4,
+     12.6,
+     15.6,
+     19.8,
+     23.6,
+     26,
+     29.8,
+     31.2,
+     28.6,
+     24.2,
+     18.9,
+     13.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.09333,
+     34.62833
+    ]
+   },
+   "properties": {
+    "name": "伊良湖",
+    "nameEn": "IRAKO",
+    "alt": 6.2,
+    "natsuKaishi": 196,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 49,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.6,
+    "kion": [
+     9.4,
+     10.2,
+     13.7,
+     18.8,
+     23.1,
+     26,
+     30,
+     31.6,
+     28.1,
+     22.7,
+     17.2,
+     11.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.86833,
+     36.54833
+    ]
+   },
+   "properties": {
+    "name": "宇都宮",
+    "nameEn": "UTSUNOMIYA",
+    "alt": 119.4,
+    "natsuKaishi": 203,
+    "natsuPeak": 222,
+    "natsuOwari": 237,
+    "natsuNichisu": 35,
+    "natsuMax": 31,
+    "hachigatsu": 30.9,
+    "kion": [
+     8.6,
+     9.7,
+     13.4,
+     18.8,
+     23.3,
+     25.9,
+     29.5,
+     30.9,
+     27,
+     21.4,
+     15.9,
+     10.8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.55167,
+     33.22667
+    ]
+   },
+   "properties": {
+    "name": "宇和島",
+    "nameEn": "UWAJIMA",
+    "alt": 2.4,
+    "natsuKaishi": 188,
+    "natsuPeak": 221,
+    "natsuOwari": 250,
+    "natsuNichisu": 63,
+    "natsuMax": 32.3,
+    "hachigatsu": 32.2,
+    "kion": [
+     11.3,
+     12.3,
+     15.6,
+     20.4,
+     24.3,
+     26.7,
+     31,
+     32.2,
+     29,
+     24.3,
+     19.1,
+     13.8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.65667,
+     32.58167
+    ]
+   },
+   "properties": {
+    "name": "延岡",
+    "nameEn": "NOBEOKA",
+    "alt": 19.2,
+    "natsuKaishi": 193,
+    "natsuPeak": 222,
+    "natsuOwari": 247,
+    "natsuNichisu": 55,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.6,
+    "kion": [
+     12.4,
+     13.6,
+     16.6,
+     21,
+     24.6,
+     26.5,
+     30.4,
+     31.6,
+     28.8,
+     24.5,
+     19.4,
+     14.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.65167,
+     35.43833
+    ]
+   },
+   "properties": {
+    "name": "横浜",
+    "nameEn": "YOKOHAMA",
+    "alt": 39.1,
+    "natsuKaishi": 203,
+    "natsuPeak": 223,
+    "natsuOwari": 239,
+    "natsuNichisu": 37,
+    "natsuMax": 31.1,
+    "hachigatsu": 31,
+    "kion": [
+     10.2,
+     10.8,
+     14,
+     18.9,
+     23.1,
+     25.5,
+     29.4,
+     31,
+     27.3,
+     22,
+     17.1,
+     12.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.925,
+     34.685
+    ]
+   },
+   "properties": {
+    "name": "岡山",
+    "nameEn": "OKAYAMA",
+    "alt": 5.3,
+    "natsuKaishi": 183,
+    "natsuPeak": 222,
+    "natsuOwari": 252,
+    "natsuNichisu": 70,
+    "natsuMax": 33.4,
+    "hachigatsu": 33.3,
+    "kion": [
+     9.6,
+     10.5,
+     14.6,
+     19.8,
+     24.8,
+     27.6,
+     31.8,
+     33.3,
+     29.1,
+     23.4,
+     17.1,
+     11.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     128.705,
+     27.43167
+    ]
+   },
+   "properties": {
+    "name": "沖永良部",
+    "nameEn": "OKINOERABU",
+    "alt": 26.8,
+    "natsuKaishi": 180,
+    "natsuPeak": 209,
+    "natsuOwari": 260,
+    "natsuNichisu": 81,
+    "natsuMax": 31.5,
+    "hachigatsu": 31.3,
+    "kion": [
+     18.8,
+     19.1,
+     20.8,
+     23,
+     25.7,
+     28.6,
+     31.3,
+     31.3,
+     30.2,
+     27.5,
+     24.2,
+     20.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.65833,
+     30.385
+    ]
+   },
+   "properties": {
+    "name": "屋久島",
+    "nameEn": "YAKUSHIMA",
+    "alt": 37.3,
+    "natsuKaishi": 191,
+    "natsuPeak": 215,
+    "natsuOwari": 244,
+    "natsuNichisu": 54,
+    "natsuMax": 31.1,
+    "hachigatsu": 30.9,
+    "kion": [
+     14.7,
+     15.5,
+     18,
+     21.4,
+     24.5,
+     26.9,
+     30.5,
+     30.9,
+     28.9,
+     25.2,
+     21.2,
+     16.8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.925,
+     33.94833
+    ]
+   },
+   "properties": {
+    "name": "下関",
+    "nameEn": "SHIMONOSEKI",
+    "alt": 3.3,
+    "natsuKaishi": 200,
+    "natsuPeak": 223,
+    "natsuOwari": 242,
+    "natsuNichisu": 43,
+    "natsuMax": 31.4,
+    "hachigatsu": 31.3,
+    "kion": [
+     9.7,
+     10.5,
+     13.7,
+     18.4,
+     22.7,
+     25.8,
+     29.7,
+     31.3,
+     27.8,
+     23,
+     17.5,
+     12.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.865,
+     34.98667
+    ]
+   },
+   "properties": {
+    "name": "館山",
+    "nameEn": "TATEYAMA",
+    "alt": 5.8,
+    "natsuKaishi": 209,
+    "natsuPeak": 225,
+    "natsuOwari": 239,
+    "natsuNichisu": 31,
+    "natsuMax": 30.8,
+    "hachigatsu": 30.8,
+    "kion": [
+     11.3,
+     11.9,
+     14.6,
+     19,
+     22.8,
+     25.2,
+     28.9,
+     30.8,
+     27.8,
+     23,
+     18.4,
+     13.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.125,
+     36.05667
+    ]
+   },
+   "properties": {
+    "name": "館野",
+    "nameEn": "TATENO",
+    "alt": 25.2,
+    "natsuKaishi": 207,
+    "natsuPeak": 222,
+    "natsuOwari": 235,
+    "natsuNichisu": 29,
+    "natsuMax": 30.7,
+    "hachigatsu": 30.6,
+    "kion": [
+     9.3,
+     10.2,
+     13.6,
+     18.7,
+     22.7,
+     25.2,
+     29.1,
+     30.6,
+     26.8,
+     21.3,
+     16.3,
+     11.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.76167,
+     35.4
+    ]
+   },
+   "properties": {
+    "name": "岐阜",
+    "nameEn": "GIFU",
+    "alt": 12.7,
+    "natsuKaishi": 183,
+    "natsuPeak": 223,
+    "natsuOwari": 253,
+    "natsuNichisu": 71,
+    "natsuMax": 33.5,
+    "hachigatsu": 33.4,
+    "kion": [
+     9.1,
+     10.3,
+     14.2,
+     20,
+     24.7,
+     27.8,
+     31.6,
+     33.4,
+     29.2,
+     23.6,
+     17.5,
+     11.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     126.80333,
+     26.33667
+    ]
+   },
+   "properties": {
+    "name": "久米島",
+    "nameEn": "KUMEJIMA",
+    "alt": 4.6,
+    "natsuKaishi": 168,
+    "natsuPeak": 206,
+    "natsuOwari": 264,
+    "natsuNichisu": 97,
+    "natsuMax": 32.1,
+    "hachigatsu": 31.8,
+    "kion": [
+     19.5,
+     20,
+     21.8,
+     24.3,
+     27,
+     29.9,
+     32,
+     31.8,
+     30.5,
+     27.9,
+     24.9,
+     21.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     125.27833,
+     24.79333
+    ]
+   },
+   "properties": {
+    "name": "宮古島",
+    "nameEn": "MIYAKOJIMA",
+    "alt": 38.5,
+    "natsuKaishi": 162,
+    "natsuPeak": 202,
+    "natsuOwari": 259,
+    "natsuNichisu": 98,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.3,
+    "kion": [
+     20.6,
+     21.1,
+     22.8,
+     25.1,
+     27.7,
+     30.3,
+     31.7,
+     31.3,
+     30.1,
+     27.8,
+     25.3,
+     22.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.41333,
+     31.93833
+    ]
+   },
+   "properties": {
+    "name": "宮崎",
+    "nameEn": "MIYAZAKI",
+    "alt": 9.2,
+    "natsuKaishi": 187,
+    "natsuPeak": 213,
+    "natsuOwari": 245,
+    "natsuNichisu": 59,
+    "natsuMax": 31.9,
+    "hachigatsu": 31.6,
+    "kion": [
+     13,
+     14.1,
+     17,
+     21.1,
+     24.6,
+     26.7,
+     31.3,
+     31.6,
+     28.5,
+     24.7,
+     19.8,
+     15
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.02667,
+     32.19667
+    ]
+   },
+   "properties": {
+    "name": "牛深",
+    "nameEn": "USHIBUKA",
+    "alt": 3,
+    "natsuKaishi": 193,
+    "natsuPeak": 225,
+    "natsuOwari": 254,
+    "natsuNichisu": 62,
+    "natsuMax": 32.2,
+    "hachigatsu": 32.2,
+    "kion": [
+     11.8,
+     13,
+     16.1,
+     20.3,
+     24.2,
+     26.5,
+     30.4,
+     32.2,
+     29.6,
+     25,
+     19.6,
+     14.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.73167,
+     35.01333
+    ]
+   },
+   "properties": {
+    "name": "京都",
+    "nameEn": "KYOTO",
+    "alt": 40.8,
+    "natsuKaishi": 181,
+    "natsuPeak": 222,
+    "natsuOwari": 253,
+    "natsuNichisu": 73,
+    "natsuMax": 33.8,
+    "hachigatsu": 33.7,
+    "kion": [
+     9.1,
+     10,
+     14.1,
+     20.1,
+     25.1,
+     28.1,
+     32,
+     33.7,
+     29.2,
+     23.4,
+     17.3,
+     11.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.235,
+     35.54333
+    ]
+   },
+   "properties": {
+    "name": "境",
+    "nameEn": "SAKAI",
+    "alt": 2,
+    "natsuKaishi": 198,
+    "natsuPeak": 222,
+    "natsuOwari": 240,
+    "natsuNichisu": 43,
+    "natsuMax": 31.6,
+    "hachigatsu": 31.5,
+    "kion": [
+     8.3,
+     9.2,
+     12.8,
+     18.4,
+     23.1,
+     26,
+     29.9,
+     31.5,
+     27,
+     22.1,
+     16.7,
+     11
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.63333,
+     36.58833
+    ]
+   },
+   "properties": {
+    "name": "金沢",
+    "nameEn": "KANAZAWA",
+    "alt": 5.7,
+    "natsuKaishi": 202,
+    "natsuPeak": 223,
+    "natsuOwari": 240,
+    "natsuNichisu": 39,
+    "natsuMax": 31.4,
+    "hachigatsu": 31.3,
+    "kion": [
+     7.1,
+     7.8,
+     11.6,
+     17.3,
+     22.3,
+     25.6,
+     29.5,
+     31.3,
+     27.2,
+     21.8,
+     15.9,
+     10.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.38,
+     36.15
+    ]
+   },
+   "properties": {
+    "name": "熊谷",
+    "nameEn": "KUMAGAYA",
+    "alt": 30,
+    "natsuKaishi": 188,
+    "natsuPeak": 221,
+    "natsuOwari": 245,
+    "natsuNichisu": 58,
+    "natsuMax": 32.4,
+    "hachigatsu": 32.3,
+    "kion": [
+     9.8,
+     10.8,
+     14.3,
+     19.9,
+     24.6,
+     27.1,
+     30.9,
+     32.3,
+     27.9,
+     22.1,
+     16.8,
+     12
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.70667,
+     32.81333
+    ]
+   },
+   "properties": {
+    "name": "熊本",
+    "nameEn": "KUMAMOTO",
+    "alt": 37.7,
+    "natsuKaishi": 182,
+    "natsuPeak": 223,
+    "natsuOwari": 258,
+    "natsuNichisu": 77,
+    "natsuMax": 33.4,
+    "hachigatsu": 33.3,
+    "kion": [
+     10.7,
+     12.4,
+     16.1,
+     21.4,
+     26,
+     28.1,
+     31.8,
+     33.3,
+     30.1,
+     25,
+     18.8,
+     12.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.29167,
+     34.19667
+    ]
+   },
+   "properties": {
+    "name": "厳原",
+    "nameEn": "IZUHARA",
+    "alt": 4.6,
+    "natsuKaishi": 220,
+    "natsuPeak": 223,
+    "natsuOwari": 227,
+    "natsuNichisu": 8,
+    "natsuMax": 30,
+    "hachigatsu": 30,
+    "kion": [
+     9.2,
+     10.5,
+     13.6,
+     18.1,
+     22.2,
+     24.7,
+     28.3,
+     30,
+     26.5,
+     22.3,
+     17.1,
+     11.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.55,
+     34.24
+    ]
+   },
+   "properties": {
+    "name": "呉",
+    "nameEn": "KURE",
+    "alt": 3.5,
+    "natsuKaishi": 198,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 47,
+    "natsuMax": 31.6,
+    "hachigatsu": 31.5,
+    "kion": [
+     9.5,
+     10.2,
+     13.6,
+     18.7,
+     23.3,
+     26.1,
+     29.9,
+     31.5,
+     28.1,
+     22.9,
+     17.3,
+     11.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.46167,
+     34.39833
+    ]
+   },
+   "properties": {
+    "name": "広島",
+    "nameEn": "HIROSHIMA",
+    "alt": 3.6,
+    "natsuKaishi": 188,
+    "natsuPeak": 224,
+    "natsuOwari": 252,
+    "natsuNichisu": 65,
+    "natsuMax": 32.8,
+    "hachigatsu": 32.8,
+    "kion": [
+     9.9,
+     10.9,
+     14.5,
+     19.8,
+     24.4,
+     27.2,
+     30.9,
+     32.8,
+     29.1,
+     23.7,
+     17.7,
+     12.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.55333,
+     35.66667
+    ]
+   },
+   "properties": {
+    "name": "甲府",
+    "nameEn": "KOFU",
+    "alt": 272.8,
+    "natsuKaishi": 183,
+    "natsuPeak": 221,
+    "natsuOwari": 249,
+    "natsuNichisu": 67,
+    "natsuMax": 33.1,
+    "hachigatsu": 33,
+    "kion": [
+     9.1,
+     10.9,
+     15,
+     20.7,
+     25.3,
+     27.8,
+     31.6,
+     33,
+     28.6,
+     22.5,
+     16.7,
+     11.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.25333,
+     36.155
+    ]
+   },
+   "properties": {
+    "name": "高山",
+    "nameEn": "TAKAYAMA",
+    "alt": 560,
+    "natsuKaishi": 202,
+    "natsuPeak": 222,
+    "natsuOwari": 236,
+    "natsuNichisu": 35,
+    "natsuMax": 31.1,
+    "hachigatsu": 31,
+    "kion": [
+     3.2,
+     4.7,
+     9.8,
+     17,
+     22.9,
+     26.1,
+     29.5,
+     31,
+     26.1,
+     19.9,
+     13.1,
+     6.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.05333,
+     34.31833
+    ]
+   },
+   "properties": {
+    "name": "高松",
+    "nameEn": "TAKAMATSU",
+    "alt": 9.4,
+    "natsuKaishi": 183,
+    "natsuPeak": 221,
+    "natsuOwari": 250,
+    "natsuNichisu": 68,
+    "natsuMax": 33.1,
+    "hachigatsu": 33,
+    "kion": [
+     9.7,
+     10.5,
+     14.1,
+     19.8,
+     24.8,
+     27.5,
+     31.7,
+     33,
+     28.8,
+     23.2,
+     17.5,
+     12.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.54833,
+     33.56667
+    ]
+   },
+   "properties": {
+    "name": "高知",
+    "nameEn": "KOCHI",
+    "alt": 0.5,
+    "natsuKaishi": 189,
+    "natsuPeak": 223,
+    "natsuOwari": 253,
+    "natsuNichisu": 65,
+    "natsuMax": 32.1,
+    "hachigatsu": 32.1,
+    "kion": [
+     12.2,
+     13.2,
+     16.3,
+     20.9,
+     24.8,
+     27.1,
+     30.8,
+     32.1,
+     29.5,
+     25,
+     19.6,
+     14.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.24667,
+     37.10667
+    ]
+   },
+   "properties": {
+    "name": "高田",
+    "nameEn": "TAKADA",
+    "alt": 12.9,
+    "natsuKaishi": 201,
+    "natsuPeak": 223,
+    "natsuOwari": 240,
+    "natsuNichisu": 40,
+    "natsuMax": 31.4,
+    "hachigatsu": 31.3,
+    "kion": [
+     6,
+     6.7,
+     10.9,
+     17.6,
+     22.7,
+     25.8,
+     29.6,
+     31.3,
+     27.1,
+     21.5,
+     15.5,
+     9.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.305,
+     33.265
+    ]
+   },
+   "properties": {
+    "name": "佐賀",
+    "nameEn": "SAGA",
+    "alt": 5.5,
+    "natsuKaishi": 182,
+    "natsuPeak": 222,
+    "natsuOwari": 253,
+    "natsuNichisu": 72,
+    "natsuMax": 33,
+    "hachigatsu": 32.9,
+    "kion": [
+     10.1,
+     11.8,
+     15.2,
+     20.7,
+     25.6,
+     28,
+     31.6,
+     32.9,
+     29.4,
+     24.3,
+     18.2,
+     12.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.72667,
+     33.15833
+    ]
+   },
+   "properties": {
+    "name": "佐世保",
+    "nameEn": "SASEBO",
+    "alt": 3.9,
+    "natsuKaishi": 195,
+    "natsuPeak": 224,
+    "natsuOwari": 247,
+    "natsuNichisu": 53,
+    "natsuMax": 31.8,
+    "hachigatsu": 31.8,
+    "kion": [
+     10.5,
+     11.7,
+     15.1,
+     19.6,
+     23.8,
+     26.5,
+     30.1,
+     31.8,
+     28.7,
+     24,
+     18.5,
+     12.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.925,
+     35.11333
+    ]
+   },
+   "properties": {
+    "name": "三島",
+    "nameEn": "MISHIMA",
+    "alt": 20.5,
+    "natsuKaishi": 194,
+    "natsuPeak": 223,
+    "natsuOwari": 247,
+    "natsuNichisu": 54,
+    "natsuMax": 31.8,
+    "hachigatsu": 31.8,
+    "kion": [
+     11.5,
+     12.4,
+     15.3,
+     19.9,
+     23.9,
+     26.5,
+     30.2,
+     31.8,
+     28.6,
+     23.5,
+     18.6,
+     13.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.345,
+     38.255
+    ]
+   },
+   "properties": {
+    "name": "山形",
+    "nameEn": "YAMAGATA",
+    "alt": 152.5,
+    "natsuKaishi": 208,
+    "natsuPeak": 221,
+    "natsuOwari": 232,
+    "natsuNichisu": 25,
+    "natsuMax": 30.6,
+    "hachigatsu": 30.5,
+    "kion": [
+     3.3,
+     4.4,
+     9.1,
+     16.4,
+     22.6,
+     25.9,
+     29.1,
+     30.5,
+     25.8,
+     19.5,
+     12.6,
+     6.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.46167,
+     34.16167
+    ]
+   },
+   "properties": {
+    "name": "山口",
+    "nameEn": "YAMAGUCHI",
+    "alt": 18.1,
+    "natsuKaishi": 184,
+    "natsuPeak": 222,
+    "natsuOwari": 250,
+    "natsuNichisu": 67,
+    "natsuMax": 32.8,
+    "hachigatsu": 32.7,
+    "kion": [
+     9.4,
+     11.1,
+     15,
+     20.1,
+     24.9,
+     27.8,
+     31.3,
+     32.7,
+     28.9,
+     23.7,
+     17.6,
+     11.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.58,
+     34.94
+    ]
+   },
+   "properties": {
+    "name": "四日市",
+    "nameEn": "YOKKAICHI",
+    "alt": 55.1,
+    "natsuKaishi": 198,
+    "natsuPeak": 222,
+    "natsuOwari": 242,
+    "natsuNichisu": 45,
+    "natsuMax": 31.5,
+    "hachigatsu": 31.4,
+    "kion": [
+     9,
+     10,
+     13.3,
+     18.7,
+     23.2,
+     26.1,
+     29.9,
+     31.4,
+     27.7,
+     22.4,
+     17,
+     11.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.54667,
+     31.555
+    ]
+   },
+   "properties": {
+    "name": "鹿児島",
+    "nameEn": "KAGOSHIMA",
+    "alt": 3.9,
+    "natsuKaishi": 183,
+    "natsuPeak": 219,
+    "natsuOwari": 259,
+    "natsuNichisu": 77,
+    "natsuMax": 32.8,
+    "hachigatsu": 32.7,
+    "kion": [
+     13.1,
+     14.6,
+     17.5,
+     21.8,
+     25.5,
+     27.5,
+     31.9,
+     32.7,
+     30.2,
+     25.8,
+     20.6,
+     15.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.91,
+     37.48833
+    ]
+   },
+   "properties": {
+    "name": "若松",
+    "nameEn": "WAKAMATSU",
+    "alt": 211.7,
+    "natsuKaishi": 206,
+    "natsuPeak": 222,
+    "natsuOwari": 235,
+    "natsuNichisu": 30,
+    "natsuMax": 30.9,
+    "hachigatsu": 30.8,
+    "kion": [
+     2.9,
+     4,
+     8.9,
+     16.6,
+     22.7,
+     26,
+     29.2,
+     30.8,
+     26.1,
+     19.5,
+     12.2,
+     5.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.98167,
+     30.72
+    ]
+   },
+   "properties": {
+    "name": "種子島",
+    "nameEn": "TANEGASHIMA",
+    "alt": 24.9,
+    "natsuKaishi": 192,
+    "natsuPeak": 218,
+    "natsuOwari": 247,
+    "natsuNichisu": 56,
+    "natsuMax": 31.1,
+    "hachigatsu": 31,
+    "kion": [
+     14.2,
+     15.2,
+     17.6,
+     21,
+     24.1,
+     26.8,
+     30.4,
+     31,
+     29.1,
+     25.1,
+     21.1,
+     16.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.84833,
+     34.31
+    ]
+   },
+   "properties": {
+    "name": "洲本",
+    "nameEn": "SUMOTO",
+    "alt": 68.8,
+    "natsuKaishi": 191,
+    "natsuPeak": 223,
+    "natsuOwari": 246,
+    "natsuNichisu": 56,
+    "natsuMax": 32.4,
+    "hachigatsu": 32.3,
+    "kion": [
+     9.7,
+     10.6,
+     14.3,
+     19.5,
+     24.2,
+     26.4,
+     30.6,
+     32.3,
+     28.2,
+     22.9,
+     16.9,
+     12.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.695,
+     32.92
+    ]
+   },
+   "properties": {
+    "name": "宿毛",
+    "nameEn": "SUKUMO",
+    "alt": 2.2,
+    "natsuKaishi": 200,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 45,
+    "natsuMax": 31.1,
+    "hachigatsu": 31.1,
+    "kion": [
+     11.6,
+     12.7,
+     15.8,
+     20.1,
+     23.8,
+     25.8,
+     29.7,
+     31.1,
+     28.5,
+     24.2,
+     19.1,
+     14
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.065,
+     35.45667
+    ]
+   },
+   "properties": {
+    "name": "松江",
+    "nameEn": "MATSUE",
+    "alt": 16.9,
+    "natsuKaishi": 199,
+    "natsuPeak": 223,
+    "natsuOwari": 241,
+    "natsuNichisu": 43,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.6,
+    "kion": [
+     8.3,
+     9.4,
+     13.1,
+     18.5,
+     23.2,
+     26.2,
+     29.8,
+     31.6,
+     27.1,
+     22,
+     16.5,
+     10.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.77667,
+     33.84333
+    ]
+   },
+   "properties": {
+    "name": "松山",
+    "nameEn": "MATSUYAMA",
+    "alt": 32.2,
+    "natsuKaishi": 187,
+    "natsuPeak": 222,
+    "natsuOwari": 251,
+    "natsuNichisu": 65,
+    "natsuMax": 32.7,
+    "hachigatsu": 32.6,
+    "kion": [
+     10.2,
+     11,
+     14.4,
+     19.6,
+     24.2,
+     27,
+     31.2,
+     32.6,
+     29.1,
+     23.8,
+     18.1,
+     12.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.97,
+     36.24667
+    ]
+   },
+   "properties": {
+    "name": "松本",
+    "nameEn": "MATSUMOTO",
+    "alt": 610,
+    "natsuKaishi": 196,
+    "natsuPeak": 221,
+    "natsuOwari": 238,
+    "natsuNichisu": 43,
+    "natsuMax": 31.6,
+    "hachigatsu": 31.4,
+    "kion": [
+     5.1,
+     6.6,
+     11.2,
+     17.9,
+     23.6,
+     26.4,
+     30,
+     31.4,
+     26.2,
+     19.8,
+     13.9,
+     8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.14167,
+     34.76167
+    ]
+   },
+   "properties": {
+    "name": "上野",
+    "nameEn": "UENO",
+    "alt": 159.2,
+    "natsuKaishi": 188,
+    "natsuPeak": 222,
+    "natsuOwari": 247,
+    "natsuNichisu": 60,
+    "natsuMax": 32.6,
+    "hachigatsu": 32.5,
+    "kion": [
+     8.3,
+     9.4,
+     13.4,
+     19.2,
+     24,
+     26.9,
+     31,
+     32.5,
+     28.1,
+     22.2,
+     16.5,
+     10.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.01833,
+     37.89333
+    ]
+   },
+   "properties": {
+    "name": "新潟",
+    "nameEn": "NIIGATA",
+    "alt": 4.1,
+    "natsuKaishi": 209,
+    "natsuPeak": 224,
+    "natsuOwari": 236,
+    "natsuNichisu": 28,
+    "natsuMax": 30.9,
+    "hachigatsu": 30.8,
+    "kion": [
+     5.3,
+     6.4,
+     10.3,
+     16.1,
+     21.3,
+     24.8,
+     28.7,
+     30.8,
+     26.4,
+     20.7,
+     14.3,
+     8.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.21167,
+     34.69667
+    ]
+   },
+   "properties": {
+    "name": "神戸",
+    "nameEn": "KOBE",
+    "alt": 5.3,
+    "natsuKaishi": 193,
+    "natsuPeak": 224,
+    "natsuOwari": 249,
+    "natsuNichisu": 57,
+    "natsuMax": 32.2,
+    "hachigatsu": 32.2,
+    "kion": [
+     9.4,
+     10.1,
+     13.5,
+     18.9,
+     23.6,
+     26.7,
+     30.4,
+     32.2,
+     28.8,
+     23.2,
+     17.5,
+     12
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.755,
+     32.21667
+    ]
+   },
+   "properties": {
+    "name": "人吉",
+    "nameEn": "HITOYOSHI",
+    "alt": 145.8,
+    "natsuKaishi": 186,
+    "natsuPeak": 221,
+    "natsuOwari": 253,
+    "natsuNichisu": 68,
+    "natsuMax": 32.4,
+    "hachigatsu": 32.3,
+    "kion": [
+     10.3,
+     12.4,
+     16.1,
+     21.3,
+     25.5,
+     27.3,
+     31.2,
+     32.3,
+     29.4,
+     24.4,
+     18.1,
+     12.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.46667,
+     36.38
+    ]
+   },
+   "properties": {
+    "name": "水戸",
+    "nameEn": "MITO",
+    "alt": 29,
+    "natsuKaishi": 218,
+    "natsuPeak": 222,
+    "natsuOwari": 227,
+    "natsuNichisu": 10,
+    "natsuMax": 30.1,
+    "hachigatsu": 30,
+    "kion": [
+     9.2,
+     9.8,
+     13,
+     17.8,
+     22,
+     24.5,
+     28.5,
+     30,
+     26.4,
+     21.2,
+     16.3,
+     11.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.01,
+     32.72167
+    ]
+   },
+   "properties": {
+    "name": "清水",
+    "nameEn": "SHIMIZU",
+    "alt": 31,
+    "natsuKaishi": 212,
+    "natsuPeak": 225,
+    "natsuOwari": 237,
+    "natsuNichisu": 26,
+    "natsuMax": 30.4,
+    "hachigatsu": 30.4,
+    "kion": [
+     12.4,
+     13.4,
+     16.2,
+     20.1,
+     23.4,
+     25.4,
+     28.9,
+     30.4,
+     28.3,
+     24.3,
+     19.7,
+     14.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     123.765,
+     24.42667
+    ]
+   },
+   "properties": {
+    "name": "西表島",
+    "nameEn": "IRIOMOTEJIMA",
+    "alt": 10.3,
+    "natsuKaishi": 159,
+    "natsuPeak": 200,
+    "natsuOwari": 262,
+    "natsuNichisu": 104,
+    "natsuMax": 32.1,
+    "hachigatsu": 31.5,
+    "kion": [
+     20.9,
+     21.6,
+     23.1,
+     25.5,
+     28.3,
+     30.5,
+     32.1,
+     31.5,
+     30.3,
+     27.8,
+     25.5,
+     22.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.40333,
+     34.975
+    ]
+   },
+   "properties": {
+    "name": "静岡",
+    "nameEn": "SHIZUOKA",
+    "alt": 14.1,
+    "natsuKaishi": 198,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 47,
+    "natsuMax": 31.3,
+    "hachigatsu": 31.3,
+    "kion": [
+     11.7,
+     12.6,
+     15.5,
+     19.8,
+     23.5,
+     26.1,
+     29.9,
+     31.3,
+     28.4,
+     23.6,
+     18.8,
+     14.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     124.16333,
+     24.33667
+    ]
+   },
+   "properties": {
+    "name": "石垣島",
+    "nameEn": "ISHIGAKIJIMA",
+    "alt": 5.7,
+    "natsuKaishi": 153,
+    "natsuPeak": 205,
+    "natsuOwari": 273,
+    "natsuNichisu": 121,
+    "natsuMax": 32.3,
+    "hachigatsu": 32,
+    "kion": [
+     21.5,
+     22,
+     23.7,
+     26,
+     28.7,
+     30.9,
+     32.2,
+     32,
+     31,
+     28.8,
+     26.2,
+     23
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.10333,
+     35.60167
+    ]
+   },
+   "properties": {
+    "name": "千葉",
+    "nameEn": "CHIBA",
+    "alt": 3.5,
+    "natsuKaishi": 203,
+    "natsuPeak": 223,
+    "natsuOwari": 239,
+    "natsuNichisu": 37,
+    "natsuMax": 31.1,
+    "hachigatsu": 31,
+    "kion": [
+     10.1,
+     10.7,
+     13.8,
+     18.7,
+     23,
+     25.6,
+     29.4,
+     31,
+     27.5,
+     22.3,
+     17.3,
+     12.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.06,
+     36.405
+    ]
+   },
+   "properties": {
+    "name": "前橋",
+    "nameEn": "MAEBASHI",
+    "alt": 112.1,
+    "natsuKaishi": 191,
+    "natsuPeak": 221,
+    "natsuOwari": 242,
+    "natsuNichisu": 52,
+    "natsuMax": 31.9,
+    "hachigatsu": 31.7,
+    "kion": [
+     9.1,
+     10,
+     13.5,
+     19.3,
+     24.2,
+     26.8,
+     30.5,
+     31.7,
+     27.3,
+     21.7,
+     16.4,
+     11.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.75167,
+     34.275
+    ]
+   },
+   "properties": {
+    "name": "多度津",
+    "nameEn": "TADOTSU",
+    "alt": 3.7,
+    "natsuKaishi": 189,
+    "natsuPeak": 223,
+    "natsuOwari": 249,
+    "natsuNichisu": 61,
+    "natsuMax": 32.8,
+    "hachigatsu": 32.7,
+    "kion": [
+     9.6,
+     10.2,
+     13.6,
+     19,
+     23.8,
+     26.6,
+     30.9,
+     32.7,
+     28.7,
+     23.1,
+     17.3,
+     12.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.51833,
+     34.68167
+    ]
+   },
+   "properties": {
+    "name": "大阪",
+    "nameEn": "OSAKA",
+    "alt": 23,
+    "natsuKaishi": 182,
+    "natsuPeak": 223,
+    "natsuOwari": 254,
+    "natsuNichisu": 73,
+    "natsuMax": 33.8,
+    "hachigatsu": 33.7,
+    "kion": [
+     9.7,
+     10.5,
+     14.2,
+     19.9,
+     24.9,
+     28,
+     31.8,
+     33.7,
+     29.5,
+     23.7,
+     17.8,
+     12.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.61833,
+     33.235
+    ]
+   },
+   "properties": {
+    "name": "大分",
+    "nameEn": "OITA",
+    "alt": 4.6,
+    "natsuKaishi": 189,
+    "natsuPeak": 221,
+    "natsuOwari": 246,
+    "natsuNichisu": 58,
+    "natsuMax": 32.3,
+    "hachigatsu": 32.2,
+    "kion": [
+     10.7,
+     11.5,
+     14.6,
+     19.7,
+     24.1,
+     26.5,
+     30.9,
+     32.2,
+     28.2,
+     23.3,
+     18.1,
+     13
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.07333,
+     35.99
+    ]
+   },
+   "properties": {
+    "name": "秩父",
+    "nameEn": "CHICHIBU",
+    "alt": 232.1,
+    "natsuKaishi": 199,
+    "natsuPeak": 220,
+    "natsuOwari": 236,
+    "natsuNichisu": 38,
+    "natsuMax": 31.2,
+    "hachigatsu": 31,
+    "kion": [
+     8.9,
+     10,
+     13.5,
+     19.1,
+     23.8,
+     26,
+     29.8,
+     31,
+     26.4,
+     20.8,
+     15.9,
+     11.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.86667,
+     32.73333
+    ]
+   },
+   "properties": {
+    "name": "長崎",
+    "nameEn": "NAGASAKI",
+    "alt": 26.9,
+    "natsuKaishi": 193,
+    "natsuPeak": 224,
+    "natsuOwari": 249,
+    "natsuNichisu": 57,
+    "natsuMax": 31.9,
+    "hachigatsu": 31.9,
+    "kion": [
+     10.7,
+     12,
+     15.3,
+     19.9,
+     23.9,
+     26.5,
+     30.3,
+     31.9,
+     28.9,
+     24.1,
+     18.5,
+     13.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     138.19167,
+     36.66167
+    ]
+   },
+   "properties": {
+    "name": "長野",
+    "nameEn": "NAGANO",
+    "alt": 418.2,
+    "natsuKaishi": 200,
+    "natsuPeak": 221,
+    "natsuOwari": 237,
+    "natsuNichisu": 38,
+    "natsuMax": 31.3,
+    "hachigatsu": 31.1,
+    "kion": [
+     3.8,
+     5.3,
+     10.3,
+     17.4,
+     23.2,
+     26.1,
+     29.7,
+     31.1,
+     26.2,
+     19.7,
+     13.4,
+     6.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.23833,
+     35.48667
+    ]
+   },
+   "properties": {
+    "name": "鳥取",
+    "nameEn": "TOTTORI",
+    "alt": 7.1,
+    "natsuKaishi": 189,
+    "natsuPeak": 222,
+    "natsuOwari": 246,
+    "natsuNichisu": 58,
+    "natsuMax": 32.7,
+    "hachigatsu": 32.6,
+    "kion": [
+     8.1,
+     9.1,
+     13.1,
+     18.9,
+     23.8,
+     26.9,
+     30.9,
+     32.6,
+     27.8,
+     22.4,
+     16.8,
+     10.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.51833,
+     34.73333
+    ]
+   },
+   "properties": {
+    "name": "津",
+    "nameEn": "TSU",
+    "alt": 2.7,
+    "natsuKaishi": 193,
+    "natsuPeak": 221,
+    "natsuOwari": 244,
+    "natsuNichisu": 52,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.6,
+    "kion": [
+     9.5,
+     10,
+     13.4,
+     18.6,
+     23.1,
+     26.2,
+     30.4,
+     31.6,
+     28,
+     22.6,
+     17.1,
+     12
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.00833,
+     35.06333
+    ]
+   },
+   "properties": {
+    "name": "津山",
+    "nameEn": "TSUYAMA",
+    "alt": 145.7,
+    "natsuKaishi": 192,
+    "natsuPeak": 222,
+    "natsuOwari": 244,
+    "natsuNichisu": 53,
+    "natsuMax": 32.1,
+    "hachigatsu": 32,
+    "kion": [
+     7.8,
+     9.2,
+     13.4,
+     19.5,
+     24.2,
+     26.9,
+     30.4,
+     32,
+     27.7,
+     21.9,
+     15.7,
+     9.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.08167,
+     31.73
+    ]
+   },
+   "properties": {
+    "name": "都城",
+    "nameEn": "MIYAKONOJO",
+    "alt": 153.8,
+    "natsuKaishi": 186,
+    "natsuPeak": 218,
+    "natsuOwari": 252,
+    "natsuNichisu": 67,
+    "natsuMax": 32.3,
+    "hachigatsu": 32.1,
+    "kion": [
+     12.1,
+     13.7,
+     16.9,
+     21.6,
+     25.5,
+     27.1,
+     31.4,
+     32.1,
+     29.3,
+     24.8,
+     19.5,
+     14.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.75,
+     35.69167
+    ]
+   },
+   "properties": {
+    "name": "東京",
+    "nameEn": "TOKYO",
+    "alt": 25.2,
+    "natsuKaishi": 198,
+    "natsuPeak": 222,
+    "natsuOwari": 241,
+    "natsuNichisu": 44,
+    "natsuMax": 31.4,
+    "hachigatsu": 31.3,
+    "kion": [
+     9.8,
+     10.9,
+     14.2,
+     19.4,
+     23.6,
+     26.1,
+     29.9,
+     31.3,
+     27.5,
+     22,
+     16.7,
+     12
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.57333,
+     34.06667
+    ]
+   },
+   "properties": {
+    "name": "徳島",
+    "nameEn": "TOKUSHIMA",
+    "alt": 1.6,
+    "natsuKaishi": 191,
+    "natsuPeak": 223,
+    "natsuOwari": 248,
+    "natsuNichisu": 58,
+    "natsuMax": 32.4,
+    "hachigatsu": 32.3,
+    "kion": [
+     10,
+     10.8,
+     14.3,
+     19.6,
+     24,
+     26.8,
+     30.6,
+     32.3,
+     28.5,
+     23.1,
+     17.7,
+     12.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.06167,
+     35.65333
+    ]
+   },
+   "properties": {
+    "name": "敦賀",
+    "nameEn": "TSURUGA",
+    "alt": 1.6,
+    "natsuKaishi": 196,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 49,
+    "natsuMax": 32,
+    "hachigatsu": 31.9,
+    "kion": [
+     7.8,
+     8.5,
+     12.3,
+     17.8,
+     22.5,
+     25.8,
+     30,
+     31.9,
+     27.7,
+     22.2,
+     16.5,
+     10.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.83667,
+     34.67333
+    ]
+   },
+   "properties": {
+    "name": "奈良",
+    "nameEn": "NARA",
+    "alt": 102.1,
+    "natsuKaishi": 182,
+    "natsuPeak": 222,
+    "natsuOwari": 251,
+    "natsuNichisu": 70,
+    "natsuMax": 33.5,
+    "hachigatsu": 33.4,
+    "kion": [
+     8.7,
+     9.9,
+     13.9,
+     19.8,
+     24.9,
+     28.1,
+     31.7,
+     33.4,
+     28.8,
+     22.6,
+     17.1,
+     11.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.68667,
+     26.20667
+    ]
+   },
+   "properties": {
+    "name": "那覇",
+    "nameEn": "NAHA",
+    "alt": 28.1,
+    "natsuKaishi": 169,
+    "natsuPeak": 208,
+    "natsuOwari": 266,
+    "natsuNichisu": 98,
+    "natsuMax": 32.1,
+    "hachigatsu": 31.8,
+    "kion": [
+     19.8,
+     20.2,
+     21.9,
+     24.3,
+     27,
+     29.8,
+     31.9,
+     31.8,
+     30.6,
+     28.1,
+     25,
+     21.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.22833,
+     25.82833
+    ]
+   },
+   "properties": {
+    "name": "南大東島",
+    "nameEn": "MINAMIDAITO",
+    "alt": 15.3,
+    "natsuKaishi": 171,
+    "natsuPeak": 206,
+    "natsuOwari": 273,
+    "natsuNichisu": 103,
+    "natsuMax": 31.8,
+    "hachigatsu": 31.6,
+    "kion": [
+     21.1,
+     21.2,
+     22.6,
+     24.6,
+     26.9,
+     29.6,
+     31.7,
+     31.6,
+     31,
+     28.8,
+     25.8,
+     22.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     153.98333,
+     24.28833
+    ]
+   },
+   "properties": {
+    "name": "南鳥島",
+    "nameEn": "MINAMITORI.I",
+    "alt": 7.1,
+    "natsuKaishi": 150,
+    "natsuPeak": 187,
+    "natsuOwari": 293,
+    "natsuNichisu": 144,
+    "natsuMax": 31.3,
+    "hachigatsu": 31,
+    "kion": [
+     24.6,
+     24.3,
+     25.3,
+     27.1,
+     29,
+     31,
+     31.3,
+     31,
+     30.9,
+     30.2,
+     28.7,
+     26.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.92833,
+     33.32167
+    ]
+   },
+   "properties": {
+    "name": "日田",
+    "nameEn": "HITA",
+    "alt": 82.9,
+    "natsuKaishi": 178,
+    "natsuPeak": 221,
+    "natsuOwari": 254,
+    "natsuNichisu": 77,
+    "natsuMax": 33.6,
+    "hachigatsu": 33.5,
+    "kion": [
+     9.8,
+     11.8,
+     15.7,
+     21.5,
+     26.4,
+     28.5,
+     32.3,
+     33.5,
+     29.5,
+     24.1,
+     18.1,
+     12.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.405,
+     34.41
+    ]
+   },
+   "properties": {
+    "name": "萩",
+    "nameEn": "HAGI",
+    "alt": 2.2,
+    "natsuKaishi": 195,
+    "natsuPeak": 219,
+    "natsuOwari": 238,
+    "natsuNichisu": 44,
+    "natsuMax": 31.3,
+    "hachigatsu": 31.1,
+    "kion": [
+     9.4,
+     10.4,
+     13.7,
+     18.4,
+     22.9,
+     25.7,
+     30.1,
+     31.1,
+     27.2,
+     22.4,
+     17.3,
+     11.8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.69333,
+     33.65167
+    ]
+   },
+   "properties": {
+    "name": "飯塚",
+    "nameEn": "IIZUKA",
+    "alt": 37.1,
+    "natsuKaishi": 187,
+    "natsuPeak": 220,
+    "natsuOwari": 246,
+    "natsuNichisu": 60,
+    "natsuMax": 32.2,
+    "hachigatsu": 32.1,
+    "kion": [
+     9.6,
+     11,
+     14.5,
+     20,
+     24.7,
+     27.3,
+     31,
+     32.1,
+     28.2,
+     23.2,
+     17.5,
+     11.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.82167,
+     35.52333
+    ]
+   },
+   "properties": {
+    "name": "飯田",
+    "nameEn": "IIDA",
+    "alt": 516.4,
+    "natsuKaishi": 196,
+    "natsuPeak": 222,
+    "natsuOwari": 241,
+    "natsuNichisu": 46,
+    "natsuMax": 31.7,
+    "hachigatsu": 31.6,
+    "kion": [
+     6.7,
+     8.1,
+     12.2,
+     18.6,
+     23.6,
+     26.5,
+     30,
+     31.6,
+     27.2,
+     20.9,
+     14.8,
+     8.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.19333,
+     34.06833
+    ]
+   },
+   "properties": {
+    "name": "尾鷲",
+    "nameEn": "OWASE",
+    "alt": 15.3,
+    "natsuKaishi": 201,
+    "natsuPeak": 222,
+    "natsuOwari": 240,
+    "natsuNichisu": 40,
+    "natsuMax": 31,
+    "hachigatsu": 30.9,
+    "kion": [
+     11.5,
+     12.4,
+     15.4,
+     19.7,
+     23.2,
+     25.7,
+     29.6,
+     30.9,
+     27.9,
+     23.4,
+     18.8,
+     14
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.24333,
+     35.275
+    ]
+   },
+   "properties": {
+    "name": "彦根",
+    "nameEn": "HIKONE",
+    "alt": 87.3,
+    "natsuKaishi": 195,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 50,
+    "natsuMax": 32.2,
+    "hachigatsu": 32.1,
+    "kion": [
+     7.1,
+     7.7,
+     11.6,
+     17.4,
+     22.6,
+     26,
+     30.2,
+     32.1,
+     27.6,
+     21.8,
+     15.6,
+     9.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.67,
+     34.83833
+    ]
+   },
+   "properties": {
+    "name": "姫路",
+    "nameEn": "HIMEJI",
+    "alt": 38.2,
+    "natsuKaishi": 192,
+    "natsuPeak": 224,
+    "natsuOwari": 249,
+    "natsuNichisu": 58,
+    "natsuMax": 32.5,
+    "hachigatsu": 32.5,
+    "kion": [
+     9.6,
+     10.4,
+     13.8,
+     19.1,
+     23.7,
+     26.8,
+     30.5,
+     32.5,
+     28.6,
+     23.1,
+     17.3,
+     11.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.71167,
+     34.75333
+    ]
+   },
+   "properties": {
+    "name": "浜松",
+    "nameEn": "HAMAMATSU",
+    "alt": 45.9,
+    "natsuKaishi": 193,
+    "natsuPeak": 223,
+    "natsuOwari": 248,
+    "natsuNichisu": 56,
+    "natsuMax": 31.8,
+    "hachigatsu": 31.8,
+    "kion": [
+     10.6,
+     11.5,
+     15,
+     19.6,
+     23.7,
+     26.6,
+     30.3,
+     31.8,
+     28.8,
+     23.6,
+     18.6,
+     13.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     132.07,
+     34.89667
+    ]
+   },
+   "properties": {
+    "name": "浜田",
+    "nameEn": "HAMADA",
+    "alt": 19,
+    "natsuKaishi": 209,
+    "natsuPeak": 223,
+    "natsuOwari": 235,
+    "natsuNichisu": 27,
+    "natsuMax": 30.7,
+    "hachigatsu": 30.6,
+    "kion": [
+     9.4,
+     10.3,
+     13.3,
+     18,
+     22.3,
+     25.2,
+     28.9,
+     30.6,
+     26.8,
+     22.1,
+     17.2,
+     12
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.20167,
+     36.70833
+    ]
+   },
+   "properties": {
+    "name": "富山",
+    "nameEn": "TOYAMA",
+    "alt": 8.6,
+    "natsuKaishi": 199,
+    "natsuPeak": 222,
+    "natsuOwari": 240,
+    "natsuNichisu": 42,
+    "natsuMax": 31.5,
+    "hachigatsu": 31.4,
+    "kion": [
+     6.3,
+     7.4,
+     11.8,
+     17.6,
+     22.7,
+     25.7,
+     29.8,
+     31.4,
+     27,
+     21.6,
+     15.7,
+     9.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     142.19,
+     27.09167
+    ]
+   },
+   "properties": {
+    "name": "父島",
+    "nameEn": "CHICHIJIMA",
+    "alt": 2.7,
+    "natsuKaishi": 187,
+    "natsuPeak": 206,
+    "natsuOwari": 253,
+    "natsuNichisu": 67,
+    "natsuMax": 30.5,
+    "hachigatsu": 30.3,
+    "kion": [
+     20.7,
+     20.5,
+     21.7,
+     23.4,
+     25.6,
+     28.5,
+     30.4,
+     30.3,
+     29.9,
+     28.6,
+     25.9,
+     22.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.31667,
+     35.45
+    ]
+   },
+   "properties": {
+    "name": "舞鶴",
+    "nameEn": "MAIZURU",
+    "alt": 2.4,
+    "natsuKaishi": 190,
+    "natsuPeak": 222,
+    "natsuOwari": 245,
+    "natsuNichisu": 56,
+    "natsuMax": 32.5,
+    "hachigatsu": 32.4,
+    "kion": [
+     7.6,
+     8.5,
+     12.7,
+     18.6,
+     23.6,
+     26.6,
+     30.7,
+     32.4,
+     27.6,
+     22,
+     16.2,
+     10.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     137.055,
+     36.79167
+    ]
+   },
+   "properties": {
+    "name": "伏木",
+    "nameEn": "FUSHIKI",
+    "alt": 11.6,
+    "natsuKaishi": 206,
+    "natsuPeak": 223,
+    "natsuOwari": 237,
+    "natsuNichisu": 32,
+    "natsuMax": 31,
+    "hachigatsu": 30.9,
+    "kion": [
+     6,
+     7,
+     11.3,
+     16.7,
+     21.6,
+     24.7,
+     29.1,
+     30.9,
+     26.6,
+     21.2,
+     15.3,
+     9.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.22167,
+     36.055
+    ]
+   },
+   "properties": {
+    "name": "福井",
+    "nameEn": "FUKUI",
+    "alt": 8.8,
+    "natsuKaishi": 193,
+    "natsuPeak": 223,
+    "natsuOwari": 244,
+    "natsuNichisu": 52,
+    "natsuMax": 32.3,
+    "hachigatsu": 32.2,
+    "kion": [
+     6.7,
+     7.8,
+     12.2,
+     18.3,
+     23.3,
+     26.5,
+     30.4,
+     32.2,
+     27.7,
+     22.1,
+     16,
+     9.8
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.375,
+     33.58167
+    ]
+   },
+   "properties": {
+    "name": "福岡",
+    "nameEn": "FUKUOKA",
+    "alt": 2.5,
+    "natsuKaishi": 186,
+    "natsuPeak": 221,
+    "natsuOwari": 248,
+    "natsuNichisu": 63,
+    "natsuMax": 32.6,
+    "hachigatsu": 32.5,
+    "kion": [
+     10.2,
+     11.6,
+     15,
+     19.9,
+     24.4,
+     27.2,
+     31.2,
+     32.5,
+     28.6,
+     23.7,
+     18.2,
+     12.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     128.82667,
+     32.69333
+    ]
+   },
+   "properties": {
+    "name": "福江",
+    "nameEn": "FUKUE",
+    "alt": 25.1,
+    "natsuKaishi": 204,
+    "natsuPeak": 223,
+    "natsuOwari": 239,
+    "natsuNichisu": 36,
+    "natsuMax": 30.9,
+    "hachigatsu": 30.9,
+    "kion": [
+     10.8,
+     11.9,
+     14.9,
+     19.1,
+     23,
+     25.6,
+     29.4,
+     30.9,
+     27.8,
+     23.4,
+     18.5,
+     13.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.24667,
+     34.44667
+    ]
+   },
+   "properties": {
+    "name": "福山",
+    "nameEn": "FUKUYAMA",
+    "alt": 1.6,
+    "natsuKaishi": 189,
+    "natsuPeak": 223,
+    "natsuOwari": 250,
+    "natsuNichisu": 62,
+    "natsuMax": 32.9,
+    "hachigatsu": 32.8,
+    "kion": [
+     9.8,
+     10.5,
+     13.9,
+     19.2,
+     24,
+     27,
+     30.9,
+     32.8,
+     28.8,
+     23.3,
+     17.5,
+     12.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     140.47,
+     37.75833
+    ]
+   },
+   "properties": {
+    "name": "福島",
+    "nameEn": "FUKUSHIMA",
+    "alt": 67.4,
+    "natsuKaishi": 208,
+    "natsuPeak": 222,
+    "natsuOwari": 233,
+    "natsuNichisu": 26,
+    "natsuMax": 30.6,
+    "hachigatsu": 30.5,
+    "kion": [
+     5.8,
+     7.1,
+     11.2,
+     17.7,
+     23.1,
+     25.9,
+     29.1,
+     30.5,
+     26.2,
+     20.5,
+     14.5,
+     8.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     133.33833,
+     35.43333
+    ]
+   },
+   "properties": {
+    "name": "米子",
+    "nameEn": "YONAGO",
+    "alt": 6.5,
+    "natsuKaishi": 194,
+    "natsuPeak": 221,
+    "natsuOwari": 241,
+    "natsuNichisu": 48,
+    "natsuMax": 31.9,
+    "hachigatsu": 31.7,
+    "kion": [
+     8.3,
+     9.2,
+     12.9,
+     18.4,
+     23.3,
+     26,
+     30.3,
+     31.7,
+     27.1,
+     22.1,
+     16.8,
+     11.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     134.82167,
+     35.535
+    ]
+   },
+   "properties": {
+    "name": "豊岡",
+    "nameEn": "TOYOOKA",
+    "alt": 3.4,
+    "natsuKaishi": 186,
+    "natsuPeak": 222,
+    "natsuOwari": 246,
+    "natsuNichisu": 61,
+    "natsuMax": 32.9,
+    "hachigatsu": 32.8,
+    "kion": [
+     7.4,
+     8.4,
+     13,
+     19.3,
+     24.3,
+     27.3,
+     31.2,
+     32.8,
+     27.8,
+     22.2,
+     16.5,
+     10.5
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     130.29167,
+     31.27167
+    ]
+   },
+   "properties": {
+    "name": "枕崎",
+    "nameEn": "MAKURAZAKI",
+    "alt": 29.5,
+    "natsuKaishi": 194,
+    "natsuPeak": 223,
+    "natsuOwari": 249,
+    "natsuNichisu": 56,
+    "natsuMax": 31.4,
+    "hachigatsu": 31.4,
+    "kion": [
+     12.9,
+     14,
+     16.8,
+     20.6,
+     24.1,
+     26.4,
+     30.2,
+     31.4,
+     29.2,
+     25.2,
+     20.3,
+     15.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.965,
+     35.16667
+    ]
+   },
+   "properties": {
+    "name": "名古屋",
+    "nameEn": "NAGOYA",
+    "alt": 51.1,
+    "natsuKaishi": 185,
+    "natsuPeak": 223,
+    "natsuOwari": 252,
+    "natsuNichisu": 68,
+    "natsuMax": 33.3,
+    "hachigatsu": 33.2,
+    "kion": [
+     9.3,
+     10.5,
+     14.5,
+     20.1,
+     24.6,
+     27.6,
+     31.4,
+     33.2,
+     29.1,
+     23.3,
+     17.3,
+     11.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     127.965,
+     26.59333
+    ]
+   },
+   "properties": {
+    "name": "名護",
+    "nameEn": "NAGO",
+    "alt": 6.2,
+    "natsuKaishi": 172,
+    "natsuPeak": 209,
+    "natsuOwari": 268,
+    "natsuNichisu": 97,
+    "natsuMax": 32.1,
+    "hachigatsu": 31.9,
+    "kion": [
+     19.4,
+     19.8,
+     21.5,
+     24,
+     26.7,
+     29.5,
+     31.9,
+     31.9,
+     30.8,
+     28,
+     24.8,
+     21.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129.49333,
+     28.385
+    ]
+   },
+   "properties": {
+    "name": "名瀬",
+    "nameEn": "NAZE",
+    "alt": 3.3,
+    "natsuKaishi": 172,
+    "natsuPeak": 206,
+    "natsuOwari": 262,
+    "natsuNichisu": 91,
+    "natsuMax": 32.5,
+    "hachigatsu": 32,
+    "kion": [
+     17.7,
+     18.3,
+     20.4,
+     23.1,
+     26.2,
+     29.4,
+     32.3,
+     32,
+     30.4,
+     27,
+     23.5,
+     19.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     139.09167,
+     35.045
+    ]
+   },
+   "properties": {
+    "name": "網代",
+    "nameEn": "AJIRO",
+    "alt": 66.9,
+    "natsuKaishi": 212,
+    "natsuPeak": 222,
+    "natsuOwari": 230,
+    "natsuNichisu": 19,
+    "natsuMax": 30.3,
+    "hachigatsu": 30.2,
+    "kion": [
+     10.7,
+     11.3,
+     14.2,
+     18.8,
+     22.7,
+     25,
+     28.9,
+     30.2,
+     26.7,
+     21.8,
+     17.2,
+     12.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     131.40667,
+     31.57833
+    ]
+   },
+   "properties": {
+    "name": "油津",
+    "nameEn": "ABURATSU",
+    "alt": 2.9,
+    "natsuKaishi": 189,
+    "natsuPeak": 218,
+    "natsuOwari": 247,
+    "natsuNichisu": 59,
+    "natsuMax": 31.6,
+    "hachigatsu": 31.5,
+    "kion": [
+     13.6,
+     14.6,
+     17.3,
+     21.2,
+     24.6,
+     26.6,
+     30.8,
+     31.5,
+     28.9,
+     24.9,
+     20.4,
+     15.7
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     123.01,
+     24.46667
+    ]
+   },
+   "properties": {
+    "name": "与那国島",
+    "nameEn": "YONAGUNIJIMA",
+    "alt": 30,
+    "natsuKaishi": 162,
+    "natsuPeak": 204,
+    "natsuOwari": 258,
+    "natsuNichisu": 97,
+    "natsuMax": 31.8,
+    "hachigatsu": 31.4,
+    "kion": [
+     20.7,
+     21.3,
+     23,
+     25.5,
+     28,
+     30.3,
+     31.7,
+     31.4,
+     30,
+     27.8,
+     25.3,
+     22.2
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     136.895,
+     37.39
+    ]
+   },
+   "properties": {
+    "name": "輪島",
+    "nameEn": "WAJIMA",
+    "alt": 5.2,
+    "natsuKaishi": 218,
+    "natsuPeak": 224,
+    "natsuOwari": 229,
+    "natsuNichisu": 12,
+    "natsuMax": 30.2,
+    "hachigatsu": 30.1,
+    "kion": [
+     6.4,
+     7,
+     10.5,
+     16,
+     20.9,
+     24,
+     28.2,
+     30.1,
+     26.3,
+     21,
+     15.1,
+     9.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     135.16333,
+     34.22833
+    ]
+   },
+   "properties": {
+    "name": "和歌山",
+    "nameEn": "WAKAYAMA",
+    "alt": 13.9,
+    "natsuKaishi": 187,
+    "natsuPeak": 222,
+    "natsuOwari": 251,
+    "natsuNichisu": 65,
+    "natsuMax": 32.7,
+    "hachigatsu": 32.6,
+    "kion": [
+     9.8,
+     10.7,
+     14.3,
+     19.7,
+     24.3,
+     27.1,
+     31.1,
+     32.6,
+     29,
+     23.4,
+     17.9,
+     12.5
+    ]
+   }
+  }
+ ]
+}
